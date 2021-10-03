@@ -88,7 +88,7 @@ if (tasks.findByName("jacocoAndroidCoverageVerification") == null) {
                 limit {
                     counter = "INSTRUCTIONAL"
                     value = "COVEREDRATIO"
-                    minimum = "0.5".toBigDecimal()
+                    minimum = "0.8".toBigDecimal()
                 }
             }
         }
