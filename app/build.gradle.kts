@@ -1,11 +1,13 @@
 plugins {
     id("com.android.application")
+    id("jacoco")
+    id("plugins.jacoco-report")
     kotlin("android")
 }
 
 android {
-    compileSdkVersion(30)
-    buildToolsVersion("30.0.3")
+    compileSdkVersion(Config.compileSdkVersion)
+    buildToolsVersion(Config.buildToolsVersion)
 
     defaultConfig {
         applicationId = Config.applicationId
@@ -18,11 +20,17 @@ android {
 
     buildTypes {
         getByName("release") {
+            isTestCoverageEnabled = true
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+
+        getByName("debug") {
+            isTestCoverageEnabled = true
+            isMinifyEnabled = false
         }
     }
 
@@ -33,10 +41,28 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    jacoco {
+        buildToolsVersion(Config.buildToolsVersion)
+    }
+
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+        unitTests.isReturnDefaultValues = true
+    }
+
+    useLibrary("android.test.runner")
+
 }
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
     implementation(Dependencies.Kotlin.stdlib)
     implementation(Dependencies.Android.material)
+    implementation(Dependencies.Coverage.jacoco)
+
+    testImplementation(Dependencies.Test.jUnit)
+
+    androidTestImplementation(Dependencies.Android.testRunner)
+    androidTestImplementation(Dependencies.Android.testCore)
 }
