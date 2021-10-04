@@ -1,8 +1,9 @@
 plugins {
     id("com.android.application")
+    kotlin("android")
     id("jacoco")
     id("plugins.jacoco-report")
-    kotlin("android")
+    id("org.jlleitschuh.gradle.ktlint")
 }
 
 android {
@@ -52,7 +53,6 @@ android {
     }
 
     useLibrary("android.test.runner")
-
 }
 
 dependencies {
@@ -65,4 +65,9 @@ dependencies {
 
     androidTestImplementation(Dependencies.Android.testRunner)
     androidTestImplementation(Dependencies.Android.testCore)
+}
+
+ktlint {
+    android.set(true)
+    outputColorName.set("RED")
 }
