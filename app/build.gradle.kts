@@ -53,6 +53,13 @@ android {
     }
 
     useLibrary("android.test.runner")
+
+    lintOptions {
+        disable(
+            "UnsafeExperimentalUsageError",
+            "UnsafeExperimentalUsageWarning"
+        )
+    }
 }
 
 dependencies {
