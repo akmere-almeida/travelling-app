@@ -86,7 +86,24 @@ if (tasks.findByName("jacocoAndroidCoverageVerification") == null) {
         violationRules {
             rule {
                 limit {
-                    counter = "INSTRUCTIONAL"
+                    counter = "INSTRUCTION"
+                    value = "COVEREDRATIO"
+                    minimum = "0.8".toBigDecimal()
+                }
+            }
+        }
+        setDirectories()
+    }
+}
+
+if (tasks.findByName("jacocoUnitTestCoverageVerification") == null) {
+    tasks.register<JacocoCoverageVerification>("jacocoUnitTestCoverageVerification") {
+        description = "Code coverage verification for Android both Android and Unit tests."
+        dependsOn("test")
+        violationRules {
+            rule {
+                limit {
+                    counter = "INSTRUCTION"
                     value = "COVEREDRATIO"
                     minimum = "0.8".toBigDecimal()
                 }
