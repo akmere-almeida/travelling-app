@@ -14,10 +14,10 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Check code styling
-        run: ./gradlew check
+      - run: ./gradlew check
 
       - name: Test and check test coverage
-        run: ./gradlew jacocoUnitTestCoverageVerification
+      - run: ./gradlew jacocoUnitTestCoverageVerification
 
       - name: Build application
-        run: ./gradlew build
+      - run: ./gradlew build
