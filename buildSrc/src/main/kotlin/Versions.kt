@@ -5,5 +5,6 @@ object Versions {
     const val jacoco = "0.8.7"
     const val junit = "4.13.2"
     const val androidTest = "1.4.0"
-    const val ktLintGradle = "10.2.0"
+    const val ktLint = "10.2.0"
+    const val detekt = "1.18.1"
 }
