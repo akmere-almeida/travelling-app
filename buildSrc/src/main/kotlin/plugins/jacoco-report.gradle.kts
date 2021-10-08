@@ -47,6 +47,7 @@ private val executionDataTree = fileTree(project.buildDir) {
     )
 }
 
+@Suppress("DEPRECATION")
 fun JacocoReportsContainer.reports() {
     xml.isEnabled = true
     html.isEnabled = true
@@ -83,6 +84,7 @@ if (tasks.findByName("jacocoAndroidCoverageVerification") == null) {
     tasks.register<JacocoCoverageVerification>("jacocoAndroidCoverageVerification") {
         description = "Code coverage verification for Android both Android and Unit tests."
         dependsOn("testDebugUnitTest", "createDebugCoverageReport")
+
         violationRules {
             rule {
                 limit {
@@ -97,9 +99,11 @@ if (tasks.findByName("jacocoAndroidCoverageVerification") == null) {
 }
 
 if (tasks.findByName("jacocoUnitTestCoverageVerification") == null) {
+    val androidTestTask = tasks.findByName("app:connectedDebugAndroidTest")
     tasks.register<JacocoCoverageVerification>("jacocoUnitTestCoverageVerification") {
-        description = "Code coverage verification for Android both Android and Unit tests."
-        dependsOn("test")
+        description = "Code coverage verification for Unit tests."
+        androidTestTask?.enabled = false
+        dependsOn("testDebugUnitTest", "createDebugCoverageReport")
         violationRules {
             rule {
                 limit {
