@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 jobs:
-  code-coverage:
+  code_coverage_with_android_test:
     runs-on: macos-latest
 
     steps:
@@ -49,7 +49,7 @@ jobs:
           disable-animations: true
           script: ./gradlew connectedCheck
 
-    test-and-build:
+    test_and_build:
       runs-on: macos-latest
       steps:
         - name: Checkout Travelling App Project
