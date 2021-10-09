@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    name: Android Test
+    name: Android Test and code coverage reports
     runs-on: macos-latest
 
     steps:
@@ -40,7 +40,7 @@ jobs:
           disable-animations: false
           script: echo "Generated AVD snapshot for caching."
 
-      # Execute unit tests
+      # Execute unit tests and generate jacoco reports
       - name: Generate Jacoco test reports with Android Emulator Runner
         uses: reactivecircus/android-emulator-runner@v2.20.0
         with:
@@ -50,8 +50,14 @@ jobs:
           disable-animations: true
           script: ./gradlew jacocoAndroidTestReport
 
+      - name: Generate JaCoCo Badge
+        uses: cicirello/jacoco-badge-generator@v2
+        with:
+          generate-branches-badge: true
+          jacoco-csv-file: build/reports/jacoco/jacocoTestReport/csv
+
   build_2:
-    name: Code Analysis, Code coverage and JUnit Tests
+    name: Code Analysis, Code coverage verification and JUnit Tests
     runs-on: macos-latest
     steps:
       - name: Checkout Travelling App Project
