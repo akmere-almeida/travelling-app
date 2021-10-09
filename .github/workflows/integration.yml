@@ -54,7 +54,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: jacoco-report-csv
-          path: build/reports/jacoco/jacocoTestReport/csv
+          path: app/build/reports/jacoco/jacocoTestReport/csv
 
   build_2:
     name: Code Analysis, Code coverage verification and JUnit Tests
@@ -86,4 +86,4 @@ jobs:
         uses: cicirello/jacoco-badge-generator@v2
         with:
           generate-branches-badge: true
-          jacoco-csv-file: build/reports/jacoco/jacocoTestReport/csv
+          jacoco-csv-file: csv
