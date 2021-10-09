@@ -51,8 +51,10 @@ private val executionDataTree = fileTree(project.buildDir) {
 fun JacocoReportsContainer.reports() {
     xml.isEnabled = true
     html.isEnabled = true
+    csv.isEnabled = true
     xml.destination = file("${buildDir}/reports/jacoco/jacocoTestReport/jacocoTestReport.xml")
     html.destination = file("${buildDir}/reports/jacoco/jacocoTestReport/html")
+    csv.destination = file("${buildDir}/reports/jacoco/jacocoTestReport/csv")
 }
 
 fun JacocoCoverageVerification.setDirectories() {
@@ -82,15 +84,15 @@ if (tasks.findByName("jacocoAndroidTestReport") == null) {
 
 if (tasks.findByName("jacocoAndroidCoverageVerification") == null) {
     tasks.register<JacocoCoverageVerification>("jacocoAndroidCoverageVerification") {
-        description = "Code coverage verification for Android both Android and Unit tests."
-        dependsOn("testDebugUnitTest", "createDebugCoverageReport")
+        description = "Code coverage verification for JUnit tests."
+        dependsOn("testDebugUnitTest")
 
         violationRules {
             rule {
                 limit {
                     counter = "INSTRUCTION"
                     value = "COVEREDRATIO"
-                    minimum = "0.8".toBigDecimal()
+                    minimum = "0.9".toBigDecimal()
                 }
             }
         }
