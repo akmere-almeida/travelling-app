@@ -5,7 +5,8 @@ on:
     branches: [ main ]
 
 jobs:
-  code_coverage_with_android_test:
+  build:
+    name: Android Test
     runs-on: macos-latest
 
     steps:
@@ -49,7 +50,8 @@ jobs:
           disable-animations: true
           script: ./gradlew connectedCheck
 
-    test_and_build:
+    build_2:
+      name: Code Analysis and JUnit Tests
       runs-on: macos-latest
       steps:
         - name: Checkout Travelling App Project
