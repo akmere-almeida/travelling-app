@@ -50,12 +50,12 @@ jobs:
           disable-animations: true
           script: ./gradlew connectedCheck
 
-    build_2:
-      name: Code Analysis and JUnit Tests
-      runs-on: macos-latest
-      steps:
-        - name: Checkout Travelling App Project
-          uses: actions/checkout@v2
+  build_2:
+    name: Code Analysis and JUnit Tests
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Travelling App Project
+        uses: actions/checkout@v2
 
-        - name: Code Analysis and Test
-          run: ./gradlew check
+      - name: Code Analysis and Test
+        run: ./gradlew check
