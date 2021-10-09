@@ -97,22 +97,3 @@ if (tasks.findByName("jacocoAndroidCoverageVerification") == null) {
         setDirectories()
     }
 }
-
-if (tasks.findByName("jacocoUnitTestCoverageVerification") == null) {
-    val androidTestTask = tasks.findByName("app:connectedDebugAndroidTest")
-    tasks.register<JacocoCoverageVerification>("jacocoUnitTestCoverageVerification") {
-        description = "Code coverage verification for Unit tests."
-        androidTestTask?.enabled = false
-        dependsOn("testDebugUnitTest", "createDebugCoverageReport")
-        violationRules {
-            rule {
-                limit {
-                    counter = "INSTRUCTION"
-                    value = "COVEREDRATIO"
-                    minimum = "0.8".toBigDecimal()
-                }
-            }
-        }
-        setDirectories()
-    }
-}
