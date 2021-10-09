@@ -50,12 +50,6 @@ jobs:
           disable-animations: true
           script: ./gradlew jacocoAndroidTestReport
 
-      - name: Generate JaCoCo Badge
-        uses: cicirello/jacoco-badge-generator@v2
-        with:
-          generate-branches-badge: true
-          jacoco-csv-file: build/reports/jacoco/jacocoTestReport/csv
-
   build_2:
     name: Code Analysis, Code coverage verification and JUnit Tests
     runs-on: macos-latest
@@ -68,3 +62,17 @@ jobs:
 
       - name: Code Coverage Verification
         run: ./gradlew jacocoAndroidCoverageVerification
+
+  build_3:
+    needs: build
+    name: Generate Code Coverage badge
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Travelling App Project
+        uses: actions/checkout@v2
+
+      - name: Generate JaCoCo Badge
+        uses: cicirello/jacoco-badge-generator@v2
+        with:
+          generate-branches-badge: true
+          jacoco-csv-file: build/reports/jacoco/jacocoTestReport/csv
