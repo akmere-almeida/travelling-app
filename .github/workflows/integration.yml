@@ -13,11 +13,8 @@ jobs:
       - name: Checkout Travelling App Project
         uses: actions/checkout@v2
 
-      - name: Check code styling
+      - name: Code Analysis and Test
         run: ./gradlew check
-
-      - name: Test and check test coverage
-        run: ./gradlew jacocoUnitTestCoverageVerification
 
       - name: Build application
         run: ./gradlew build
