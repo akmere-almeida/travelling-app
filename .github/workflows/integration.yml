@@ -5,98 +5,15 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
-    name: Android Test and code coverage reports
-    runs-on: macos-latest
-
-    steps:
-      - name: checkout
-        uses: actions/checkout@v2
-
-      - name: Gradle cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}-${{ hashFiles('**/buildSrc/**/*.kt') }}
-
-      - name: AVD cache
-        uses: actions/cache@v2
-        id: avd-cache
-        with:
-          path: |
-            ~/.android/avd/*
-            ~/.android/adb*
-          key: avd-29
-
-      - name: create AVD and generate snapshot for caching
-        if: steps.avd-cache.outputs.cache-hit != 'true'
-        uses: reactivecircus/android-emulator-runner@v2.20.0
-        with:
-          api-level: 29
-          force-avd-creation: false
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          disable-animations: false
-          script: echo "Generated AVD snapshot for caching."
-
-      # Execute unit tests and generate jacoco reports
-      - name: Generate Jacoco test reports with Android Emulator Runner
-        uses: reactivecircus/android-emulator-runner@v2.20.0
-        with:
-          api-level: 29
-          force-avd-creation: false
-          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          disable-animations: true
-          script: ./gradlew jacocoAndroidTestReport
-
-      - name: Upload Jacoco Report file
-        uses: actions/upload-artifact@v2
-        with:
-          name: jacoco-report-csv
-          path: app/build/reports/jacoco/jacocoTestReport/csv
-
-  build_2:
-    name: Code Analysis, Code coverage verification and JUnit Tests
-    runs-on: macos-latest
-    steps:
-      - name: Checkout Travelling App Project
-        uses: actions/checkout@v2
-
-      - name: Code Analysis and Test
-        run: ./gradlew check
-
-      - name: Code Coverage Verification
-        run: ./gradlew jacocoAndroidCoverageVerification
-
-  build_3:
-    needs: build
-    name: Generate Code Coverage badge
+  test_and_build:
+    name: Test and build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Travelling App Project
         uses: actions/checkout@v2
 
-      - name: Download Jacoco Report File
-        uses: actions/download-artifact@v2
-        with:
-          name: jacoco-report-csv
+      - name: Code Analysis, Test and Build
+        run: ./gradlew build
 
-      - name: Generate JaCoCo Badge
-        uses: cicirello/jacoco-badge-generator@v2
-        id: jacoco
-        with:
-          generate-branches-badge: true
-          jacoco-csv-file: csv
-
-      - name: Log coverage percentage
-        run: |
-          echo "coverage = ${{ steps.jacoco.outputs.coverage }}"
-          echo "branch coverage = ${{ steps.jacoco.outputs.branches }}"
-
-      - name: Add new badge
-        uses: EndBug/add-and-commit@v7
-        with:
-          default_author: github_actions
-          message: 'upload badge'
-          add: '*.svg'
+      - name: Code Coverage Verification
+        run: ./gradlew jacocoAndroidCoverageVerification
