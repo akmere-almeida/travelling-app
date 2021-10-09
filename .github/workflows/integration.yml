@@ -50,6 +50,12 @@ jobs:
           disable-animations: true
           script: ./gradlew jacocoAndroidTestReport
 
+      - name: Upload Jacoco Report file
+        uses: actions/upload-artifact@v2
+        with:
+          name: jacoco-report-csv
+          path: build/reports/jacoco/jacocoTestReport/csv
+
   build_2:
     name: Code Analysis, Code coverage verification and JUnit Tests
     runs-on: macos-latest
@@ -70,6 +76,11 @@ jobs:
     steps:
       - name: Checkout Travelling App Project
         uses: actions/checkout@v2
+
+      - name: Download Jacoco Report File
+        uses: actions/download-artifact@v2
+        with:
+          name: jacoco-report-csv
 
       - name: Generate JaCoCo Badge
         uses: cicirello/jacoco-badge-generator@v2
