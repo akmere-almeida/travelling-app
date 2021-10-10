@@ -8,6 +8,8 @@ object Dependencies {
         const val material = "com.google.android.material:material:${Versions.material}"
         const val testCore = "androidx.test:core:${Versions.androidTest}"
         const val testRunner = "androidx.test:runner:${Versions.androidTest}"
+        const val composeRuntime = "androidx.compose.runtime:runtime:${Versions.compose}"
+        const val activityCompose = "androidx.activity:activity-compose:${Versions.activity}"
     }
 
     object Coverage {

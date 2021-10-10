@@ -1,7 +1,6 @@
 plugins {
     id("com.android.application")
     kotlin("android")
-    id("kotlin-android-extensions")
     id("jacoco")
     id("plugins.jacoco-report")
     id("org.jlleitschuh.gradle.ktlint")
@@ -9,13 +8,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion(Config.compileSdkVersion)
-    buildToolsVersion(Config.buildToolsVersion)
+    compileSdk = Config.compileSdkVersion
+    buildToolsVersion = Config.buildToolsVersion
 
     defaultConfig {
         applicationId = Config.applicationId
-        minSdkVersion(Config.minSdkVersion)
-        targetSdkVersion(Config.targetSdkVersion)
+        minSdk = Config.minSdkVersion
+        targetSdk = Config.targetSdkVersion
         versionCode = Config.versionCode
         versionName = Config.versionName
         testInstrumentationRunner = Config.androidTestInstrumentation
@@ -42,11 +41,11 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 
-    jacoco {
-        buildToolsVersion(Config.buildToolsVersion)
+    testCoverage {
+        jacocoVersion = Versions.jacoco
     }
 
     testOptions {
@@ -56,7 +55,7 @@ android {
 
     useLibrary("android.test.runner")
 
-    lintOptions {
+    lint {
         disable(
             "UnsafeExperimentalUsageError",
             "UnsafeExperimentalUsageWarning"
@@ -68,8 +67,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerVersion = Versions.kotlin
-        kotlinCompilerExtensionVersion= Versions.compose
+        kotlinCompilerExtensionVersion = Versions.compose
     }
 }
 
@@ -78,6 +76,8 @@ dependencies {
     implementation(Dependencies.Kotlin.stdlib)
     implementation(Dependencies.Android.material)
     implementation(Dependencies.Coverage.jacoco)
+    implementation(Dependencies.Android.composeRuntime)
+    implementation(Dependencies.Android.activityCompose)
 
     testImplementation(Dependencies.Test.jUnit)
 
