@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("kotlin-android-extensions")
     id("jacoco")
     id("plugins.jacoco-report")
     id("org.jlleitschuh.gradle.ktlint")
@@ -60,6 +61,15 @@ android {
             "UnsafeExperimentalUsageError",
             "UnsafeExperimentalUsageWarning"
         )
+    }
+
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerVersion = Versions.kotlin
+        kotlinCompilerExtensionVersion= Versions.compose
     }
 }
 
