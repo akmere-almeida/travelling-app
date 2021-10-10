@@ -77,6 +77,10 @@ dependencies {
     implementation(Dependencies.Android.material)
     implementation(Dependencies.Coverage.jacoco)
     implementation(Dependencies.Android.composeRuntime)
+    implementation(Dependencies.Android.composeUi)
+    implementation(Dependencies.Android.composeFoundation)
+    implementation(Dependencies.Android.composeMaterial)
+    implementation(Dependencies.Android.composeTooling)
     implementation(Dependencies.Android.activityCompose)
 
     testImplementation(Dependencies.Test.jUnit)
