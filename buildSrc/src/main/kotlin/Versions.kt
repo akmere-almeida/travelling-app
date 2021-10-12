@@ -10,4 +10,5 @@ object Versions {
     const val compose = "1.0.3"
     const val activity = "1.3.1"
     const val apolloClient = "2.5.9"
+    const val okHttp = "4.9.2"
 }

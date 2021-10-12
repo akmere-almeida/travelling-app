@@ -86,6 +86,7 @@ dependencies {
     implementation(Dependencies.Android.activityCompose)
     implementation(Dependencies.Android.composeLiveData)
     implementation(Dependencies.Networking.apolloRuntime)
+    implementation(Dependencies.Networking.okHttpClient)
 
     testImplementation(Dependencies.Test.jUnit)
 

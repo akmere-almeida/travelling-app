@@ -19,6 +19,7 @@ object Dependencies {
 
     object Networking {
         const val apolloRuntime = "com.apollographql.apollo:apollo-runtime:${Versions.apolloClient}"
+        const val okHttpClient = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
     }
 
     object Coverage {

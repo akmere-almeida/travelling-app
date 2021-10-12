@@ -1,7 +1,11 @@
 ![Build and Test](https://github.com/akmere-almeida/travelling-app/actions/workflows/integration.yml/badge.svg) | ![Coverage](.github/badges/jacoco.svg)
 > :warning: **Este projeto implementa o JetPack Compose**: Siga o [Script](#script) para
 > roda-lo corretamente!
-> 
+
+# Softwares de terceiros utilizados
+- Cliente GraphQL com ([Apollo](https://www.apollographql.com/))
+- Cliente Http com ([OkHttp](https://square.github.io/okhttp/))
+
 # Primeiros passos
 
 ### Script
