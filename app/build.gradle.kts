@@ -89,6 +89,7 @@ dependencies {
     implementation(Dependencies.Networking.okHttpClient)
 
     testImplementation(Dependencies.Test.jUnit)
+    testImplementation(Dependencies.Test.mockkUnitTest)
 
     androidTestImplementation(Dependencies.Android.testRunner)
     androidTestImplementation(Dependencies.Android.testCore)

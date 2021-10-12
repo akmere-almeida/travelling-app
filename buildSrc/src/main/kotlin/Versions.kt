@@ -11,4 +11,5 @@ object Versions {
     const val activity = "1.3.1"
     const val apolloClient = "2.5.9"
     const val okHttp = "4.9.2"
+    const val mockk = "1.12.0"
 }
