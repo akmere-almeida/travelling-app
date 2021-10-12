@@ -9,4 +9,5 @@ object Versions {
     const val detekt = "1.18.1"
     const val compose = "1.0.3"
     const val activity = "1.3.1"
+    const val apolloClient = "2.5.9"
 }

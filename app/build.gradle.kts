@@ -4,7 +4,8 @@ plugins {
     id("jacoco")
     id("plugins.jacoco-report")
     id("org.jlleitschuh.gradle.ktlint")
-    id("io.gitlab.arturbosch.detekt").version("1.18.1")
+    id("io.gitlab.arturbosch.detekt").version(Versions.detekt)
+    id("com.apollographql.apollo").version(Versions.apolloClient)
 }
 
 android {
@@ -84,6 +85,7 @@ dependencies {
     implementation(Dependencies.Android.composeTooling)
     implementation(Dependencies.Android.activityCompose)
     implementation(Dependencies.Android.composeLiveData)
+    implementation(Dependencies.Networking.apolloRuntime)
 
     testImplementation(Dependencies.Test.jUnit)
 
@@ -108,4 +110,8 @@ detekt {
         txt.enabled = true
         sarif.enabled = true
     }
+}
+
+apollo {
+    generateKotlinModels.set(true)
 }

@@ -17,6 +17,10 @@ object Dependencies {
         const val composeLiveData = "androidx.compose.runtime:runtime-livedata:${Versions.compose}"
     }
 
+    object Networking {
+        const val apolloRuntime = "com.apollographql.apollo:apollo-runtime:${Versions.apolloClient}"
+    }
+
     object Coverage {
         const val jacoco = "org.jacoco:org.jacoco.core:${Versions.jacoco}"
     }
