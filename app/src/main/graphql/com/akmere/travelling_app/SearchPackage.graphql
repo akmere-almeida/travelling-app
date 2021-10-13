@@ -1,0 +1,14 @@
+query searchPackage($searchTerm: [String]!){
+    searchPackage(filters: {
+        sku: {
+            values: $searchTerm
+            operator: OR
+        }
+    }) {
+        results {
+            sku
+            name
+            description
+        }
+    }
+}
