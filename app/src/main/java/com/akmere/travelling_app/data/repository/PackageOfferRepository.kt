@@ -1,5 +1,10 @@
 package com.akmere.travelling_app.data.repository
 
-interface PackageOfferRepository {
-    fun getPackages()
+import com.akmere.travelling_app.data.model.PackageOfferData
+
+class PackageOfferRepository: OfferRepository<PackageOfferData> {
+    override suspend fun getOffers(): List<PackageOfferData> {
+        TODO()
+    }
 }
+
