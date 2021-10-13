@@ -18,8 +18,10 @@ object Dependencies {
     }
 
     object Networking {
+        const val apolloCoroutines = "com.apollographql.apollo:apollo-coroutines-support:${Versions.apolloClient}"
         const val apolloRuntime = "com.apollographql.apollo:apollo-runtime:${Versions.apolloClient}"
         const val okHttpClient = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
+        const val okHttpLogging = "com.squareup.okhttp3:logging-interceptor:${Versions.okHttp}"
     }
 
     object Coverage {

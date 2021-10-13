@@ -7,7 +7,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class GraphqlNetworkClientTest {
-
     @Test
     fun `graphql server url should be equals to defined at data constants`() {
         val httpClient: OkHttpClient = mockk()
