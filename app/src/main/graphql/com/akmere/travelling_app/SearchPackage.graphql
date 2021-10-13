@@ -1,4 +1,4 @@
-query searchPackage($searchTerm: [String]!){
+query searchPackage($searchTerm: [String]!, $limit: Int!){
     searchPackage(filters: {
         sku: {
             values: $searchTerm
@@ -6,9 +6,17 @@ query searchPackage($searchTerm: [String]!){
         }
     }) {
         results {
-            sku
             name
+            isAvailable
             description
+            address {
+                city
+                country
+            }
+            gallery(limit: $limit) {
+                url(quality: HIGH, resolution: ORIGINAL)
+                description
+            }
         }
     }
 }
