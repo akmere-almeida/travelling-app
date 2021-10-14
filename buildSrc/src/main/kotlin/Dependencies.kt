@@ -31,5 +31,6 @@ object Dependencies {
     object Test {
         const val jUnit = "junit:junit:${Versions.junit}"
         const val mockkUnitTest = "io.mockk:mockk:${Versions.mockk}"
+        const val mockWebServer = "com.squareup.okhttp3:mockwebserver:${Versions.okHttp}"
     }
 }

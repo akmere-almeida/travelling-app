@@ -6,12 +6,12 @@ import okhttp3.OkHttpClient
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-class GraphqlNetworkClientTest {
+class NetworkClientProviderTest {
     @Test
     fun `graphql server url should be equals to defined at data constants`() {
         val httpClient: OkHttpClient = mockk()
 
-        val graphqlNetworkClient = GraphqlNetworkClient(httpClient)
+        val graphqlNetworkClient = NetworkClientProvider(httpClient)
 
         val serverUrl = graphqlNetworkClient.providesClient().serverUrl.toString()
 

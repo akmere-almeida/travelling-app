@@ -92,6 +92,7 @@ dependencies {
 
     testImplementation(Dependencies.Test.jUnit)
     testImplementation(Dependencies.Test.mockkUnitTest)
+    testImplementation(Dependencies.Test.mockWebServer)
 
     androidTestImplementation(Dependencies.Android.testRunner)
     androidTestImplementation(Dependencies.Android.testCore)
