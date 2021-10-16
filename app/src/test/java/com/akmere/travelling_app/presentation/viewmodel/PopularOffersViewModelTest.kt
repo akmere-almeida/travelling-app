@@ -1,18 +1,19 @@
 package com.akmere.travelling_app.presentation.viewmodel
 
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
+import coil.ImageLoader
+import coil.request.ImageRequest
 import com.akmere.travelling_app.domain.SearchOffers
+import com.akmere.travelling_app.domain.TravellingAppImageLoader
 import com.akmere.travelling_app.domain.errors.SearchOffersNotFoundError
 import com.akmere.travelling_app.domain.model.TravelOffer
 import com.akmere.travelling_app.presentation.UiState
 import com.akmere.travelling_app.presentation.home.model.PopularOffer
-import io.mockk.MockKAnnotations
-import io.mockk.coEvery
-import io.mockk.every
+import io.mockk.*
 import io.mockk.impl.annotations.MockK
-import io.mockk.mockk
-import io.mockk.slot
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -22,6 +23,10 @@ import org.junit.Test
 class PopularOffersViewModelTest {
     @MockK
     private lateinit var searchOffers: SearchOffers
+
+    @MockK
+    private lateinit var travellingAppImageLoader: TravellingAppImageLoader
+
     private lateinit var popularOffersViewModel: PopularOffersViewModel
 
     @get:Rule
@@ -30,7 +35,7 @@ class PopularOffersViewModelTest {
     @Before
     fun setup() {
         MockKAnnotations.init(this)
-        popularOffersViewModel = PopularOffersViewModel(searchOffers)
+        popularOffersViewModel = PopularOffersViewModel(searchOffers, travellingAppImageLoader)
     }
 
     @Test
@@ -69,7 +74,7 @@ class PopularOffersViewModelTest {
             PopularOffer(it.name, "20", mockk(relaxed = true))
         }
 
-        coEvery { searchOffers.execute() } returns  travelOffers
+        coEvery { searchOffers.execute() } returns travelOffers
 
         popularOffersViewModel.loadPopularOffers()
 
@@ -77,7 +82,7 @@ class PopularOffersViewModelTest {
     }
 
     @Test
-    fun `should fail to load popular offers when search has errors`() = runBlocking{
+    fun `should fail to load popular offers when search has errors`() = runBlocking {
         val error = SearchOffersNotFoundError()
 
         coEvery { searchOffers.execute() } throws error
@@ -85,5 +90,33 @@ class PopularOffersViewModelTest {
         popularOffersViewModel.loadPopularOffers()
 
         assertEquals(UiState.Error(error), popularOffersViewModel.uiState.value)
+    }
+
+    @Test
+    fun `should load all offer images before updating ui state`() = runBlocking {
+        val travelOffers: List<TravelOffer.PackageOffer> = listOf(
+            mockk(relaxed = true),
+            mockk(relaxed = true)
+        )
+
+        val defaultImage = mockk<Bitmap>()
+        val loadedImages = listOf(defaultImage, defaultImage)
+
+        val imageUrls = travelOffers.map { it.imageUrl }
+
+        val offers: List<PopularOffer> = travelOffers.map {
+            PopularOffer(it.name, "20", defaultImage)
+        }
+
+        coEvery { travellingAppImageLoader.loadFromNetwork(imageUrls) } returns loadedImages
+        coEvery { searchOffers.execute() } returns travelOffers
+
+        popularOffersViewModel.loadPopularOffers()
+
+        coVerify {
+            travellingAppImageLoader.loadFromNetwork(imageUrls)
+        }
+
+        assertEquals(UiState.Success(offers), popularOffersViewModel.uiState.value)
     }
 }

@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
@@ -24,7 +25,7 @@ import com.akmere.travelling_app.presentation.home.components.FavoriteCounterTag
 import com.akmere.travelling_app.presentation.home.model.PopularOffer
 
 @Composable
-fun PopularOfferCard(popularOffer: PopularOffer, modifier: Modifier, painter: Painter) {
+fun PopularOfferCard(popularOffer: PopularOffer, modifier: Modifier, imageBitmap: ImageBitmap) {
     Card(
         shape = RoundedCornerShape(8.dp),
         modifier = modifier
@@ -34,7 +35,7 @@ fun PopularOfferCard(popularOffer: PopularOffer, modifier: Modifier, painter: Pa
     ) {
         Box {
             Image(
-                painter = painter,
+                bitmap = imageBitmap,
                 contentDescription = popularOffer.title,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
