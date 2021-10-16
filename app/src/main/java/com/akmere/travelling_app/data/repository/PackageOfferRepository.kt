@@ -10,9 +10,6 @@ import com.akmere.travelling_app.data.repository.exceptions.UnexpectedLoadExcept
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.coroutines.await
 import com.apollographql.apollo.exception.ApolloParseException
-import java.io.IOException
-import java.lang.Exception
-import java.lang.IllegalStateException
 
 /**
  * Interface usada para comunicação com API de Ofertas de Pacotes
@@ -67,5 +64,3 @@ class PackageOfferRepository(private val datasource: ApolloClient) :
         return ImageData(url, description = description ?: defaultDescription)
     }
 }
-
-
