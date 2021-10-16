@@ -5,6 +5,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 @Composable
@@ -13,6 +14,9 @@ fun WelcomeMessage(modifier: Modifier) {
         text = "Venha viajar com a gente !",
         fontSize = 28.sp,
         modifier = modifier,
-        style = TextStyle(color = MaterialTheme.colors.secondary)
+        style = TextStyle(
+            color = MaterialTheme.colors.secondaryVariant,
+            fontWeight = FontWeight.SemiBold
+        )
     )
 }
