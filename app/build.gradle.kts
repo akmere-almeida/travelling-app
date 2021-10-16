@@ -89,7 +89,9 @@ dependencies {
     implementation(Dependencies.Networking.apolloCoroutines)
     implementation(Dependencies.Networking.okHttpClient)
     implementation(Dependencies.Networking.okHttpLogging)
+    implementation("io.coil-kt:coil-compose:1.3.1")
 
+    testImplementation("androidx.arch.core:core-testing:2.1.0")
     testImplementation(Dependencies.Test.jUnit)
     testImplementation(Dependencies.Test.mockkUnitTest)
     testImplementation(Dependencies.Test.mockWebServer)

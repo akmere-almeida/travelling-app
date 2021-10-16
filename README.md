@@ -3,6 +3,7 @@
 > roda-lo corretamente!
 
 # Softwares de terceiros utilizados
+- Carregamento de imagens com ([Coil](https://github.com/coil-kt/coil))
 - Cliente GraphQL com ([Apollo](https://www.apollographql.com/))
 - Cliente Http com ([OkHttp](https://square.github.io/okhttp/))
 
