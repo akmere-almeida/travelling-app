@@ -7,13 +7,18 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.akmere.travelling_app.presentation.home.cards.DefaultPopularOfferCard
-import com.akmere.travelling_app.presentation.home.components.popularOffers
+import com.akmere.travelling_app.presentation.home.cards.PopularOfferCard
+import com.akmere.travelling_app.presentation.home.model.PopularOffer
 
 @Composable
 fun PopularOfferListing() {
+    val popularOffers = remember { mutableStateOf<List<PopularOffer>>(listOf()) }
+
     Column {
         Text(
             text = "Destaques",
@@ -21,8 +26,8 @@ fun PopularOfferListing() {
             color = MaterialTheme.colors.secondary
         )
         LazyRow(modifier = Modifier.padding(top = 16.dp)) {
-            items(popularOffers) {
-                DefaultPopularOfferCard(it)
+            items(popularOffers.value) {
+                PopularOfferCard(it, Modifier.padding(end = 16.dp), painterResource(it.imageResource))
             }
         }
     }

@@ -50,12 +50,6 @@ fun HomeContent() {
     }
 }
 
-data class PopularOffer(
-    val title: String,
-    val favoriteCount: String,
-    @DrawableRes val imageResource: Int
-)
-
 data class Suggestion(val title: String, val country: String, @DrawableRes val imageResource: Int)
 
 data class OfferCategory(val title: String, @DrawableRes val imageResource: Int)
@@ -63,12 +57,6 @@ data class OfferCategory(val title: String, @DrawableRes val imageResource: Int)
 val offerCategories = listOf(
     OfferCategory("Hotel", R.drawable.ic_outline_hotel_24),
     OfferCategory("Pacotes", R.drawable.ic_baseline_card_travel_24)
-)
-
-val popularOffers = listOf(
-    PopularOffer("Hotel em Phuket", "1k", R.drawable.phuket_hotel),
-    PopularOffer("Pacote Phuket", "2k", R.drawable.phuket_package),
-    PopularOffer("Pacote Phuket", "2k", R.drawable.phuket_package),
 )
 
 val suggestions = listOf(
