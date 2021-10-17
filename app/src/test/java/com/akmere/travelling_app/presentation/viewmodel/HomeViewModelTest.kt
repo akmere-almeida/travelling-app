@@ -10,6 +10,7 @@ import com.akmere.travelling_app.domain.TravellingAppImageLoader
 import com.akmere.travelling_app.domain.errors.SearchOffersNotFoundError
 import com.akmere.travelling_app.domain.model.TravelOffer
 import com.akmere.travelling_app.presentation.UiState
+import com.akmere.travelling_app.presentation.home.model.FilterOptions
 import com.akmere.travelling_app.presentation.home.model.PopularOffer
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -39,6 +40,8 @@ class HomeViewModelTest {
     @RelaxedMockK
     private lateinit var bitmap: Bitmap
 
+    private val filterOptions: FilterOptions = FilterOptions("city", "state")
+
     private lateinit var homeViewModel: HomeViewModel
 
     @get:Rule
@@ -59,11 +62,11 @@ class HomeViewModelTest {
 
     @Test
     fun `ui state should be loading when begin to load offers`() {
-        val observer = mockk<Observer<UiState<List<PopularOffer>>>>()
+        val observer = mockk<Observer<UiState<HomeState>>>()
 
-        val slot = slot<UiState<List<PopularOffer>>>()
+        val slot = slot<UiState<HomeState>>()
 
-        val uiStates = mutableListOf<UiState<List<PopularOffer>>>()
+        val uiStates = mutableListOf<UiState<HomeState>>()
 
         homeViewModel.uiState.observeForever(observer)
         val travelOffers: List<TravelOffer.PackageOffer> = listOf(
@@ -71,13 +74,13 @@ class HomeViewModelTest {
             mockk(relaxed = true)
         )
 
-        coEvery { searchOffers.execute() } returns travelOffers
+        coEvery { searchOffers.execute(filterOptions) } returns travelOffers
 
         every {
             observer.onChanged(capture(slot))
         } answers { uiStates.add(slot.captured) }
 
-        homeViewModel.loadPopularOffers()
+        homeViewModel.loadPopularOffers(filterOptions)
 
         assertEquals(UiState.Loading, uiStates.first())
     }
@@ -89,25 +92,25 @@ class HomeViewModelTest {
             TravelOffer.PackageOffer("test2", "", "", "", 25),
         )
 
-        val expectedPopularOffers: List<PopularOffer> = listOf(
+        val expectedState = HomeState(listOf(
             PopularOffer("test", "20", bitmap),
             PopularOffer("test2", "25", bitmap),
-        )
+        ), "city, state")
 
-        coEvery { searchOffers.execute() } returns travelOffers
+        coEvery { searchOffers.execute(filterOptions) } returns travelOffers
 
-        homeViewModel.loadPopularOffers()
+        homeViewModel.loadPopularOffers(filterOptions)
 
-        assertEquals(UiState.Success(expectedPopularOffers), homeViewModel.uiState.value)
+        assertEquals(UiState.Success(expectedState), homeViewModel.uiState.value)
     }
 
     @Test
     fun `should update ui state with error when failed to search for offers`() {
         val error = SearchOffersNotFoundError()
 
-        coEvery { searchOffers.execute() } throws error
+        coEvery { searchOffers.execute(filterOptions) } throws error
 
-        homeViewModel.loadPopularOffers()
+        homeViewModel.loadPopularOffers(filterOptions)
 
         assertEquals(UiState.Error(error), homeViewModel.uiState.value)
     }
@@ -121,22 +124,22 @@ class HomeViewModelTest {
             TravelOffer.PackageOffer("test2", "", "", "", 25),
         )
 
-        val expectedPopularOffers: List<PopularOffer> = listOf(
+        val expectedState = HomeState(listOf(
             PopularOffer("test", "20", bitmap),
             PopularOffer("test2", "25", bitmap),
-        )
+        ), "city, state")
 
         val imageUrls = travelOffers.map { it.imageUrl }
 
         coEvery { travellingAppImageLoader.loadFromNetwork(imageUrls) } returns loadedImages
-        coEvery { searchOffers.execute() } returns travelOffers
+        coEvery { searchOffers.execute(filterOptions) } returns travelOffers
 
-        homeViewModel.loadPopularOffers()
+        homeViewModel.loadPopularOffers(filterOptions)
 
         coVerify(exactly = 2) {
             travellingAppImageLoader.loadFromNetwork(any<String>())
         }
 
-        assertEquals(UiState.Success(expectedPopularOffers), homeViewModel.uiState.value)
+        assertEquals(UiState.Success(expectedState), homeViewModel.uiState.value)
     }
 }
