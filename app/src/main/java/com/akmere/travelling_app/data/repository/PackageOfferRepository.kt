@@ -14,7 +14,7 @@ import com.apollographql.apollo.coroutines.await
 import com.apollographql.apollo.exception.ApolloParseException
 
 /**
- * Interface usada para comunicação com API de Ofertas de Pacotes
+ * Classe concreta que implementa [OfferRepository] usada para comunicação com API de Ofertas de Pacotes
  *
  *
  * Carrega as informações de Ofertas
