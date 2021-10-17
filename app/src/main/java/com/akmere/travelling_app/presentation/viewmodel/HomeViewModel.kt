@@ -14,7 +14,7 @@ import com.akmere.travelling_app.presentation.UiState
 import com.akmere.travelling_app.presentation.home.model.PopularOffer
 import kotlinx.coroutines.launch
 
-class PopularOffersViewModel(
+class HomeViewModel(
     private val searchOffers: SearchOffers,
     private val travelAppImageLoader: TravellingAppImageLoader
 ) : ViewModel() {

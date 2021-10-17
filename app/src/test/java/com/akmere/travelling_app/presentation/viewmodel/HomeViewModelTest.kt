@@ -20,7 +20,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class PopularOffersViewModelTest {
+class HomeViewModelTest {
     @MockK
     private lateinit var searchOffers: SearchOffers
 
@@ -33,7 +33,7 @@ class PopularOffersViewModelTest {
     @RelaxedMockK
     private lateinit var bitmap: Bitmap
 
-    private lateinit var popularOffersViewModel: PopularOffersViewModel
+    private lateinit var homeViewModel: HomeViewModel
 
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
@@ -42,7 +42,7 @@ class PopularOffersViewModelTest {
     fun setup() {
         MockKAnnotations.init(this)
         mockkStatic("androidx.core.graphics.drawable.DrawableKt")
-        popularOffersViewModel = PopularOffersViewModel(searchOffers, travellingAppImageLoader)
+        homeViewModel = HomeViewModel(searchOffers, travellingAppImageLoader)
 
         coEvery { travellingAppImageLoader.loadFromNetwork(any<List<String>>()) } returns mockk(
             relaxed = true
@@ -59,7 +59,7 @@ class PopularOffersViewModelTest {
 
         val uiStates = mutableListOf<UiState<List<PopularOffer>>>()
 
-        popularOffersViewModel.uiState.observeForever(observer)
+        homeViewModel.uiState.observeForever(observer)
         val travelOffers: List<TravelOffer.PackageOffer> = listOf(
             mockk(relaxed = true),
             mockk(relaxed = true)
@@ -71,7 +71,7 @@ class PopularOffersViewModelTest {
             observer.onChanged(capture(slot))
         } answers { uiStates.add(slot.captured) }
 
-        popularOffersViewModel.loadPopularOffers()
+        homeViewModel.loadPopularOffers()
 
         assertEquals(UiState.Loading, uiStates.first())
     }
@@ -90,9 +90,9 @@ class PopularOffersViewModelTest {
 
         coEvery { searchOffers.execute() } returns travelOffers
 
-        popularOffersViewModel.loadPopularOffers()
+        homeViewModel.loadPopularOffers()
 
-        assertEquals(UiState.Success(expectedPopularOffers), popularOffersViewModel.uiState.value)
+        assertEquals(UiState.Success(expectedPopularOffers), homeViewModel.uiState.value)
     }
 
     @Test
@@ -101,9 +101,9 @@ class PopularOffersViewModelTest {
 
         coEvery { searchOffers.execute() } throws error
 
-        popularOffersViewModel.loadPopularOffers()
+        homeViewModel.loadPopularOffers()
 
-        assertEquals(UiState.Error(error), popularOffersViewModel.uiState.value)
+        assertEquals(UiState.Error(error), homeViewModel.uiState.value)
     }
 
     @Test
@@ -125,12 +125,12 @@ class PopularOffersViewModelTest {
         coEvery { travellingAppImageLoader.loadFromNetwork(imageUrls) } returns loadedImages
         coEvery { searchOffers.execute() } returns travelOffers
 
-        popularOffersViewModel.loadPopularOffers()
+        homeViewModel.loadPopularOffers()
 
         coVerify(exactly = 2) {
             travellingAppImageLoader.loadFromNetwork(any<String>())
         }
 
-        assertEquals(UiState.Success(expectedPopularOffers), popularOffersViewModel.uiState.value)
+        assertEquals(UiState.Success(expectedPopularOffers), homeViewModel.uiState.value)
     }
 }

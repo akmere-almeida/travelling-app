@@ -7,11 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.akmere.travelling_app.dependencies.AppDependencies
 import com.akmere.travelling_app.presentation.common.AppTheme
 import com.akmere.travelling_app.presentation.home.HomeScreen
-import com.akmere.travelling_app.presentation.viewmodel.PopularOffersViewModel
+import com.akmere.travelling_app.presentation.viewmodel.HomeViewModel
 import com.akmere.travelling_app.presentation.viewmodel.factory.ViewModelFactory
 
 class MainActivity : AppCompatActivity() {
-    val popularOffersViewModel: PopularOffersViewModel by viewModels {
+    val homeViewModel: HomeViewModel by viewModels {
         ViewModelFactory(
             owner = this,
             searchOffers = AppDependencies.providesSearchOffers(),
@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AppTheme {
-                HomeScreen(popularOffersViewModel = popularOffersViewModel)
+                HomeScreen(homeViewModel = homeViewModel)
             }
         }
     }

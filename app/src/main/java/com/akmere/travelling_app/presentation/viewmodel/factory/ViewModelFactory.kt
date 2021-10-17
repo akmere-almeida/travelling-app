@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import com.akmere.travelling_app.domain.SearchOffers
 import com.akmere.travelling_app.domain.TravellingAppImageLoader
-import com.akmere.travelling_app.presentation.viewmodel.PopularOffersViewModel
+import com.akmere.travelling_app.presentation.viewmodel.HomeViewModel
 
 class ViewModelFactory(
     owner: SavedStateRegistryOwner,
@@ -22,7 +22,7 @@ class ViewModelFactory(
         state: SavedStateHandle
     ): T {
         if (modelClass.isAssignableFrom(ViewModelFactory::class.java)) {
-            return PopularOffersViewModel(searchOffers, travelAppImageLoader) as T
+            return HomeViewModel(searchOffers, travelAppImageLoader) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
