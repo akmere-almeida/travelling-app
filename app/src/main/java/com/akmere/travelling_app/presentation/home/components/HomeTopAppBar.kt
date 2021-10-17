@@ -18,11 +18,17 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.akmere.travelling_app.presentation.UiState
+import com.akmere.travelling_app.presentation.home.model.PopularOffer
+import com.akmere.travelling_app.presentation.viewmodel.HomeState
 
 @Composable
-@Preview
-fun HomeTopAppBar() {
-    LocationTitle("São Paulo, SP")
+fun HomeTopAppBar(uiState: UiState<HomeState>) {
+    val location = when(uiState){
+        is UiState.Success -> uiState.data.userLocation
+        else -> ""
+    }
+    LocationTitle(location)
 }
 
 @Composable

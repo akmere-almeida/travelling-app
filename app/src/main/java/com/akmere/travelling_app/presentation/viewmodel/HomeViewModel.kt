@@ -20,8 +20,8 @@ class HomeViewModel(
     private val travelAppImageLoader: TravellingAppImageLoader
 ) : ViewModel() {
 
-    private val internalUiState: MutableLiveData<UiState<List<PopularOffer>>> = MutableLiveData()
-    val uiState: LiveData<UiState<List<PopularOffer>>>
+    private val internalUiState: MutableLiveData<UiState<HomeState>> = MutableLiveData()
+    val uiState: LiveData<UiState<HomeState>>
         get() = internalUiState
 
     fun loadPopularOffers(filterOptions: FilterOptions) {
@@ -35,12 +35,19 @@ class HomeViewModel(
                     }.map {
                         PopularOffer(it.key.name, it.key.favoriteCount.toString(), it.value)
                     }
-                internalUiState.value = UiState.Success(popularOffers)
+                internalUiState.value = UiState.Success(
+                    HomeState(
+                        popularOffers,
+                        createUserLocation(filterOptions.city, filterOptions.state)
+                    )
+                )
             } catch (e: SearchOffersNotFoundError) {
                 internalUiState.value = UiState.Error(e)
             }
         }
     }
+
+    private fun createUserLocation(city: String, state: String): String = "$city, $state"
 
     private suspend fun loadImageResourceAsBitmap(imageUrl: String): Bitmap {
         return travelAppImageLoader.loadFromNetwork(imageUrl).toBitmap()

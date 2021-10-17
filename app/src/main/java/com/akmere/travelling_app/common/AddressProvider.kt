@@ -25,8 +25,8 @@ class AddressProvider(private val datasource: Geocoder, private val logger: Logg
      *
      * @return [UserAddress] contendo informações de endereço do usuário
      *
+     * @throws AddressNotFoundError
      * @throws LoadAddressError
-     * @throws UnexpectedLoadException
      */
     suspend fun loadAddress(location: Location): UserAddress = withContext(Dispatchers.IO) {
         val addresses: MutableList<Address> = mutableListOf()
@@ -58,7 +58,7 @@ class AddressProvider(private val datasource: Geocoder, private val logger: Logg
             throw AddressNotFoundError()
         } else {
             with(addresses[0]) {
-                UserAddress(locality, adminArea)
+                UserAddress(subAdminArea, adminArea)
             }
         }
     }

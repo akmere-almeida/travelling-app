@@ -12,21 +12,21 @@ import com.akmere.travelling_app.presentation.viewmodel.HomeViewModel
 
 @Composable
 fun HomeScreen(homeViewModel: HomeViewModel) {
-    Scaffold(
-        topBar = {
-            HomeTopAppBar()
-        },
-        content = {
-            homeViewModel.uiState.observeAsState(initial = UiState.Loading).value.let { uiState ->
+    homeViewModel.uiState.observeAsState(initial = UiState.Loading).value.let { uiState ->
+        Scaffold(
+            topBar = {
+                HomeTopAppBar(uiState)
+            },
+            content = {
                 when (uiState) {
                     is UiState.Error -> TODO()
                     UiState.Loading -> LoadingHomeContent()
-                    is UiState.Success -> SuccessfulHomeContent(uiState.data)
+                    is UiState.Success -> SuccessfulHomeContent(uiState.data.popularOffers)
                 }
+            },
+            bottomBar = {
+                HomeBottomAppBar()
             }
-        },
-        bottomBar = {
-            HomeBottomAppBar()
-        }
-    )
+        )
+    }
 }
