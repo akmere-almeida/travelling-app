@@ -1,7 +1,10 @@
 package com.akmere.travelling_app.presentation.home.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -25,14 +28,16 @@ fun LoadingHomeContent() {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
-                text = "Carregando...", style = TextStyle(
+                text = "Carregando...",
+                style = TextStyle(
                     color = MaterialTheme.colors.secondaryVariant,
                     fontWeight = FontWeight.SemiBold
                 )
             )
         }
         CircularProgressIndicator(
-            color = MaterialTheme.colors.secondary, modifier = Modifier.align(
+            color = MaterialTheme.colors.secondary,
+            modifier = Modifier.align(
                 Alignment.Center
             )
         )

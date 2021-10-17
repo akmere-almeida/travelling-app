@@ -5,9 +5,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import com.akmere.travelling_app.presentation.UiState
 import com.akmere.travelling_app.presentation.home.components.HomeBottomAppBar
-import com.akmere.travelling_app.presentation.home.components.SuccessfulHomeContent
 import com.akmere.travelling_app.presentation.home.components.HomeTopAppBar
 import com.akmere.travelling_app.presentation.home.components.LoadingHomeContent
+import com.akmere.travelling_app.presentation.home.components.SuccessfulHomeContent
 import com.akmere.travelling_app.presentation.viewmodel.HomeViewModel
 
 @Composable

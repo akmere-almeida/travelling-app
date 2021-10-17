@@ -2,7 +2,12 @@ package com.akmere.travelling_app.presentation.home.components
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -14,7 +19,6 @@ import com.akmere.travelling_app.presentation.home.lists.OfferCategoryListing
 import com.akmere.travelling_app.presentation.home.lists.PopularOfferListing
 import com.akmere.travelling_app.presentation.home.lists.SuggestionListing
 import com.akmere.travelling_app.presentation.home.model.PopularOffer
-import com.akmere.travelling_app.presentation.viewmodel.HomeViewModel
 
 @Composable
 fun SuccessfulHomeContent(data: List<PopularOffer>) {
