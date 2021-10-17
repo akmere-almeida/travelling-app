@@ -8,8 +8,8 @@ import java.io.StringWriter
  * A [Logger] implementation that writes to Android's [Log].
  *
  * NOTE: You **should not** enable this in release builds. Adding this to your code reduces performance.
- * Additionally,
- * this will log URLs which can contain [Personal Data](https://pt.wikipedia.org/wiki/Lei_Geral_de_Prote%C3%A7%C3%A3o_de_Dados_Pessoais#O_que_s%C3%A3o_dados_pessoais?).
+ * Additionally, this will log URLs which can contain
+ * [Personal Data](https://pt.wikipedia.org/wiki/Lei_Geral_de_Prote%C3%A7%C3%A3o_de_Dados_Pessoais).
  */
 class DebugLogger @JvmOverloads constructor(level: Int = Log.DEBUG) : Logger {
 

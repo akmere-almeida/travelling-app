@@ -1,14 +1,10 @@
 package com.akmere.travelling_app.data.repository
 
-import com.akmere.travelling_app.common.Logger
 import com.akmere.travelling_app.data.DataFixtures
 import com.akmere.travelling_app.data.JsonReader
 import com.akmere.travelling_app.data.model.PackageOfferData
 import com.akmere.travelling_app.data.repository.exceptions.OfferParseException
-import com.akmere.travelling_app.data.repository.exceptions.UnexpectedLoadException
 import com.apollographql.apollo.ApolloClient
-import io.mockk.impl.annotations.MockK
-import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -54,7 +50,7 @@ class PackageOfferRepositoryTest {
     }
 
     @Test
-    fun `image description should be replaced with package offer name when image description is null`() =
+    fun `image description should be replaced with offer name when image description is null`() =
         runBlocking {
             val response =
                 JsonReader.readFile("success_response_empty_image_description.json")

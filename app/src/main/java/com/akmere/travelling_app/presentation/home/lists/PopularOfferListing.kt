@@ -26,7 +26,11 @@ fun PopularOfferListing(popularOffersData: List<PopularOffer>) {
         )
         LazyRow(modifier = Modifier.padding(top = 16.dp)) {
             items(popularOffers.value) {
-                PopularOfferCard(it, Modifier.padding(end = 16.dp), it.imageResource.asImageBitmap())
+                PopularOfferCard(
+                    it,
+                    Modifier.padding(end = 16.dp),
+                    it.imageResource.asImageBitmap()
+                )
             }
         }
     }
