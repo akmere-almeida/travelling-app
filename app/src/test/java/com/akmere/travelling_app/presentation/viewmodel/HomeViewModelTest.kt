@@ -80,7 +80,7 @@ class HomeViewModelTest {
             observer.onChanged(capture(slot))
         } answers { uiStates.add(slot.captured) }
 
-        homeViewModel.loadPopularOffers(filterOptions)
+        homeViewModel.loadHomeData(filterOptions)
 
         assertEquals(UiState.Loading, uiStates.first())
     }
@@ -99,7 +99,7 @@ class HomeViewModelTest {
 
         coEvery { searchOffers.execute(filterOptions) } returns travelOffers
 
-        homeViewModel.loadPopularOffers(filterOptions)
+        homeViewModel.loadHomeData(filterOptions)
 
         assertEquals(UiState.Success(expectedState), homeViewModel.uiState.value)
     }
@@ -110,7 +110,7 @@ class HomeViewModelTest {
 
         coEvery { searchOffers.execute(filterOptions) } throws error
 
-        homeViewModel.loadPopularOffers(filterOptions)
+        homeViewModel.loadHomeData(filterOptions)
 
         assertEquals(UiState.Error(error), homeViewModel.uiState.value)
     }
@@ -134,7 +134,7 @@ class HomeViewModelTest {
         coEvery { travellingAppImageLoader.loadFromNetwork(imageUrls) } returns loadedImages
         coEvery { searchOffers.execute(filterOptions) } returns travelOffers
 
-        homeViewModel.loadPopularOffers(filterOptions)
+        homeViewModel.loadHomeData(filterOptions)
 
         coVerify(exactly = 2) {
             travellingAppImageLoader.loadFromNetwork(any<String>())

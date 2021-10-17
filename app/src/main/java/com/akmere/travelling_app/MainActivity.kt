@@ -1,6 +1,5 @@
 package com.akmere.travelling_app
 
-import android.location.Geocoder
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -49,7 +48,7 @@ class MainActivity : AppCompatActivity() {
             CoroutineScope(Dispatchers.Main).launch {
                 val address = addressProvider.loadAddress(it)
                 val filters = FilterOptions(address.city, address.state)
-                homeViewModel.loadPopularOffers(filters)
+                homeViewModel.loadHomeData(filters)
             }
         }
     }

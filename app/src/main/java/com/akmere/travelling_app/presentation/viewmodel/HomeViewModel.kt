@@ -24,7 +24,7 @@ class HomeViewModel(
     val uiState: LiveData<UiState<HomeState>>
         get() = internalUiState
 
-    fun loadPopularOffers(filterOptions: FilterOptions) {
+    fun loadHomeData(filterOptions: FilterOptions) {
         internalUiState.value = UiState.Loading
         viewModelScope.launch {
             try {
