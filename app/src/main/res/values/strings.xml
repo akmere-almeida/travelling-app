@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">travelling-app</string>
+    <string name="permission_location">Sua localização é muito importante para melhor usufruir de nossos serviços</string>
 </resources>
