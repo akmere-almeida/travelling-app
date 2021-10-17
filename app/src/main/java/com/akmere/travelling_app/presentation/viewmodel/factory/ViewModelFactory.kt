@@ -21,7 +21,7 @@ class ViewModelFactory(
         modelClass: Class<T>,
         state: SavedStateHandle
     ): T {
-        if (modelClass.isAssignableFrom(ViewModelFactory::class.java)) {
+        if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
             return HomeViewModel(searchOffers, travelAppImageLoader) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

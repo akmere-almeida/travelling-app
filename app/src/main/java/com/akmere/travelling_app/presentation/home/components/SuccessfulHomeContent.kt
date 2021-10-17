@@ -2,27 +2,22 @@ package com.akmere.travelling_app.presentation.home.components
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.akmere.travelling_app.R
 import com.akmere.travelling_app.presentation.common.Constants.halfContentSize
 import com.akmere.travelling_app.presentation.home.lists.OfferCategoryListing
 import com.akmere.travelling_app.presentation.home.lists.PopularOfferListing
 import com.akmere.travelling_app.presentation.home.lists.SuggestionListing
+import com.akmere.travelling_app.presentation.home.model.PopularOffer
+import com.akmere.travelling_app.presentation.viewmodel.HomeViewModel
 
 @Composable
-@Preview
-fun HomeContent() {
+fun SuccessfulHomeContent(data: List<PopularOffer>) {
     Column(
         Modifier
             .background(MaterialTheme.colors.primary)
@@ -44,7 +39,7 @@ fun HomeContent() {
         Spacer(modifier = Modifier.height(8.dp))
         OfferCategoryListing()
         Spacer(modifier = Modifier.height(8.dp))
-        PopularOfferListing()
+        PopularOfferListing(data)
         Spacer(modifier = Modifier.height(8.dp))
         SuggestionListing()
     }

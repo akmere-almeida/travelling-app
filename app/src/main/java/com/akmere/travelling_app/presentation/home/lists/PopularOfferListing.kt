@@ -16,9 +16,8 @@ import com.akmere.travelling_app.presentation.home.cards.PopularOfferCard
 import com.akmere.travelling_app.presentation.home.model.PopularOffer
 
 @Composable
-fun PopularOfferListing() {
-    val popularOffers = remember { mutableStateOf<List<PopularOffer>>(listOf()) }
-
+fun PopularOfferListing(popularOffersData: List<PopularOffer>) {
+    val popularOffers = remember { mutableStateOf(popularOffersData) }
     Column {
         Text(
             text = "Destaques",
