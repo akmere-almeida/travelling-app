@@ -13,13 +13,13 @@ import com.akmere.travelling_app.presentation.home.model.FilterOptions
 /**
  * Caso de uso para buscar por ofertas
  *
- * @param offerRepository repositório responsável por carregar informações de ofertas
+ * @param packageOfferRepository repositório responsável por carregar informações de ofertas
  *
  * @return uma lista de [PackageOfferData] contendo informações de oferta dos pacotes
  *
  */
 class SearchOffers(
-    private val offerRepository: OfferRepository<PackageOfferData>,
+    private val packageOfferRepository: OfferRepository<PackageOfferData>,
     private val logger: Logger? = null
 ) {
     /**
@@ -33,9 +33,7 @@ class SearchOffers(
     @Throws(SearchOffersNotFoundError::class)
     suspend fun execute(filterOptions: FilterOptions): List<TravelOffer> {
         return try {
-            offerRepository.getOffers(imagesPerOffer = 1, searchTerms = listOf(filterOptions.city, filterOptions.state)).map {
-                it.toTravelOffer()
-            }
+            searchPackageOffers(filterOptions)
         } catch (e: OfferParseException) {
             logger?.log(TAG, Log.DEBUG, message = e.message, throwable = e)
             throw SearchOffersNotFoundError()
@@ -44,6 +42,14 @@ class SearchOffers(
             throw SearchOffersNotFoundError()
         }
     }
+
+    private suspend fun searchPackageOffers(filterOptions: FilterOptions) =
+        packageOfferRepository.getOffers(
+            imagesPerOffer = 1,
+            searchTerms = listOf(filterOptions.city, filterOptions.state)
+        ).map {
+            it.toTravelOffer()
+        }
 
     private fun PackageOfferData.toTravelOffer(): TravelOffer.PackageOffer {
         return TravelOffer.PackageOffer(

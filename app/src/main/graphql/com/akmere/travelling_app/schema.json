@@ -116,7 +116,7 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "sku",
+            "name": "cities",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
