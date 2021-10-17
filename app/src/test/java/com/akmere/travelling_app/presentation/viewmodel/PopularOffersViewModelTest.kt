@@ -3,9 +3,8 @@ package com.akmere.travelling_app.presentation.viewmodel
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.Observer
-import coil.ImageLoader
-import coil.request.ImageRequest
 import com.akmere.travelling_app.domain.SearchOffers
 import com.akmere.travelling_app.domain.TravellingAppImageLoader
 import com.akmere.travelling_app.domain.errors.SearchOffersNotFoundError
@@ -14,6 +13,7 @@ import com.akmere.travelling_app.presentation.UiState
 import com.akmere.travelling_app.presentation.home.model.PopularOffer
 import io.mockk.*
 import io.mockk.impl.annotations.MockK
+import io.mockk.impl.annotations.RelaxedMockK
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -27,6 +27,12 @@ class PopularOffersViewModelTest {
     @MockK
     private lateinit var travellingAppImageLoader: TravellingAppImageLoader
 
+    @RelaxedMockK
+    private lateinit var mockDrawable: Drawable
+
+    @RelaxedMockK
+    private lateinit var bitmap: Bitmap
+
     private lateinit var popularOffersViewModel: PopularOffersViewModel
 
     @get:Rule
@@ -35,11 +41,18 @@ class PopularOffersViewModelTest {
     @Before
     fun setup() {
         MockKAnnotations.init(this)
+        mockkStatic("androidx.core.graphics.drawable.DrawableKt")
         popularOffersViewModel = PopularOffersViewModel(searchOffers, travellingAppImageLoader)
+
+        coEvery { travellingAppImageLoader.loadFromNetwork(any<List<String>>()) } returns mockk(
+            relaxed = true
+        )
+        every { mockDrawable.toBitmap(any(), any(), any()) } returns bitmap
+        coEvery { travellingAppImageLoader.loadFromNetwork(any<String>()) } returns mockDrawable
     }
 
     @Test
-    fun `ui state should be loading when begin to load offers`() = runBlocking {
+    fun `ui state should be loading when begin to load offers`() {
         val observer = mockk<Observer<UiState<List<PopularOffer>>>>()
 
         val slot = slot<UiState<List<PopularOffer>>>()
@@ -64,25 +77,26 @@ class PopularOffersViewModelTest {
     }
 
     @Test
-    fun `should successfully load popular offers when searched for offers`() = runBlocking {
+    fun `should successfully load popular offers when search for offers`() {
         val travelOffers: List<TravelOffer.PackageOffer> = listOf(
-            mockk(relaxed = true),
-            mockk(relaxed = true)
+            TravelOffer.PackageOffer("test", "", "", "", 20),
+            TravelOffer.PackageOffer("test2", "", "", "", 25),
         )
 
-        val offers: List<PopularOffer> = travelOffers.map {
-            PopularOffer(it.name, "20", mockk(relaxed = true))
-        }
+        val expectedPopularOffers: List<PopularOffer> = listOf(
+            PopularOffer("test", "20", bitmap),
+            PopularOffer("test2", "25", bitmap),
+        )
 
         coEvery { searchOffers.execute() } returns travelOffers
 
         popularOffersViewModel.loadPopularOffers()
 
-        assertEquals(UiState.Success(offers), popularOffersViewModel.uiState.value)
+        assertEquals(UiState.Success(expectedPopularOffers), popularOffersViewModel.uiState.value)
     }
 
     @Test
-    fun `should fail to load popular offers when search has errors`() = runBlocking {
+    fun `should update ui state with error when failed to search for offers`() {
         val error = SearchOffersNotFoundError()
 
         coEvery { searchOffers.execute() } throws error
@@ -94,29 +108,29 @@ class PopularOffersViewModelTest {
 
     @Test
     fun `should load all offer images before updating ui state`() = runBlocking {
+        val loadedImages = listOf(mockDrawable, mockDrawable)
+
         val travelOffers: List<TravelOffer.PackageOffer> = listOf(
-            mockk(relaxed = true),
-            mockk(relaxed = true)
+            TravelOffer.PackageOffer("test", "", "", "", 20),
+            TravelOffer.PackageOffer("test2", "", "", "", 25),
         )
 
-        val defaultImage = mockk<Bitmap>()
-        val loadedImages = listOf(defaultImage, defaultImage)
+        val expectedPopularOffers: List<PopularOffer> = listOf(
+            PopularOffer("test", "20", bitmap),
+            PopularOffer("test2", "25", bitmap),
+        )
 
         val imageUrls = travelOffers.map { it.imageUrl }
-
-        val offers: List<PopularOffer> = travelOffers.map {
-            PopularOffer(it.name, "20", defaultImage)
-        }
 
         coEvery { travellingAppImageLoader.loadFromNetwork(imageUrls) } returns loadedImages
         coEvery { searchOffers.execute() } returns travelOffers
 
         popularOffersViewModel.loadPopularOffers()
 
-        coVerify {
-            travellingAppImageLoader.loadFromNetwork(imageUrls)
+        coVerify(exactly = 2) {
+            travellingAppImageLoader.loadFromNetwork(any<String>())
         }
 
-        assertEquals(UiState.Success(offers), popularOffersViewModel.uiState.value)
+        assertEquals(UiState.Success(expectedPopularOffers), popularOffersViewModel.uiState.value)
     }
 }
