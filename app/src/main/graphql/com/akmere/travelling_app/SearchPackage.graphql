@@ -1,6 +1,6 @@
 query searchPackage($searchTerm: [String]!, $limit: Int!){
     searchPackage(filters: {
-        sku: {
+        cities: {
             values: $searchTerm
             operator: OR
         }
