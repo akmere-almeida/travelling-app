@@ -11,6 +11,7 @@ import com.akmere.travelling_app.domain.TravellingAppImageLoader
 import com.akmere.travelling_app.domain.errors.SearchOffersNotFoundError
 import com.akmere.travelling_app.domain.model.TravelOffer
 import com.akmere.travelling_app.presentation.UiState
+import com.akmere.travelling_app.presentation.home.model.FilterOptions
 import com.akmere.travelling_app.presentation.home.model.PopularOffer
 import kotlinx.coroutines.launch
 
@@ -23,12 +24,11 @@ class HomeViewModel(
     val uiState: LiveData<UiState<List<PopularOffer>>>
         get() = internalUiState
 
-    fun loadPopularOffers() {
+    fun loadPopularOffers(filterOptions: FilterOptions) {
         internalUiState.value = UiState.Loading
-
         viewModelScope.launch {
             try {
-                val response = searchOffers.execute()
+                val response = searchOffers.execute(filterOptions)
                 val popularOffers =
                     response.filterIsInstance<TravelOffer.PackageOffer>().associateWith {
                         loadImageResourceAsBitmap(it.imageUrl)

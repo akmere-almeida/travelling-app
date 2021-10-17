@@ -8,6 +8,7 @@ import com.akmere.travelling_app.data.repository.exceptions.OfferParseException
 import com.akmere.travelling_app.data.repository.exceptions.UnexpectedLoadException
 import com.akmere.travelling_app.domain.errors.SearchOffersNotFoundError
 import com.akmere.travelling_app.domain.model.TravelOffer
+import com.akmere.travelling_app.presentation.home.model.FilterOptions
 
 /**
  * Caso de uso para buscar por ofertas
@@ -30,9 +31,9 @@ class SearchOffers(
      * @throws SearchOffersNotFoundError
      */
     @Throws(SearchOffersNotFoundError::class)
-    suspend fun execute(): List<TravelOffer> {
+    suspend fun execute(filterOptions: FilterOptions): List<TravelOffer> {
         return try {
-            offerRepository.getOffers(imagesPerOffer = 1, searchTerms = listOf("Rio")).map {
+            offerRepository.getOffers(imagesPerOffer = 1, searchTerms = listOf(filterOptions.city, filterOptions.state)).map {
                 it.toTravelOffer()
             }
         } catch (e: OfferParseException) {
