@@ -1,10 +1,14 @@
 package com.akmere.travelling_app.data.repository
 
+import com.akmere.travelling_app.common.Logger
 import com.akmere.travelling_app.data.DataFixtures
 import com.akmere.travelling_app.data.JsonReader
 import com.akmere.travelling_app.data.model.PackageOfferData
+import com.akmere.travelling_app.data.repository.exceptions.OfferParseException
 import com.akmere.travelling_app.data.repository.exceptions.UnexpectedLoadException
 import com.apollographql.apollo.ApolloClient
+import io.mockk.impl.annotations.MockK
+import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -65,19 +69,20 @@ class PackageOfferRepositoryTest {
             assertEquals(resultName, resultImageDescription)
         }
 
-    @Test(expected = UnexpectedLoadException::class)
-    fun `should throw OfferParseException when failed to retrieve data due to parse error`() = runBlocking {
-        val response = JsonReader.readFile("broken_search_package_offer_response.json")
+    @Test(expected = OfferParseException::class)
+    fun `should throw OfferParseException when failed to retrieve data due to parse error`() =
+        runBlocking {
+            val response = JsonReader.readFile("broken_search_package_offer_response.json")
 
-        mockWebServer.enqueue(MockResponse().setBody(response))
+            mockWebServer.enqueue(MockResponse().setBody(response))
 
-        val expectedCollection = listOf(
-            DataFixtures.rioPackageOffer,
-            DataFixtures.paratyPackageOffer
-        )
+            val expectedCollection = listOf(
+                DataFixtures.rioPackageOffer,
+                DataFixtures.paratyPackageOffer
+            )
 
-        val result = packageOfferRepository.getOffers(1, listOf())
+            val result = packageOfferRepository.getOffers(1, listOf())
 
-        assertEquals(expectedCollection, result)
-    }
+            assertEquals(expectedCollection, result)
+        }
 }
