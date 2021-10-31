@@ -1,4 +1,4 @@
-package com.akmere.travelling_app.presentation.home.components
+package com.akmere.travelling_app.presentation.screen.home.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
