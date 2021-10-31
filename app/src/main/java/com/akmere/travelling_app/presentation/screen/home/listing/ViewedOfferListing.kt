@@ -19,7 +19,7 @@ fun ViewedOfferListing(viewedOffers: List<ViewedOffer>, onOfferSelected: (Viewed
                 Modifier
                     .padding(end = 16.dp)
                     .width(160.dp)
-                    .height(100.dp),
+                    .height(80.dp),
                 it,
                 onOfferSelected
             )
