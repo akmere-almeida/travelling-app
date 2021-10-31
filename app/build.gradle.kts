@@ -92,6 +92,7 @@ dependencies {
     implementation(Dependencies.Networking.coil)
     implementation(Dependencies.Android.easyPermissions)
     implementation(Dependencies.Android.servicesLocation)
+    implementation(Dependencies.Android.composeNavigation)
 
     testImplementation(Dependencies.Test.archCore)
     testImplementation(Dependencies.Test.jUnit)

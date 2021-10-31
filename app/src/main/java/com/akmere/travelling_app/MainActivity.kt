@@ -2,29 +2,18 @@ package com.akmere.travelling_app
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.akmere.travelling_app.common.AddressProvider
+import androidx.navigation.compose.rememberNavController
+import com.akmere.travelling_app.common.provider.AddressProvider
 import com.akmere.travelling_app.common.PermissionManager
 import com.akmere.travelling_app.dependencies.AppDependencies
 import com.akmere.travelling_app.presentation.common.AppTheme
-import com.akmere.travelling_app.presentation.home.HomeScreen
-import com.akmere.travelling_app.presentation.home.model.FilterOptions
-import com.akmere.travelling_app.presentation.viewmodel.HomeViewModel
-import com.akmere.travelling_app.presentation.viewmodel.factory.ViewModelFactory
+import com.akmere.travelling_app.presentation.screen.home.components.ScreenNavigator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
-    private val homeViewModel: HomeViewModel by viewModels {
-        ViewModelFactory(
-            owner = this,
-            searchOffers = AppDependencies.providesSearchOffers(),
-            travelAppImageLoader = AppDependencies.providesAppImageLoader(this)
-        )
-    }
-
     private val permissionManager: PermissionManager by lazy {
         PermissionManager(this)
     }
@@ -36,19 +25,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            AppTheme {
-                HomeScreen(homeViewModel = homeViewModel)
-            }
-        }
-    }
+            val navController = rememberNavController()
 
-    override fun onResume() {
-        super.onResume()
-        permissionManager.checkLocationPermission {
-            CoroutineScope(Dispatchers.Main).launch {
-                val address = addressProvider.loadAddress(it)
-                val filters = FilterOptions(address.city, address.state)
-                homeViewModel.loadHomeData(filters)
+            AppTheme {
+                ScreenNavigator(navController = navController) { viewModel ->
+                    permissionManager.checkLocationPermission { location ->
+                        CoroutineScope(Dispatchers.Main).launch {
+                            val address = addressProvider.loadAddress(location)
+//                            viewModel.setUserAddress(address)
+                        }
+                    }
+                }
             }
         }
     }
