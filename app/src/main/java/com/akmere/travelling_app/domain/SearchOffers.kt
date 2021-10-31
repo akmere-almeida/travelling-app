@@ -2,24 +2,27 @@ package com.akmere.travelling_app.domain
 
 import android.util.Log
 import com.akmere.travelling_app.common.Logger
-import com.akmere.travelling_app.data.model.PackageOfferData
-import com.akmere.travelling_app.data.repository.OfferRepository
-import com.akmere.travelling_app.data.repository.exceptions.OfferParseException
-import com.akmere.travelling_app.data.repository.exceptions.UnexpectedLoadException
+import com.akmere.travelling_app.common.model.OfferType
+import com.akmere.travelling_app.data.model.OfferData
+import com.akmere.travelling_app.data.service.OfferService
+import com.akmere.travelling_app.data.service.exceptions.OfferParseException
+import com.akmere.travelling_app.data.service.exceptions.UnexpectedLoadException
 import com.akmere.travelling_app.domain.errors.SearchOffersNotFoundError
+import com.akmere.travelling_app.domain.model.ImageItem
 import com.akmere.travelling_app.domain.model.TravelOffer
-import com.akmere.travelling_app.presentation.home.model.FilterOptions
+import com.akmere.travelling_app.presentation.model.FilterOptions
+import com.akmere.travelling_app.presentation.model.OfferCategory
 
 /**
  * Caso de uso para buscar por ofertas
  *
- * @param packageOfferRepository repositório responsável por carregar informações de ofertas
+ * @param offerService repositório responsável por carregar informações de ofertas
  *
- * @return uma lista de [PackageOfferData] contendo informações de oferta dos pacotes
+ * @return uma lista de [OfferData] contendo informações de oferta dos pacotes
  *
  */
 class SearchOffers(
-    private val packageOfferRepository: OfferRepository<PackageOfferData>,
+    private val offerService: OfferService,
     private val logger: Logger? = null
 ) {
     /**
@@ -33,7 +36,10 @@ class SearchOffers(
     @Throws(SearchOffersNotFoundError::class)
     suspend fun execute(filterOptions: FilterOptions): List<TravelOffer> {
         return try {
-            searchPackageOffers(filterOptions)
+            searchTravelOffers(filterOptions).apply {
+                if (isEmpty())
+                    throw SearchOffersNotFoundError()
+            }
         } catch (e: OfferParseException) {
             logger?.log(TAG, Log.DEBUG, message = e.message, throwable = e)
             throw SearchOffersNotFoundError()
@@ -43,22 +49,41 @@ class SearchOffers(
         }
     }
 
-    private suspend fun searchPackageOffers(filterOptions: FilterOptions) =
-        packageOfferRepository.getOffers(
-            imagesPerOffer = 1,
-            searchTerms = listOf(filterOptions.city, filterOptions.state)
-        ).map {
-            it.toTravelOffer()
+    private fun OfferCategory?.toOfferType(): List<OfferType> {
+        return when (this) {
+            is OfferCategory.Package -> listOf(OfferType.PACKAGE)
+            is OfferCategory.Hotel -> listOf(OfferType.HOTEL)
+            else ->
+                listOf(
+                    OfferType.PACKAGE,
+                    OfferType.HOTEL
+                )
         }
+    }
 
-    private fun PackageOfferData.toTravelOffer(): TravelOffer.PackageOffer {
-        return TravelOffer.PackageOffer(
-            name,
-            addressData.city,
-            addressData.country,
-            galleryData.images.first().url,
-            1
-        )
+    private suspend fun searchTravelOffers(filterOptions: FilterOptions): List<TravelOffer> {
+        return offerService.getOffers(
+            imagesPerOffer = 1,
+            suggestion = filterOptions.suggestionFilter,
+            searchTerm = filterOptions.searchTerm,
+            offerTypes = filterOptions.offerCategory.toOfferType()
+        ).map {
+            val address =
+                it.addressData.city.plus(", ").plus(it.addressData.country)
+
+            val image =
+                ImageItem(
+                    it.galleryData.images.first().url,
+                    it.galleryData.images.first().description
+                )
+            TravelOffer(
+                it.id,
+                it.name,
+                address,
+                image,
+                10
+            )
+        }
     }
 
     companion object {
