@@ -1,12 +1,16 @@
 package com.akmere.travelling_app.domain
 
 import com.akmere.travelling_app.common.model.OfferType
+import com.akmere.travelling_app.data.repository.FavoriteRepository
 import com.akmere.travelling_app.data.service.OfferService
 import com.akmere.travelling_app.domain.model.ImageItem
 import com.akmere.travelling_app.domain.model.OfferDetails
 import java.security.InvalidParameterException
 
-class LoadOfferDetails(private val offerRepository: OfferService) {
+class LoadOfferDetails(
+    private val offerRepository: OfferService,
+    private val favoriteRepository: FavoriteRepository
+) {
     suspend fun execute(id: String): OfferDetails {
 
         val productType = id.toOfferType()
@@ -31,12 +35,14 @@ class LoadOfferDetails(private val offerRepository: OfferService) {
         val address =
             offerDetailsData.address.city.plus(", ").plus(offerDetailsData.address.country)
 
+        val favoriteCount = favoriteRepository.getOfferFavoriteCount(id)
+
         return OfferDetails(
             id = offerDetailsData.id,
             name = offerDetailsData.name,
             description = offerDetailsData.description,
             address = address,
-            favoriteCount = 10,
+            favoriteCount = favoriteCount,
             lat = offerDetailsData.address.lat ?: 0.0,
             lon = offerDetailsData.address.lon ?: 0.0,
             mainImage = mainImageItem,

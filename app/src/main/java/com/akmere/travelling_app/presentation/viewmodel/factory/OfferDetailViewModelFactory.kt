@@ -8,7 +8,6 @@ import com.akmere.travelling_app.presentation.viewmodel.OfferDetailViewModel
 class OfferDetailViewModelFactory(
     private val travelAppImageLoader: TravellingAppImageLoader,
     private val loadOfferDetails: LoadOfferDetails,
-    private val loadOfferFavoriteCount: LoadOfferFavoriteCount,
     private val saveFavoriteOffer: SaveFavoriteOffer,
     private val isOfferFavorite: IsOfferFavorite,
     private val addViewedOffer: AddViewedOffer
@@ -18,7 +17,6 @@ class OfferDetailViewModelFactory(
             return OfferDetailViewModel(
                 travelAppImageLoader,
                 loadOfferDetails,
-                loadOfferFavoriteCount,
                 saveFavoriteOffer,
                 isOfferFavorite,
                 addViewedOffer
@@ -27,3 +25,4 @@ class OfferDetailViewModelFactory(
         throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
+

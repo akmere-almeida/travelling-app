@@ -36,7 +36,6 @@ fun OfferDetailScreen(navController: NavHostController, offerId: String) {
         factory = OfferDetailViewModelFactory(
             travelAppImageLoader = AppDependencies.providesAppImageLoader(LocalContext.current),
             loadOfferDetails = AppDependencies.providesGetOfferDetails(),
-            loadOfferFavoriteCount = AppDependencies.providesLoadFavoriteCount(),
             saveFavoriteOffer = AppDependencies.providesSaveFavoriteOffer(),
             isOfferFavorite = AppDependencies.providesIsOfferFavorite(),
             addViewedOffer = AppDependencies.providesAddViewedOffer(),

@@ -20,7 +20,6 @@ import kotlinx.coroutines.withContext
 class OfferDetailViewModel(
     private val travelAppImageLoader: TravellingAppImageLoader,
     private val loadOfferDetails: LoadOfferDetails,
-    private val loadOfferFavoriteCount: LoadOfferFavoriteCount,
     private val saveFavoriteOffer: SaveFavoriteOffer,
     private val isOfferFavorite: IsOfferFavorite,
     private val addViewedOffer: AddViewedOffer
@@ -49,7 +48,6 @@ class OfferDetailViewModel(
             }
 
             val isFavorite = isOfferFavorite.execute(offerDetailsResult.id)
-            val favoriteCount = loadOfferFavoriteCount.execute()
 
             val offerDetails = OfferDetails(
                 id = offerDetailsResult.id,
@@ -59,7 +57,7 @@ class OfferDetailViewModel(
                 locationUri = Uri.parse("geo:${offerDetailsResult.lat},${offerDetailsResult.lon}"),
                 about = offerDetailsResult.description,
                 gallery = gallery,
-                favoriteCount = "$favoriteCount",
+                favoriteCount = "${offerDetailsResult.favoriteCount}",
                 isFavorite = isFavorite
             )
 

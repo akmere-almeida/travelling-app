@@ -31,10 +31,6 @@ object AppDependencies {
         return LoadFavoriteOffers(favoriteRepository, offerService)
     }
 
-    fun providesLoadFavoriteCount(): LoadOfferFavoriteCount {
-        return LoadOfferFavoriteCount()
-    }
-
     fun providesIsOfferFavorite(): IsOfferFavorite {
         return IsOfferFavorite(favoriteRepository)
     }
@@ -44,7 +40,7 @@ object AppDependencies {
     }
 
     fun providesGetOfferDetails(): LoadOfferDetails {
-        return LoadOfferDetails(offerService)
+        return LoadOfferDetails(offerService, favoriteRepository)
     }
 
     fun providesSearchOffers(): SearchOffers = SearchOffers(offerService, favoriteRepository)
