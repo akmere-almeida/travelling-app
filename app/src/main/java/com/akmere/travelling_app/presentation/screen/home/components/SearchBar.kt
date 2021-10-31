@@ -2,7 +2,9 @@ package com.akmere.travelling_app.presentation.screen.home.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
@@ -10,6 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import com.akmere.travelling_app.presentation.common.AppShapes
 
 @Composable
 fun SearchBar(
@@ -18,7 +22,7 @@ fun SearchBar(
     onSearchClicked: () -> Unit,
     onTextClicked: () -> Unit,
 ) {
-    Card(modifier) {
+    Card(modifier, shape = AppShapes.medium) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -34,6 +38,7 @@ fun SearchBar(
                     text = text,
                     maxLines = 1,
                     color = Color.LightGray,
+                    modifier = Modifier.padding(start = 4.dp)
                 )
             }
             IconButton(

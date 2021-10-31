@@ -3,7 +3,6 @@ package com.akmere.travelling_app.presentation.screen.home.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -16,11 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.akmere.travelling_app.presentation.common.AppColorCodes
+import com.akmere.travelling_app.presentation.common.AppShapes
 
 @Composable
 fun FavoriteCounterTag(favoriteCount: String, modifier: Modifier) {
     Card(
-        shape = RoundedCornerShape(16.dp),
+        shape = AppShapes.large,
         modifier = modifier,
         contentColor = Color(AppColorCodes.Gray),
         backgroundColor = Color(AppColorCodes.Gray)

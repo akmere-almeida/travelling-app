@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -19,6 +18,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.akmere.travelling_app.presentation.common.AppShapes
 import com.akmere.travelling_app.presentation.common.Constants
 import com.akmere.travelling_app.presentation.screen.home.components.FavoriteCounterTag
 import com.akmere.travelling_app.presentation.model.PopularOffer
@@ -31,7 +31,7 @@ fun PopularOfferCard(
     onPopularOfferSelected: (PopularOffer) -> Unit
 ) {
     Card(
-        shape = RoundedCornerShape(8.dp),
+        shape = AppShapes.medium,
         modifier = modifier
             .width(168.dp)
             .height(176.dp)

@@ -7,11 +7,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,6 +21,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import com.akmere.travelling_app.presentation.common.components.BackButton
+import com.akmere.travelling_app.presentation.screen.offer_details.OfferDetailsShapes
 import com.akmere.travelling_app.presentation.screen.offer_details.model.OfferImage
 
 @Composable
@@ -42,7 +41,7 @@ fun OfferDetailsImageBox(
                 .align(Alignment.Center)
                 .height(250.dp)
                 .clip(
-                    RoundedCornerShape(bottomEndPercent = 15, bottomStartPercent = 15)
+                    OfferDetailsShapes.large
                 )
                 .clickable {
                     onImageSelected()

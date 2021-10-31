@@ -3,7 +3,6 @@ package com.akmere.travelling_app.presentation.screen.home.cards
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -15,13 +14,14 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import com.akmere.travelling_app.presentation.common.AppColorCodes
+import com.akmere.travelling_app.presentation.common.AppShapes
 import com.akmere.travelling_app.presentation.model.ViewedOffer
 
 @Composable
 fun ViewedOfferCard(modifier: Modifier, viewedOffer: ViewedOffer, onClick: (ViewedOffer) -> Unit) {
     Card(
         modifier = modifier.clickable(onClick = { onClick(viewedOffer) }),
-        shape = RoundedCornerShape(8.dp),
+        shape = AppShapes.medium,
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceEvenly,

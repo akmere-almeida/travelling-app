@@ -3,7 +3,6 @@ package com.akmere.travelling_app.presentation.screen.favorite.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -14,6 +13,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.akmere.travelling_app.presentation.common.AppShapes
 import com.akmere.travelling_app.presentation.screen.favorite.model.FavoriteOffer
 
 
@@ -25,7 +25,7 @@ fun FavoriteOfferCard(
     onFavoriteOfferSelected: (FavoriteOffer) -> Unit
 ) {
     Card(
-        shape = RoundedCornerShape(8.dp),
+        shape = AppShapes.medium,
         modifier = modifier
             .clickable(onClick = { onFavoriteOfferSelected(favoriteOffer) })
     ) {

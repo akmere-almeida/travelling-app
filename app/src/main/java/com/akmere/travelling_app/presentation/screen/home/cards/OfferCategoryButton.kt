@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.akmere.travelling_app.presentation.common.AppShapes
 import com.akmere.travelling_app.presentation.model.OfferCategory
 
 @Composable
@@ -38,9 +39,7 @@ fun OfferCategoryButton(
     }
 
     IconButton(
-        modifier = modifier
-            .background(color = bgColor)
-            .clip(shape = RoundedCornerShape(8.dp)),
+        modifier = modifier.background(color = bgColor, AppShapes.medium),
         onClick = { onCategorySelected(offerCategory) }) {
         OfferCategoryButtonContent(
             offerCategory,

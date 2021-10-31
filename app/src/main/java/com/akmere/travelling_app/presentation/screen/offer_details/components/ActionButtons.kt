@@ -2,7 +2,6 @@ package com.akmere.travelling_app.presentation.screen.offer_details.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.ButtonDefaults.buttonColors
 import androidx.compose.material.icons.Icons
@@ -14,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.akmere.travelling_app.presentation.common.AppColorCodes.Red
+import com.akmere.travelling_app.presentation.common.AppShapes
 
 @Composable
 fun ActionButtons(modifier: Modifier, isFavorite: Boolean, onFavorite: () -> Unit) {
@@ -35,7 +35,7 @@ private fun OrderOfferButton(modifier: Modifier){
         onClick = {
             //TODO()
         },
-        shape = RoundedCornerShape(15),
+        shape = AppShapes.large,
         colors = buttonColors(
             backgroundColor = MaterialTheme.colors.secondary,
             contentColor = MaterialTheme.colors.primary
