@@ -1,4 +1,4 @@
-package com.akmere.travelling_app.presentation.home.cards
+package com.akmere.travelling_app.presentation.screen.home.cards
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -20,17 +20,22 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.akmere.travelling_app.presentation.common.Constants
-import com.akmere.travelling_app.presentation.home.components.FavoriteCounterTag
-import com.akmere.travelling_app.presentation.home.model.PopularOffer
+import com.akmere.travelling_app.presentation.screen.home.components.FavoriteCounterTag
+import com.akmere.travelling_app.presentation.model.PopularOffer
 
 @Composable
-fun PopularOfferCard(popularOffer: PopularOffer, modifier: Modifier, imageBitmap: ImageBitmap) {
+fun PopularOfferCard(
+    popularOffer: PopularOffer,
+    modifier: Modifier,
+    imageBitmap: ImageBitmap,
+    onPopularOfferSelected: (PopularOffer) -> Unit
+) {
     Card(
         shape = RoundedCornerShape(8.dp),
         modifier = modifier
             .width(168.dp)
             .height(176.dp)
-            .clickable(onClick = { /* Ignoring onClick */ })
+            .clickable(onClick = { onPopularOfferSelected(popularOffer) })
     ) {
         Box {
             Image(

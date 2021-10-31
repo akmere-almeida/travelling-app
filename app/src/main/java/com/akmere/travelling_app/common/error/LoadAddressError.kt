@@ -1,4 +1,4 @@
-package com.akmere.travelling_app.common
+package com.akmere.travelling_app.common.error
 
 class LoadAddressError(override val message: String? = DEFAULT_MESSAGE) : Exception() {
     companion object {

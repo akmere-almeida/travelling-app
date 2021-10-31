@@ -1,4 +1,4 @@
-package com.akmere.travelling_app.presentation
+package com.akmere.travelling_app.presentation.state
 
 sealed class UiState<out T : Any?> {
 

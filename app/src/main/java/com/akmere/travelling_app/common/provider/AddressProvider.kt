@@ -1,10 +1,12 @@
-package com.akmere.travelling_app.common
+package com.akmere.travelling_app.common.provider
 
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.util.Log
-import com.akmere.travelling_app.data.repository.exceptions.UnexpectedLoadException
+import com.akmere.travelling_app.common.error.AddressNotFoundError
+import com.akmere.travelling_app.common.error.LoadAddressError
+import com.akmere.travelling_app.common.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
