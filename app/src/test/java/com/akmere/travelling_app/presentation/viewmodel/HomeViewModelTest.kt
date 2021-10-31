@@ -5,22 +5,20 @@ import android.graphics.drawable.Drawable
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.Observer
+import com.akmere.travelling_app.domain.LoadLastViewedOffers
 import com.akmere.travelling_app.domain.SearchOffers
 import com.akmere.travelling_app.domain.TravellingAppImageLoader
 import com.akmere.travelling_app.domain.errors.SearchOffersNotFoundError
+import com.akmere.travelling_app.domain.model.ImageItem
 import com.akmere.travelling_app.domain.model.TravelOffer
-import com.akmere.travelling_app.presentation.UiState
-import com.akmere.travelling_app.presentation.home.model.FilterOptions
-import com.akmere.travelling_app.presentation.home.model.PopularOffer
-import io.mockk.MockKAnnotations
-import io.mockk.coEvery
-import io.mockk.coVerify
-import io.mockk.every
+import com.akmere.travelling_app.presentation.model.FilterOptions
+import com.akmere.travelling_app.presentation.model.OfferCategory
+import com.akmere.travelling_app.presentation.model.PopularOffer
+import com.akmere.travelling_app.presentation.state.PopularOfferListingState
+import com.akmere.travelling_app.presentation.state.UiState
+import io.mockk.*
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
-import io.mockk.mockk
-import io.mockk.mockkStatic
-import io.mockk.slot
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -34,13 +32,17 @@ class HomeViewModelTest {
     @MockK
     private lateinit var travellingAppImageLoader: TravellingAppImageLoader
 
+    @MockK
+    private lateinit var loadLastViewedOffers: LoadLastViewedOffers
+
     @RelaxedMockK
     private lateinit var mockDrawable: Drawable
 
     @RelaxedMockK
     private lateinit var bitmap: Bitmap
 
-    private val filterOptions: FilterOptions = FilterOptions("city", "state")
+    private val filterOptions: FilterOptions =
+        FilterOptions("city", OfferCategory.Package, "")
 
     private lateinit var homeViewModel: HomeViewModel
 
@@ -51,7 +53,7 @@ class HomeViewModelTest {
     fun setup() {
         MockKAnnotations.init(this)
         mockkStatic("androidx.core.graphics.drawable.DrawableKt")
-        homeViewModel = HomeViewModel(searchOffers, travellingAppImageLoader)
+        homeViewModel = HomeViewModel(searchOffers, travellingAppImageLoader, loadLastViewedOffers)
 
         coEvery { travellingAppImageLoader.loadFromNetwork(any<List<String>>()) } returns mockk(
             relaxed = true
@@ -61,15 +63,15 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun `ui state should be loading when begin to load offers`() {
-        val observer = mockk<Observer<UiState<HomeState>>>()
+    fun `ui states should be loading when begin to load offers`() {
+        val observer = mockk<Observer<UiState<PopularOfferListingState>>>()
 
-        val slot = slot<UiState<HomeState>>()
+        val slot = slot<UiState<PopularOfferListingState>>()
 
-        val uiStates = mutableListOf<UiState<HomeState>>()
+        val uiStates = mutableListOf<UiState<PopularOfferListingState>>()
 
-        homeViewModel.uiState.observeForever(observer)
-        val travelOffers: List<TravelOffer.PackageOffer> = listOf(
+        homeViewModel.popularOffersUiState.observeForever(observer)
+        val travelOffers: List<TravelOffer> = listOf(
             mockk(relaxed = true),
             mockk(relaxed = true)
         )
@@ -80,28 +82,31 @@ class HomeViewModelTest {
             observer.onChanged(capture(slot))
         } answers { uiStates.add(slot.captured) }
 
-        homeViewModel.loadHomeData(filterOptions)
+        homeViewModel.loadPopularOffersData(filterOptions)
 
         assertEquals(UiState.Loading, uiStates.first())
     }
 
     @Test
     fun `should successfully load popular offers when search for offers`() {
-        val travelOffers: List<TravelOffer.PackageOffer> = listOf(
-            TravelOffer.PackageOffer("test", "", "", "", 20),
-            TravelOffer.PackageOffer("test2", "", "", "", 25),
+        val image: ImageItem = mockk(relaxed = true)
+        val travelOffers: List<TravelOffer> = listOf(
+            TravelOffer("test", "", "", image, 20),
+            TravelOffer("test2", "", "", image, 25),
         )
 
-        val expectedState = HomeState(listOf(
-            PopularOffer("test", "20", bitmap),
-            PopularOffer("test2", "25", bitmap),
-        ), "city, state")
+        val expectedState = PopularOfferListingState(
+            listOf(
+                PopularOffer("offer1", "test", "20", bitmap),
+                PopularOffer("offer2", "test", "25", bitmap),
+            )
+        )
 
         coEvery { searchOffers.execute(filterOptions) } returns travelOffers
 
-        homeViewModel.loadHomeData(filterOptions)
+        homeViewModel.loadPopularOffersData(filterOptions)
 
-        assertEquals(UiState.Success(expectedState), homeViewModel.uiState.value)
+        assertEquals(UiState.Success(expectedState), homeViewModel.popularOffersUiState.value)
     }
 
     @Test
@@ -110,36 +115,39 @@ class HomeViewModelTest {
 
         coEvery { searchOffers.execute(filterOptions) } throws error
 
-        homeViewModel.loadHomeData(filterOptions)
+        homeViewModel.loadPopularOffersData(filterOptions)
 
-        assertEquals(UiState.Error(error), homeViewModel.uiState.value)
+        assertEquals(UiState.Error(error), homeViewModel.popularOffersUiState.value)
     }
 
     @Test
-    fun `should load all offer images before updating ui state`() = runBlocking {
+    fun `popular offers should have images`() = runBlocking {
         val loadedImages = listOf(mockDrawable, mockDrawable)
 
-        val travelOffers: List<TravelOffer.PackageOffer> = listOf(
-            TravelOffer.PackageOffer("test", "", "", "", 20),
-            TravelOffer.PackageOffer("test2", "", "", "", 25),
+        val imageItem = mockk<ImageItem>(relaxed = true)
+        val travelOffers: List<TravelOffer> = listOf(
+            TravelOffer("test", "", "", imageItem, 20),
+            TravelOffer("test2", "", "", imageItem, 25),
         )
 
-        val expectedState = HomeState(listOf(
-            PopularOffer("test", "20", bitmap),
-            PopularOffer("test2", "25", bitmap),
-        ), "city, state")
+        val expectedState = PopularOfferListingState(
+            listOf(
+                PopularOffer("offer1", "test", "20", bitmap),
+                PopularOffer("offer2", "test", "25", bitmap),
+            )
+        )
 
-        val imageUrls = travelOffers.map { it.imageUrl }
+        val imageUrls = travelOffers.map { it.image.url }
 
         coEvery { travellingAppImageLoader.loadFromNetwork(imageUrls) } returns loadedImages
         coEvery { searchOffers.execute(filterOptions) } returns travelOffers
 
-        homeViewModel.loadHomeData(filterOptions)
+        homeViewModel.loadPopularOffersData(filterOptions)
 
         coVerify(exactly = 2) {
             travellingAppImageLoader.loadFromNetwork(any<String>())
         }
 
-        assertEquals(UiState.Success(expectedState), homeViewModel.uiState.value)
+        assertEquals(UiState.Success(expectedState), homeViewModel.popularOffersUiState.value)
     }
 }

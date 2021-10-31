@@ -4,22 +4,50 @@ import android.content.Context
 import android.location.Geocoder
 import coil.ImageLoader
 import com.akmere.travelling_app.BuildConfig
-import com.akmere.travelling_app.common.AddressProvider
+import com.akmere.travelling_app.common.provider.AddressProvider
 import com.akmere.travelling_app.common.DebugLogger
 import com.akmere.travelling_app.common.Logger
-import com.akmere.travelling_app.data.model.PackageOfferData
+import com.akmere.travelling_app.data.repository.FavoriteRepository
+import com.akmere.travelling_app.data.repository.ViewedOfferRepository
 import com.akmere.travelling_app.data.networking.NetworkClientProvider
 import com.akmere.travelling_app.data.repository.OfferRepository
-import com.akmere.travelling_app.data.repository.PackageOfferRepository
-import com.akmere.travelling_app.domain.SearchOffers
-import com.akmere.travelling_app.domain.TravellingAppImageLoader
-import com.akmere.travelling_app.presentation.home.model.FilterOptions
+import com.akmere.travelling_app.data.repository.SuggestionsRepository
+import com.akmere.travelling_app.data.service.OfferService
+import com.akmere.travelling_app.data.service.SuggestionService
+import com.akmere.travelling_app.domain.*
 import com.apollographql.apollo.ApolloClient
 import okhttp3.OkHttpClient
 
 object AppDependencies {
+    fun providesLoadLastViewedOffers(): LoadLastViewedOffers {
+        return LoadLastViewedOffers(viewedOfferRepository, OFFER_SERVICE)
+    }
 
-    fun providesSearchOffers(): SearchOffers = SearchOffers(packageOfferRepository)
+    fun providesAddViewedOffer(): AddViewedOffer {
+        return AddViewedOffer(viewedOfferRepository)
+    }
+
+    fun providesLoadFavoriteOffers(): LoadFavoriteOffers {
+        return LoadFavoriteOffers(favoriteRepository, OFFER_SERVICE)
+    }
+
+    fun providesLoadFavoriteCount(): LoadOfferFavoriteCount {
+        return LoadOfferFavoriteCount()
+    }
+
+    fun providesIsOfferFavorite(): IsOfferFavorite {
+        return IsOfferFavorite(favoriteRepository)
+    }
+
+    fun providesSaveFavoriteOffer(): SaveFavoriteOffer {
+        return SaveFavoriteOffer(favoriteRepository)
+    }
+
+    fun providesGetOfferDetails(): LoadOfferDetails {
+        return LoadOfferDetails(OFFER_SERVICE)
+    }
+
+    fun providesSearchOffers(): SearchOffers = SearchOffers(OFFER_SERVICE)
 
     fun providesAppImageLoader(context: Context): TravellingAppImageLoader =
         TravellingAppImageLoader(providesCoilImageLoader(context), context, logger)
@@ -28,8 +56,16 @@ object AppDependencies {
         return AddressProvider(providesGeocoder(context), logger)
     }
 
-    private val packageOfferRepository: OfferRepository<PackageOfferData> by lazy {
-        PackageOfferRepository(apolloClient, logger)
+    fun providesLoadFilterSuggestions(): LoadFilterSuggestions {
+        return LoadFilterSuggestions(suggestionService)
+    }
+
+    private val OFFER_SERVICE: OfferService by lazy {
+        OfferRepository(apolloClient, logger)
+    }
+
+    private val suggestionService: SuggestionService by lazy {
+        SuggestionsRepository(apolloClient, logger)
     }
 
     private val apolloClient: ApolloClient by lazy {
@@ -46,6 +82,14 @@ object AppDependencies {
         } else {
             null
         }
+    }
+
+    private val favoriteRepository: FavoriteRepository by lazy {
+        FavoriteRepository()
+    }
+
+    private val viewedOfferRepository: ViewedOfferRepository by lazy {
+        ViewedOfferRepository()
     }
 
     private fun providesCoilImageLoader(context: Context): ImageLoader {

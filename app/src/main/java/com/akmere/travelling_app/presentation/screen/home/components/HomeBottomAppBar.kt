@@ -1,4 +1,4 @@
-package com.akmere.travelling_app.presentation.home.components
+package com.akmere.travelling_app.presentation.screen.home.components
 
 import androidx.compose.material.BottomAppBar
 import androidx.compose.material.BottomNavigation
@@ -15,8 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-@Preview
-fun HomeBottomAppBar() {
+fun HomeBottomAppBar(onFavoriteSelected: () -> Unit) {
     BottomAppBar(
         content = {
             BottomNavigation(backgroundColor = MaterialTheme.colors.primary) {
@@ -27,8 +26,6 @@ fun HomeBottomAppBar() {
                     label = { Text(text = "Home") },
                     selected = true,
                     onClick = {
-//                                        result.value = "Favorite icon clicked"
-//                                        selectedItem.value = "favorite"
                     },
                     alwaysShowLabel = true,
                     selectedContentColor = MaterialTheme.colors.secondaryVariant,
@@ -42,8 +39,7 @@ fun HomeBottomAppBar() {
                     label = { Text(text = "Favoritos") },
                     selected = false,
                     onClick = {
-//                                        result.value = "Save icon clicked"
-//                                        selectedItem.value = "save"
+                        onFavoriteSelected()
                     },
                     alwaysShowLabel = true,
                     selectedContentColor = MaterialTheme.colors.secondaryVariant,
