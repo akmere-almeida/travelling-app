@@ -104,5 +104,5 @@ object DataFixtures {
         )
     )
 
-    val offersData = listOf(paratyPackageOffer, paratyPackageOffer, rioPackageOffer, rioPackageOffer)
+    val offersData = listOf(paratyPackageOffer, paratyPackageOffer.copy(id = "LGPKG-1139339-2"), rioPackageOffer, rioPackageOffer.copy(id = "LGPKG-1139339-3"))
 }

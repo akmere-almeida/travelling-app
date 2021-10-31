@@ -3,7 +3,7 @@ package com.akmere.travelling_app.domain
 import com.akmere.travelling_app.data.DataFixtures
 import com.akmere.travelling_app.data.repository.FavoriteRepository
 import com.akmere.travelling_app.data.service.OfferService
-import com.akmere.travelling_app.domain.DomainFixtures.orderedDescendingByFavoriteCountOffers
+import com.akmere.travelling_app.domain.DomainFixtures.offersOrderedDescendingByFavoriteCount
 import com.akmere.travelling_app.presentation.model.FilterOptions
 import io.mockk.coEvery
 import io.mockk.every
@@ -14,7 +14,6 @@ import org.junit.Before
 import org.junit.Test
 
 class SearchOffersTest {
-
     private val offerService = mockk<OfferService>()
     private val favoriteRepository = mockk<FavoriteRepository>()
 
@@ -34,7 +33,7 @@ class SearchOffersTest {
                 150 andThen
                 149
 
-        val expectedOffers = orderedDescendingByFavoriteCountOffers
+        val expectedOffers = offersOrderedDescendingByFavoriteCount
         val resultOffers = searchOffers.execute(FilterOptions.empty)
 
         assertEquals(expectedOffers, resultOffers)

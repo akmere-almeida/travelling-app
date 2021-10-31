@@ -10,6 +10,7 @@ import com.akmere.travelling_app.data.service.OfferService
 import com.akmere.travelling_app.data.service.exceptions.OfferParseException
 import com.akmere.travelling_app.data.service.exceptions.UnexpectedLoadException
 import com.akmere.travelling_app.domain.errors.SearchOffersNotFoundError
+import com.akmere.travelling_app.domain.model.ImageItem
 import com.akmere.travelling_app.domain.model.TravelOffer
 import com.akmere.travelling_app.presentation.model.FilterOptions
 import com.akmere.travelling_app.presentation.model.OfferCategory
