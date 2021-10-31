@@ -1,0 +1,23 @@
+query SearchOfferByIds($ids: [String]!, $limit: Int!){
+    search(filters: {
+        sku: {
+            values: $ids
+            operator: OR
+        }
+    }) {
+        results {
+            sku
+            name
+            isAvailable
+            description
+            address {
+                city
+                country
+            }
+            gallery(limit: $limit) {
+                url(quality: HIGH, resolution: ORIGINAL)
+                description
+            }
+        }
+    }
+}

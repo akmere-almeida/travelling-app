@@ -1,0 +1,23 @@
+query SearchOfferByTerm($productTypes: [String]!, $searchTerm: String, $limit: Int!){
+    search(q: $searchTerm, filters: {
+        productType: {
+            values: $productTypes
+            operator: OR
+        }
+    }) {
+        results {
+            sku
+            name
+            isAvailable
+            description
+            address {
+                city
+                country
+            }
+            gallery(limit: $limit) {
+                url(quality: HIGH, resolution: ORIGINAL)
+                description
+            }
+        }
+    }
+}
