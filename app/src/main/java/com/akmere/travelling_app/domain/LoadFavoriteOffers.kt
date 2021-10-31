@@ -24,6 +24,8 @@ class LoadFavoriteOffers(
                 if (isEmpty())
                     throw SuggestionFiltersNotFoundError()
             }.map { offerData ->
+                val favoriteCount = favoriteRepository.getOfferFavoriteCount(offerData.id)
+
                 val address =
                     offerData.addressData.city.plus(", ").plus(offerData.addressData.country)
 
@@ -38,7 +40,7 @@ class LoadFavoriteOffers(
                     offerData.name,
                     address,
                     image,
-                    10
+                    favoriteCount
                 )
             }
         }.onFailure {

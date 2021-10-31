@@ -1,5 +1,6 @@
 package com.akmere.travelling_app.domain
 
+import com.akmere.travelling_app.data.repository.FavoriteRepository
 import com.akmere.travelling_app.data.repository.ViewedOfferRepository
 import com.akmere.travelling_app.data.service.OfferService
 import com.akmere.travelling_app.domain.errors.SuggestionFiltersNotFoundError
@@ -8,6 +9,7 @@ import com.akmere.travelling_app.domain.model.TravelOffer
 
 class LoadLastViewedOffers(
     private val viewedOfferRepository: ViewedOfferRepository,
+    private val favoriteRepository: FavoriteRepository,
     private val offerService: OfferService
 ) {
     suspend fun execute(): List<TravelOffer> {
@@ -24,6 +26,7 @@ class LoadLastViewedOffers(
                 if (isEmpty())
                     throw SuggestionFiltersNotFoundError()
             }.map { offerData ->
+                val favoriteCount = favoriteRepository.getOfferFavoriteCount(offerData.id)
                 val address =
                     offerData.addressData.country ?: offerData.addressData.state ?: ""
 
@@ -38,7 +41,7 @@ class LoadLastViewedOffers(
                     offerData.addressData.city ?: "",
                     address,
                     image,
-                    10
+                    favoriteCount
                 )
             }
         }.onFailure {

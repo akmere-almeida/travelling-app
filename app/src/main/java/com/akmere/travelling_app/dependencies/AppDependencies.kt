@@ -20,7 +20,7 @@ import okhttp3.OkHttpClient
 
 object AppDependencies {
     fun providesLoadLastViewedOffers(): LoadLastViewedOffers {
-        return LoadLastViewedOffers(viewedOfferRepository, OFFER_SERVICE)
+        return LoadLastViewedOffers(viewedOfferRepository, favoriteRepository, offerService)
     }
 
     fun providesAddViewedOffer(): AddViewedOffer {
@@ -28,7 +28,7 @@ object AppDependencies {
     }
 
     fun providesLoadFavoriteOffers(): LoadFavoriteOffers {
-        return LoadFavoriteOffers(favoriteRepository, OFFER_SERVICE)
+        return LoadFavoriteOffers(favoriteRepository, offerService)
     }
 
     fun providesLoadFavoriteCount(): LoadOfferFavoriteCount {
@@ -44,10 +44,10 @@ object AppDependencies {
     }
 
     fun providesGetOfferDetails(): LoadOfferDetails {
-        return LoadOfferDetails(OFFER_SERVICE)
+        return LoadOfferDetails(offerService)
     }
 
-    fun providesSearchOffers(): SearchOffers = SearchOffers(OFFER_SERVICE)
+    fun providesSearchOffers(): SearchOffers = SearchOffers(offerService, favoriteRepository)
 
     fun providesAppImageLoader(context: Context): TravellingAppImageLoader =
         TravellingAppImageLoader(providesCoilImageLoader(context), context, logger)
@@ -60,7 +60,7 @@ object AppDependencies {
         return LoadFilterSuggestions(suggestionService)
     }
 
-    private val OFFER_SERVICE: OfferService by lazy {
+    private val offerService: OfferService by lazy {
         OfferRepository(apolloClient, logger)
     }
 

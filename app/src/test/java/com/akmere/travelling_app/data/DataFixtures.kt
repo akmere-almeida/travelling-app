@@ -103,4 +103,6 @@ object DataFixtures {
             )
         )
     )
+
+    val offersData = listOf(paratyPackageOffer, paratyPackageOffer, rioPackageOffer, rioPackageOffer)
 }

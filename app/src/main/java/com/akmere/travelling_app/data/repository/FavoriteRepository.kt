@@ -1,20 +1,30 @@
 package com.akmere.travelling_app.data.repository
 
+import kotlin.random.Random
+import kotlin.random.nextInt
+
 
 class FavoriteRepository {
-    private val favoriteDatasource = mutableMapOf<String, Boolean>()
+    private val favoriteOffersDatasource = mutableMapOf<String, Boolean>()
+    private val offerFavoriteCountDatasource = mutableMapOf<String, Int>()
 
     fun addFavorite(id: String, boolean: Boolean) {
-        favoriteDatasource[id]?.let {
-            favoriteDatasource[id] = boolean
-        } ?: favoriteDatasource.put(id, boolean)
+        favoriteOffersDatasource[id]?.let {
+            favoriteOffersDatasource[id] = boolean
+        } ?: favoriteOffersDatasource.put(id, boolean)
     }
 
     fun isFavorite(id: String): Boolean {
-        return favoriteDatasource[id] ?: false
+        return favoriteOffersDatasource[id] ?: false
     }
 
     fun getIds(): List<String> {
-        return favoriteDatasource.map { it.key }
+        return favoriteOffersDatasource.map { it.key }
+    }
+
+    fun getOfferFavoriteCount(id: String): Int {
+        return offerFavoriteCountDatasource.getOrPut(id) {
+            Random.nextInt(10..3000)
+        }
     }
 }
