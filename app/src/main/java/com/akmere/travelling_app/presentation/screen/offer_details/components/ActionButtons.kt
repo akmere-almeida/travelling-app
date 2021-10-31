@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.akmere.travelling_app.presentation.common.AppColorCodes
 import com.akmere.travelling_app.presentation.common.AppColorCodes.Red
 import com.akmere.travelling_app.presentation.common.AppShapes
 

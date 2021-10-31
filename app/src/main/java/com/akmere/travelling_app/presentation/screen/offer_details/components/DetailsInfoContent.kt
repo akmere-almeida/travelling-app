@@ -9,15 +9,18 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.LocationOn
-import androidx.compose.material.icons.outlined.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.akmere.travelling_app.presentation.common.AppColorCodes
+import com.akmere.travelling_app.presentation.common.AppShapes
 import com.akmere.travelling_app.presentation.screen.offer_details.model.OfferDetails
 
 
@@ -32,25 +35,28 @@ fun DetailsInfoContent(
     Column(modifier) {
         Row(
             Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
+            horizontalArrangement = Arrangement.SpaceAround,
         ) {
             Text(
                 text = offerDetails.title,
+                modifier = Modifier.weight(3f).align(Alignment.CenterVertically),
                 style = MaterialTheme.typography.h6.copy(fontWeight = FontWeight.Bold),
                 color = MaterialTheme.colors.secondary,
             )
             Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceEvenly,
+                modifier = Modifier.weight(1f),
+                verticalAlignment = Alignment.Top,
+                horizontalArrangement = Arrangement.End
             ) {
                 Icon(
-                    imageVector = Icons.Outlined.Star,
+                    imageVector = Icons.Outlined.Favorite,
+                    modifier = Modifier.align(Alignment.CenterVertically),
                     contentDescription = "Favoritos",
-                    tint = Color.Yellow
+                    tint = Color(AppColorCodes.Red)
                 )
                 Text(
                     text = offerDetails.favoriteCount,
+                    modifier = Modifier.align(Alignment.CenterVertically),
                     style = MaterialTheme.typography.body2.copy(fontWeight = FontWeight.Bold),
                     color = MaterialTheme.colors.secondary,
                 )
@@ -81,7 +87,7 @@ fun DetailsInfoContent(
         }
 
         Column(
-            modifier = Modifier.padding(top = 16.dp),
+            modifier = Modifier.padding(top = 16.dp).clip(AppShapes.small),
         ) {
             Text(
                 text = "Sobre",
