@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.akmere.travelling_app.presentation.common.AppColorCodes
 import com.akmere.travelling_app.presentation.common.AppShapes
@@ -23,31 +24,26 @@ fun ViewedOfferCard(modifier: Modifier, viewedOffer: ViewedOffer, onClick: (View
         modifier = modifier.clickable(onClick = { onClick(viewedOffer) }),
         shape = AppShapes.medium,
     ) {
-        Row(
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .padding(start = 2.dp, end = 2.dp)
-                .fillMaxSize()
-        ) {
+        Row{
             Image(
                 bitmap = viewedOffer.image.asImageBitmap(),
                 contentDescription = viewedOffer.title,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.weight(1f),
-                )
+                modifier = Modifier.weight(3f).fillMaxSize()
+            )
             Column(
-                modifier = Modifier.weight(2f),
+                modifier = Modifier.weight(4f).padding(start = 4.dp),
                 verticalArrangement = Arrangement.SpaceEvenly,
             ) {
 
                 Text(
                     text = viewedOffer.title,
-                    style = MaterialTheme.typography.body1,
-                    color = MaterialTheme.colors.secondary
+                    style = MaterialTheme.typography.body2.copy(fontWeight = FontWeight.Bold),
+                    color = MaterialTheme.colors.secondary,
+                    modifier = Modifier.fillMaxWidth()
                 )
                 Text(
-                    text = viewedOffer.title,
+                    text = viewedOffer.location,
                     style = MaterialTheme.typography.body2,
                     color = Color(AppColorCodes.Gray)
                 )
