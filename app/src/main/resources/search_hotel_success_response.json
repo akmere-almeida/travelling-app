@@ -1,0 +1,35 @@
+{
+  "data": {
+    "__typename": "Query",
+    "searchHotel": {
+      "__typename": "SearchHotel",
+      "results": [
+        {
+          "__typename": "SearchResultHotelItem",
+          "sku": "HT-F9DW-0-0-0-0-0-0-0-0-0",
+          "name": "Sheraton Grand Rio Hotel & Resort",
+          "isAvailable": true,
+          "description": "Situado entre a badalada Barra da Tijuca e a famosa praia de Ipanema",
+          "address": {
+            "__typename": "SearchResultItemAddress",
+            "city": "Rio de Janeiro",
+            "state": "Rio de Janeiro",
+            "country": "Brasil",
+            "geoLocation": {
+              "__typename": "Coordinates",
+              "lat": -22.9924024,
+              "lon": -43.2333255
+            }
+          },
+          "gallery": [
+            {
+              "__typename": "SearchResultItemGalleryImage",
+              "url": "https://thumbcdn-z.hotelurbano.net/KXMpFDkJNZvI_oqdiAiv-D3HWWs=/origxorig/center/middle/filters:quality(70)/https://novo-hu.s3.amazonaws.com/reservas/ota/prod/hotel/3187/sheraton-rio-grand-hotel-e-resort-062_20200207102618.jpg",
+              "description": ""
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

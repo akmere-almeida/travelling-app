@@ -1,0 +1,27 @@
+query SearchOfferBySuggestion($productTypes: [String]!, $suggestion: String, $limit: Int!){
+    search(filters: {
+        cities: {
+            values: [$suggestion]
+            operator: OR
+        }
+        productType: {
+            values: $productTypes
+            operator: OR
+        }
+    }) {
+        results {
+            sku
+            name
+            isAvailable
+            description
+            address {
+                city
+                country
+            }
+            gallery(limit: $limit) {
+                url(quality: HIGH, resolution: ORIGINAL)
+                description
+            }
+        }
+    }
+}

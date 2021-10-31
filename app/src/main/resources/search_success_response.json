@@ -1,0 +1,47 @@
+{
+  "data": {
+    "search": {
+      "__typename": "Search",
+      "results": [
+        {
+          "__typename": "SearchResultPackageItem",
+          "sku": "LGPKG-1139339-0",
+          "name": "Pacote de Viagem - Rio de Janeiro - Carnaval 2022",
+          "isAvailable": true,
+          "description": "Hospedagem:&nbsp;em&nbsp;Rio de Janeiro.&nbsp;O&nbsp;Hurb",
+          "address": {
+            "__typename": "SearchResultItemAddress",
+            "city": "Rio de Janeiro",
+            "country": "Brasil"
+          },
+          "gallery": [
+            {
+              "__typename": "SearchResultItemGalleryImage",
+              "url": "https://thumbcdn-z.hotelurbano.net/gkkweJJ_9JccaeWKEN-2M0i7cmo=/origxorig/center/middle/filters:quality(70)/https://s3.amazonaws.com/legado-prod/prod/ofertas/imagens/2021/10/29/12/33/shutterstock_481240843.jpg",
+              "description": null
+            }
+          ]
+        },
+        {
+          "__typename": "SearchResultPackageItem",
+          "sku": "LGPKG-1044784-0",
+          "name": "Pacote Paraty",
+          "isAvailable": true,
+          "description": "O pacote&nbsp;inclui:\r\n\r\nA&eacute;reo:&nbsp;Passagem a&eacute;rea",
+          "address": {
+            "__typename": "SearchResultItemAddress",
+            "city": "Paraty",
+            "country": "Brasil"
+          },
+          "gallery": [
+            {
+              "__typename": "SearchResultItemGalleryImage",
+              "url": "https://thumbcdn-z.hotelurbano.net/aTml11sBrmGR5tqDa6G-jFoemP4=/origxorig/center/middle/filters:quality(70)/https://s3.amazonaws.com/legado-prod/prod/ofertas/imagens/2021/07/22/16/26/paraty1.jpg",
+              "description": null
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

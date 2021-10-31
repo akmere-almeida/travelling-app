@@ -1,0 +1,28 @@
+query getPackagerOffer($sku: String!, $limit: Int!){
+    searchPackage(filters: {
+        sku: {
+            values: [$sku]
+            operator: OR
+        }
+    }) {
+        results {
+            sku
+            name
+            isAvailable
+            description
+            address {
+                city
+                state
+                country
+                geoLocation {
+                    lat
+                    lon
+                }
+            }
+            gallery(limit: $limit) {
+                url(quality: HIGH, resolution: ORIGINAL)
+                description
+            }
+        }
+    }
+}

@@ -1,6 +1,7 @@
 package com.akmere.travelling_app.data.model
 
-data class PackageOfferData(
+data class OfferData(
+    val id: String,
     val name: String,
     val description: String,
     val isAvailable: Boolean,

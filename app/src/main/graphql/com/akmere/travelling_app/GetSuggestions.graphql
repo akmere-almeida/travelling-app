@@ -1,0 +1,10 @@
+query GetSuggestions($term: String!){
+    suggestions(q: $term, limit: 10) {
+        total
+        results {
+            text
+            filter
+            suggestionType
+        }
+    }
+}

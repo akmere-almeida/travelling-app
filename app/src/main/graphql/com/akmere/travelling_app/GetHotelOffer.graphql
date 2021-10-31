@@ -1,17 +1,23 @@
-query searchPackage($searchTerm: [String]!, $limit: Int!){
-    searchPackage(filters: {
-        cities: {
-            values: $searchTerm
+query getHotelOffer($sku: String!, $limit: Int!){
+    searchHotel(filters: {
+        sku: {
+            values: [$sku]
             operator: OR
         }
     }) {
         results {
+            sku
             name
             isAvailable
             description
             address {
                 city
+                state
                 country
+                geoLocation {
+                    lat
+                    lon
+                }
             }
             gallery(limit: $limit) {
                 url(quality: HIGH, resolution: ORIGINAL)

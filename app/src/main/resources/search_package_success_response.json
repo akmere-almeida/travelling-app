@@ -1,0 +1,35 @@
+{
+  "data": {
+    "__typename": "Query",
+    "searchPackage": {
+      "__typename": "SearchPackage",
+      "results": [
+        {
+          "__typename": "SearchResultPackageItem",
+          "sku": "LGPKG-1139339-0",
+          "name": "Pacote de Viagem - Rio de Janeiro - Carnaval 2022",
+          "isAvailable": true,
+          "description": "p><strong>Hospedagem:&nbsp;</strong>em&nbsp;<strong>Rio de Janeiro.&nbsp;",
+          "address": {
+            "__typename": "SearchResultItemAddress",
+            "geoLocation": {
+              "__typename": "Coordinates",
+              "lat": -22.920158299821324,
+              "lon": -43.4579963721119
+            },
+            "city": "Rio de Janeiro",
+            "state": "Rio de Janeiro",
+            "country": "Brasil"
+          },
+          "gallery": [
+            {
+              "__typename": "SearchResultItemGalleryImage",
+              "url": "https://thumbcdn-z.hotelurbano.net/gkkweJJ_9JccaeWKEN-2M0i7cmo=/origxorig/center/middle/filters:quality(70)/https://s3.amazonaws.com/legado-prod/prod/ofertas/imagens/2021/10/29/12/33/shutterstock_481240843.jpg",
+              "description": null
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
