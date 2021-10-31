@@ -8,17 +8,24 @@ class FavoriteRepository {
     private val favoriteOffersDatasource = mutableMapOf<String, Boolean>()
     private val offerFavoriteCountDatasource = mutableMapOf<String, Int>()
 
-    fun addFavorite(id: String, boolean: Boolean) {
-        favoriteOffersDatasource[id]?.let {
-            favoriteOffersDatasource[id] = boolean
-        } ?: favoriteOffersDatasource.put(id, boolean)
+    fun updateFavoriteOffer(offerId: String, favoriteValue: Boolean) {
+        favoriteOffersDatasource[offerId]?.let {
+            favoriteOffersDatasource[offerId] = favoriteValue
+        } ?: favoriteOffersDatasource.put(offerId, favoriteValue)
+
+        offerFavoriteCountDatasource[offerId]?.let {
+            if (favoriteValue)
+                offerFavoriteCountDatasource[offerId] = it + 1
+            else
+                offerFavoriteCountDatasource[offerId] = it - 1
+        }
     }
 
-    fun isFavorite(id: String): Boolean {
-        return favoriteOffersDatasource[id] ?: false
+    fun isOfferFavorite(offerId: String): Boolean {
+        return favoriteOffersDatasource[offerId] ?: false
     }
 
-    fun getIds(): List<String> {
+    fun getFavoriteOfferIds(): List<String> {
         return favoriteOffersDatasource.map { it.key }
     }
 

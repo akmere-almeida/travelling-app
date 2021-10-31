@@ -12,7 +12,7 @@ class LoadFavoriteOffers(
 ) {
     suspend fun execute(): List<TravelOffer> {
         return runCatching {
-            val favoriteOfferIds = favoriteRepository.getIds()
+            val favoriteOfferIds = favoriteRepository.getFavoriteOfferIds()
             val packageOfferIds = favoriteOfferIds.filter { it.startsWith("LGPKG") }
             val hotelOfferIds = favoriteOfferIds.filter { it.startsWith("HT") }
 
