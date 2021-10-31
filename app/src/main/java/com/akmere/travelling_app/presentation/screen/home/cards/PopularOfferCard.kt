@@ -51,9 +51,7 @@ fun PopularOfferCard(
                 popularOffer.favoriteCount,
                 Modifier
                     .align(Alignment.TopEnd)
-                    .width(78.dp)
-                    .height(38.dp)
-                    .padding(6.dp)
+                    .padding(2.dp)
                     .alpha(Constants.favoriteCounterTagAlpha)
             )
             Text(

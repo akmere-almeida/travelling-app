@@ -35,12 +35,11 @@ fun FavoriteCounterTag(favoriteCount: String, modifier: Modifier) {
                 "Favoritar",
                 tint = Color(AppColorCodes.Red),
                 modifier = Modifier
-                    .weight(1f)
                     .padding(4.dp),
             )
             Text(
-                modifier = Modifier.weight(1f),
                 text = favoriteCount,
+                maxLines = 1,
                 style = MaterialTheme.typography.button,
                 color = MaterialTheme.colors.primary,
             )
