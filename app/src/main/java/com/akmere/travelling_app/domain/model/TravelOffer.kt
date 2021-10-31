@@ -1,11 +1,9 @@
 package com.akmere.travelling_app.domain.model
 
-sealed class TravelOffer {
-    data class PackageOffer(
-        val name: String,
-        val city: String,
-        val country: String,
-        val imageUrl: String,
-        val favoriteCount: Int,
-    ) : TravelOffer()
-}
+data class TravelOffer(
+    val id: String,
+    val name: String,
+    val address: String,
+    val image: ImageItem,
+    val favoriteCount: Int
+)
