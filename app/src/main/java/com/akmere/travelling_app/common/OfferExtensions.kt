@@ -7,7 +7,7 @@ import com.akmere.travelling_app.domain.model.TravelOffer
 object OfferExtensions {
     fun OfferData.toTravelOffer(favoriteCount: Int): TravelOffer {
         val address =
-            addressData.city.plus(", ").plus(addressData.country)
+            addressData.country ?: addressData.state ?: ""
 
         val image =
             ImageItem(

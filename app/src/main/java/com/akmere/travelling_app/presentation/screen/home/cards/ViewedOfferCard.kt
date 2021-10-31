@@ -32,15 +32,13 @@ fun ViewedOfferCard(modifier: Modifier, viewedOffer: ViewedOffer, onClick: (View
                 modifier = Modifier.weight(3f).fillMaxSize()
             )
             Column(
-                modifier = Modifier.weight(4f).padding(start = 4.dp),
+                modifier = Modifier.weight(4f).padding(start = 4.dp).fillMaxWidth(),
                 verticalArrangement = Arrangement.SpaceEvenly,
             ) {
-
                 Text(
                     text = viewedOffer.title,
                     style = MaterialTheme.typography.body2.copy(fontWeight = FontWeight.Bold),
                     color = MaterialTheme.colors.secondary,
-                    modifier = Modifier.fillMaxWidth()
                 )
                 Text(
                     text = viewedOffer.location,
