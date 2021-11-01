@@ -16,8 +16,15 @@ import com.akmere.travelling_app.presentation.model.OfferCategory
 import com.akmere.travelling_app.presentation.model.PopularOffer
 import com.akmere.travelling_app.presentation.state.PopularOfferListingState
 import com.akmere.travelling_app.presentation.state.UiState
+import io.mockk.MockKAnnotations
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
+import io.mockk.mockk
+import io.mockk.mockkStatic
+import io.mockk.slot
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Before
