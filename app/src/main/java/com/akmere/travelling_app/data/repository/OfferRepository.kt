@@ -55,7 +55,7 @@ class OfferRepository(
             it.toProductType().value
         }
 
-        return if (suggestion != null) {
+        return if (!suggestion.isNullOrEmpty()) {
             val query = SearchOfferBySuggestionQuery(
                 productTypes,
                 Input.optional(suggestion),
