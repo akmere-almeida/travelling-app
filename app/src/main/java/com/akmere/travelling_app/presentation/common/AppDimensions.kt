@@ -17,4 +17,6 @@ object AppDimensions {
     const val favoriteOfferCardAlpha = 0.8f
     const val halfContentSize = 0.5f
     const val favoriteCounterTagAlpha = 0.9f
+    const val homeSearchBarSearchTextWeight = 4f
+    const val homeSearchBarSearchButtonWeight = 1f
 }
