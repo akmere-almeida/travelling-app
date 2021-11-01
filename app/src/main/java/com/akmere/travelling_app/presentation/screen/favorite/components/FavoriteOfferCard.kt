@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.akmere.travelling_app.presentation.common.AppDimensions.favoriteOfferCardAlpha
 import com.akmere.travelling_app.presentation.common.AppShapes
 import com.akmere.travelling_app.presentation.screen.favorite.model.FavoriteOffer
 
@@ -34,7 +35,7 @@ fun FavoriteOfferCard(
             Image(
                 bitmap = favoriteOffer.imageResource.asImageBitmap(),
                 contentDescription = favoriteOffer.title,
-                alpha = 0.8f,
+                alpha = favoriteOfferCardAlpha,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()

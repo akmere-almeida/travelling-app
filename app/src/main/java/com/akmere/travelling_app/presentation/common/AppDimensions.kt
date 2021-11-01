@@ -14,6 +14,7 @@ object AppDimensions {
     const val searchScreenContentColumnWeight = 3f
     const val searchScreenDetailsInfoContentWeight = 3f
     const val favoriteScreenBackButtonAlpha = 0.8f
+    const val favoriteOfferCardAlpha = 0.8f
     const val halfContentSize = 0.5f
     const val favoriteCounterTagAlpha = 0.9f
 }
