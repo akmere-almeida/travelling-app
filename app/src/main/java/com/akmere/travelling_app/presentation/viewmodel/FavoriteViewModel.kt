@@ -38,7 +38,7 @@ class FavoriteViewModel(
                 _uiState.value = UiState.Success(FavoriteState(it))
 
             }.onFailure {
-                _uiState.value = UiState.Error(Exception())
+                _uiState.value = UiState.Error(Exception(it.cause))
             }
         }
     }

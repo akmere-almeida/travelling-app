@@ -1,8 +1,7 @@
 package com.akmere.travelling_app.presentation.common
 
 object Constants {
-    const val halfContentSize = 0.5f
-    const val favoriteCounterTagAlpha = 0.9f
+    const val minLengthSearchInput = 3
 
     object Navigation {
         const val DESTINATION_HOME_SCREEN = "Home"

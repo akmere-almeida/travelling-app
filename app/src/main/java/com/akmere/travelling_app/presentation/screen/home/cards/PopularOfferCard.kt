@@ -18,8 +18,8 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.akmere.travelling_app.presentation.common.AppDimensions.favoriteCounterTagAlpha
 import com.akmere.travelling_app.presentation.common.AppShapes
-import com.akmere.travelling_app.presentation.common.Constants
 import com.akmere.travelling_app.presentation.screen.home.components.FavoriteCounterTag
 import com.akmere.travelling_app.presentation.model.PopularOffer
 
@@ -52,7 +52,7 @@ fun PopularOfferCard(
                 Modifier
                     .align(Alignment.TopEnd)
                     .padding(2.dp)
-                    .alpha(Constants.favoriteCounterTagAlpha)
+                    .alpha(favoriteCounterTagAlpha)
             )
             Text(
                 text = popularOffer.title,

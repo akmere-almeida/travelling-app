@@ -20,6 +20,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.akmere.travelling_app.presentation.common.AppColorCodes
+import com.akmere.travelling_app.presentation.common.AppDimensions.viewedOfferCardImageWeight
+import com.akmere.travelling_app.presentation.common.AppDimensions.viewedOfferCardTitleColumnWeight
 import com.akmere.travelling_app.presentation.common.AppShapes
 import com.akmere.travelling_app.presentation.model.ViewedOffer
 
@@ -35,12 +37,12 @@ fun ViewedOfferCard(modifier: Modifier, viewedOffer: ViewedOffer, onClick: (View
                 contentDescription = viewedOffer.title,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .weight(3f)
+                    .weight(viewedOfferCardImageWeight)
                     .fillMaxSize()
             )
             Column(
                 modifier = Modifier
-                    .weight(4f)
+                    .weight(viewedOfferCardTitleColumnWeight)
                     .padding(start = 4.dp)
                     .fillMaxWidth(),
                 verticalArrangement = Arrangement.SpaceEvenly,

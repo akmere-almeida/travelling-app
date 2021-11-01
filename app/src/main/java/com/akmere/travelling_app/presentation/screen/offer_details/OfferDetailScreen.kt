@@ -5,7 +5,11 @@ import android.content.Intent
 import android.net.Uri
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -18,6 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.akmere.travelling_app.dependencies.AppDependencies
+import com.akmere.travelling_app.presentation.common.AppDimensions.searchScreenContentColumnWeight
+import com.akmere.travelling_app.presentation.common.AppDimensions.searchScreenDetailsInfoContentWeight
 import com.akmere.travelling_app.presentation.common.components.LoadingContent
 import com.akmere.travelling_app.presentation.screen.home.components.navigateToHome
 import com.akmere.travelling_app.presentation.screen.offer_details.components.ActionButtons
@@ -100,11 +106,11 @@ private fun SuccessContent(
         Column(
             Modifier
                 .padding(top = 16.dp, start = 16.dp, end = 16.dp)
-                .weight(3f)
+                .weight(searchScreenContentColumnWeight)
         ) {
             DetailsInfoContent(
                 offerDetails,
-                Modifier.weight(3f)
+                Modifier.weight(searchScreenDetailsInfoContentWeight)
             ) {
                 val mapIntent = createMapIntent(it)
 

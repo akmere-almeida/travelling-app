@@ -20,6 +20,8 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import com.akmere.travelling_app.presentation.common.AppDimensions.offerDetailsBackButtonAlpha
+import com.akmere.travelling_app.presentation.common.AppDimensions.offerDetailsShareButtonAlpha
 import com.akmere.travelling_app.presentation.common.AppShapes
 import com.akmere.travelling_app.presentation.common.components.BackButton
 import com.akmere.travelling_app.presentation.screen.offer_details.OfferDetailsShapes
@@ -53,7 +55,7 @@ fun OfferDetailsImageBox(
             modifier = Modifier
                 .align(Alignment.TopStart)
                 .padding(start = 16.dp, top = 24.dp)
-                .alpha(0.8f)
+                .alpha(offerDetailsBackButtonAlpha)
                 .background(MaterialTheme.colors.primary, AppShapes.medium), onBackPressed
         )
 
@@ -61,7 +63,7 @@ fun OfferDetailsImageBox(
             modifier = Modifier
                 .align(Alignment.TopEnd)
                 .padding(end = 16.dp, top = 24.dp)
-                .alpha(0.8f)
+                .alpha(offerDetailsShareButtonAlpha)
                 .background(MaterialTheme.colors.primary, AppShapes.medium), onShareClicked
         )
     }

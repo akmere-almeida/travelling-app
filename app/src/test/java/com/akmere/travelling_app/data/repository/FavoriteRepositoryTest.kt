@@ -1,6 +1,5 @@
 package com.akmere.travelling_app.data.repository
 
-import junit.framework.Assert.*
 import org.junit.Test
 
 class FavoriteRepositoryTest {

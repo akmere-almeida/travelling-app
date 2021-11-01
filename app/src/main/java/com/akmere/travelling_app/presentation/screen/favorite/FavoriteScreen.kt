@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.akmere.travelling_app.dependencies.AppDependencies
+import com.akmere.travelling_app.presentation.common.AppDimensions.favoriteScreenBackButtonAlpha
 import com.akmere.travelling_app.presentation.common.components.BackButton
 import com.akmere.travelling_app.presentation.common.components.LoadingContent
 import com.akmere.travelling_app.presentation.screen.favorite.components.FavoriteTopBarTitle
@@ -49,7 +50,7 @@ fun FavoriteScreen(navHostController: NavHostController) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     BackButton(
                         modifier = Modifier
-                            .alpha(0.8f)
+                            .alpha(favoriteScreenBackButtonAlpha)
                             .background(MaterialTheme.colors.primary)
                             .padding(end = 16.dp)
                     ) {

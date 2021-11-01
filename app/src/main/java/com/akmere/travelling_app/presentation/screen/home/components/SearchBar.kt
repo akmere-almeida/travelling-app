@@ -27,32 +27,27 @@ fun SearchBar(
 ) {
     Card(modifier, shape = AppShapes.medium) {
         Row(
+            Modifier
+                .clickable {
+                    onTextClicked()
+                },
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Row(
-                Modifier
-                    .weight(3f)
-                    .clickable {
-                        onTextClicked()
-                    },
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Text(
-                    text = text,
-                    maxLines = 1,
-                    color = Color.LightGray,
-                    modifier = Modifier.padding(start = 4.dp)
-                )
-            }
-            IconButton(
-                modifier = Modifier.background(MaterialTheme.colors.secondaryVariant),
-                onClick = { onSearchClicked() }) {
-                Icon(
-                    imageVector = Icons.Outlined.Search,
-                    contentDescription = "",
-                    tint = MaterialTheme.colors.primaryVariant
-                )
-            }
+            Text(
+                text = text,
+                maxLines = 1,
+                color = Color.LightGray,
+                modifier = Modifier.padding(start = 4.dp)
+            )
+        }
+        IconButton(
+            modifier = Modifier.background(MaterialTheme.colors.secondaryVariant),
+            onClick = { onSearchClicked() }) {
+            Icon(
+                imageVector = Icons.Outlined.Search,
+                contentDescription = "",
+                tint = MaterialTheme.colors.primaryVariant
+            )
         }
     }
 }

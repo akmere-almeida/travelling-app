@@ -10,11 +10,9 @@ import com.akmere.travelling_app.data.service.OfferService
 import com.akmere.travelling_app.data.service.exceptions.OfferParseException
 import com.akmere.travelling_app.data.service.exceptions.UnexpectedLoadException
 import com.akmere.travelling_app.domain.errors.SearchOffersNotFoundError
-import com.akmere.travelling_app.domain.model.ImageItem
 import com.akmere.travelling_app.domain.model.TravelOffer
 import com.akmere.travelling_app.presentation.model.FilterOptions
 import com.akmere.travelling_app.presentation.model.OfferCategory
-import kotlin.jvm.Throws
 
 /**
  * Caso de uso para buscar por ofertas
@@ -37,9 +35,8 @@ class SearchOffers(
      *
      * @throws SearchOffersNotFoundError
      */
-    @Throws(SearchOffersNotFoundError::class)
     suspend fun execute(filterOptions: FilterOptions): List<TravelOffer> {
-        return try {
+        return runCatching {
             searchTravelOffers(filterOptions).map {
                 val favoriteCount = favoriteRepository.getOfferFavoriteCount(it.id)
                 it.toTravelOffer(favoriteCount)
@@ -47,13 +44,9 @@ class SearchOffers(
                 if (isEmpty())
                     throw SearchOffersNotFoundError()
             }
-        } catch (e: OfferParseException) {
-            logger?.log(TAG, Log.DEBUG, message = e.message, throwable = e)
-            throw SearchOffersNotFoundError()
-        } catch (e: UnexpectedLoadException) {
-            logger?.log(TAG, Log.DEBUG, message = e.message, throwable = e)
-            throw SearchOffersNotFoundError()
-        }
+        }.onFailure {
+            logger?.log(TAG, Log.DEBUG, message = it.message, throwable = it)
+        }.getOrThrow()
     }
 
     private fun OfferCategory?.toOfferType(): List<OfferType> {

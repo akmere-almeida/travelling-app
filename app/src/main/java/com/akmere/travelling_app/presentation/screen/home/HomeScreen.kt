@@ -76,63 +76,13 @@ fun HomeScreen(navHostController: NavHostController) {
             HomeTopAppBar()
         },
         content = {
-            val searchText = remember {
-                mutableStateOf("Vai pra onde?")
-            }
-
-            val suggestionFilter = remember {
-                mutableStateOf("")
-            }
-
-            searchTerm?.observeAsState()?.value?.let {
-                searchText.value = it
-            }
-
-            searchSuggestionFilter?.observeAsState()?.value?.let {
-                suggestionFilter.value = it
-            }
-
-            val filterOptions = remember {
-                FilterOptions(
-                    searchText.value,
-                    homeViewModel.selectedCategory.value,
-                    suggestionFilter.value
-                )
-            }
-
-            Column(
-                Modifier
-                    .padding(start = 16.dp, end = 16.dp)
-                    .fillMaxSize(),
-            ) {
-                OfferCategoryListing(
-                    categories,
-                    selectedCategory.value
-                ) {
-                    homeViewModel.setOfferCategory(it)
-                    homeViewModel.loadPopularOffersData(
-                        filterOptions
-                    )
-                }
-                Spacer(modifier = Modifier.height(8.dp))
-                SearchBar(
-                    modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .fillMaxWidth(),
-                    text = searchText.value,
-                    onTextClicked = {
-                        navHostController.navigate(DESTINATION_SEARCH_SCREEN)
-                    }, onSearchClicked = {
-                        if (searchText.value != "" && searchText.value != "Vai pra onde?")
-                            homeViewModel.loadPopularOffersData(
-                                filterOptions
-                            )
-                    })
-                Spacer(modifier = Modifier.height(8.dp))
-                PopularOfferContent(homeViewModel, navHostController)
-                Spacer(modifier = Modifier.height(8.dp))
-                ViewedOfferContent(homeViewModel, navHostController)
-            }
+            HomeMainContent(
+                searchTerm,
+                searchSuggestionFilter,
+                homeViewModel,
+                selectedCategory,
+                navHostController
+            )
         },
         bottomBar = {
             HomeBottomAppBar {
@@ -140,6 +90,73 @@ fun HomeScreen(navHostController: NavHostController) {
             }
         }
     )
+}
+
+@Composable
+private fun HomeMainContent(
+    searchTerm: MutableLiveData<String>?,
+    searchSuggestionFilter: MutableLiveData<String>?,
+    homeViewModel: HomeViewModel,
+    selectedCategory: MutableState<OfferCategory>,
+    navHostController: NavHostController
+) {
+    val searchText = remember {
+        mutableStateOf("Vai pra onde?")
+    }
+
+    val suggestionFilter = remember {
+        mutableStateOf("")
+    }
+
+    searchTerm?.observeAsState()?.value?.let {
+        searchText.value = it
+    }
+
+    searchSuggestionFilter?.observeAsState()?.value?.let {
+        suggestionFilter.value = it
+    }
+
+    val filterOptions = remember {
+        FilterOptions(
+            searchText.value,
+            homeViewModel.selectedCategory.value,
+            suggestionFilter.value
+        )
+    }
+
+    Column(
+        Modifier
+            .padding(start = 16.dp, end = 16.dp)
+            .fillMaxSize(),
+    ) {
+        OfferCategoryListing(
+            categories,
+            selectedCategory.value
+        ) {
+            homeViewModel.setOfferCategory(it)
+            homeViewModel.loadPopularOffersData(
+                filterOptions
+            )
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+        SearchBar(
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .fillMaxWidth(),
+            text = searchText.value,
+            onTextClicked = {
+                navHostController.navigate(DESTINATION_SEARCH_SCREEN)
+            }, onSearchClicked = {
+                if (searchText.value != "" && searchText.value != "Vai pra onde?")
+                    homeViewModel.loadPopularOffersData(
+                        filterOptions
+                    )
+            })
+        Spacer(modifier = Modifier.height(8.dp))
+        PopularOfferContent(homeViewModel, navHostController)
+        Spacer(modifier = Modifier.height(8.dp))
+        ViewedOfferContent(homeViewModel, navHostController)
+    }
 }
 
 @Composable

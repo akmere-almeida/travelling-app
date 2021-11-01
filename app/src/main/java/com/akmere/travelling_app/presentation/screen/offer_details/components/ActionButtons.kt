@@ -2,8 +2,12 @@ package com.akmere.travelling_app.presentation.screen.offer_details.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.material.*
 import androidx.compose.material.ButtonDefaults.buttonColors
+import androidx.compose.material.Icon
+import androidx.compose.material.IconToggleButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedButton
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
@@ -13,6 +17,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.akmere.travelling_app.presentation.common.AppColorCodes.Red
+import com.akmere.travelling_app.presentation.common.AppDimensions.offerDetailsFavButtonWeight
+import com.akmere.travelling_app.presentation.common.AppDimensions.offerDetailsOrderOfferButtonWeight
 import com.akmere.travelling_app.presentation.common.AppShapes
 
 @Composable
@@ -22,9 +28,9 @@ fun ActionButtons(modifier: Modifier, isFavorite: Boolean, onFavorite: () -> Uni
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceAround
     ) {
-        FavoriteButton(Modifier.weight(1f), isFavorite, onFavorite)
+        FavoriteButton(Modifier.weight(offerDetailsFavButtonWeight), isFavorite, onFavorite)
 
-        OrderOfferButton(modifier = Modifier.weight(3f))
+        OrderOfferButton(modifier = Modifier.weight(offerDetailsOrderOfferButtonWeight))
     }
 }
 
