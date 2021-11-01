@@ -27,7 +27,8 @@ class LoadOfferDetails(
             )
 
         val gallery =
-            offerDetailsData.galleryData.images.filter { it.description != mainImageItem.description }
+            offerDetailsData.galleryData.images
+                .filter { it.description != mainImageItem.description }
                 .map { imageData ->
                     ImageItem(imageData.url, imageData.description)
                 }
