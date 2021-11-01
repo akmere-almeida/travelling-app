@@ -62,7 +62,7 @@ fun FavoriteScreen(navHostController: NavHostController) {
             content = {
                 when (uiState) {
                     is UiState.Error -> {
-                        //TODO()
+                        // TODO()
                     }
                     UiState.Loading -> LoadingContent()
                     is UiState.Success -> FavoriteOfferListing(

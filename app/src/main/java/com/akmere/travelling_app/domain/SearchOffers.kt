@@ -7,8 +7,6 @@ import com.akmere.travelling_app.common.model.OfferType
 import com.akmere.travelling_app.data.model.OfferData
 import com.akmere.travelling_app.data.repository.FavoriteRepository
 import com.akmere.travelling_app.data.service.OfferService
-import com.akmere.travelling_app.data.service.exceptions.OfferParseException
-import com.akmere.travelling_app.data.service.exceptions.UnexpectedLoadException
 import com.akmere.travelling_app.domain.errors.SearchOffersNotFoundError
 import com.akmere.travelling_app.domain.model.TravelOffer
 import com.akmere.travelling_app.presentation.model.FilterOptions

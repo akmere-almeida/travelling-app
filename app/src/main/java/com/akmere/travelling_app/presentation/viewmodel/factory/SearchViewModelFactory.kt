@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.akmere.travelling_app.domain.LoadFilterSuggestions
 import com.akmere.travelling_app.presentation.viewmodel.SearchViewModel
 
-
 class SearchViewModelFactory(
     private val loadFilterSuggestions: LoadFilterSuggestions,
 ) : ViewModelProvider.Factory {

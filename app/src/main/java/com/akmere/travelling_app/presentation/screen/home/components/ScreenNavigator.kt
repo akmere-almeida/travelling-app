@@ -15,7 +15,6 @@ import com.akmere.travelling_app.presentation.screen.favorite.FavoriteScreen
 import com.akmere.travelling_app.presentation.screen.home.HomeScreen
 import com.akmere.travelling_app.presentation.screen.offer_details.OfferDetailScreen
 import com.akmere.travelling_app.presentation.screen.search.SearchScreen
-import com.akmere.travelling_app.presentation.viewmodel.HomeViewModel
 
 @ExperimentalAnimationApi
 @Composable
@@ -34,16 +33,13 @@ fun ScreenNavigator(navController: NavHostController) {
         composable(
             "$DESTINATION_OFFER_DETAILS_SCREEN{id}",
             deepLinks = listOf(navDeepLink { uriPattern = "$uri/{id}" })
-        )
-        {
+        ) {
             OfferDetailScreen(navController, it.arguments?.getString("id") ?: "")
         }
-        composable(DESTINATION_SEARCH_SCREEN)
-        {
+        composable(DESTINATION_SEARCH_SCREEN) {
             SearchScreen(navController)
         }
-        composable(DESTINATION_FAVORITE_SCREEN)
-        {
+        composable(DESTINATION_FAVORITE_SCREEN) {
             FavoriteScreen(navController)
         }
     }
@@ -52,16 +48,15 @@ fun ScreenNavigator(navController: NavHostController) {
 fun NavHostController.navigateToOfferDetails(
     offerId: String
 ) {
-    navigate("$DESTINATION_OFFER_DETAILS_SCREEN${offerId}") {
+    navigate("$DESTINATION_OFFER_DETAILS_SCREEN$offerId") {
         launchSingleTop = true
         restoreState = true
     }
 }
 
-fun NavHostController.navigateToHome(
-) {
+fun NavHostController.navigateToHome() {
     navigate(DESTINATION_HOME_SCREEN) {
-        popUpTo(graph.findStartDestination().id){
+        popUpTo(graph.findStartDestination().id) {
             inclusive = true
         }
     }

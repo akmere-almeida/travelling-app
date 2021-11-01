@@ -3,22 +3,20 @@ package com.akmere.travelling_app.presentation.screen.search
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Divider
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -42,17 +40,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.PopupProperties
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.akmere.travelling_app.dependencies.AppDependencies
 import com.akmere.travelling_app.presentation.common.AppDimensions.searchScreenDividerAlpha
 import com.akmere.travelling_app.presentation.common.AppDimensions.searchScreenTextInputWeight
-import com.akmere.travelling_app.presentation.state.UiState
 import com.akmere.travelling_app.presentation.common.Constants.Navigation.SEARCH_SUGGESTION_FILTER_KEY
 import com.akmere.travelling_app.presentation.common.Constants.Navigation.SEARCH_TERM_KEY
 import com.akmere.travelling_app.presentation.common.Constants.minLengthSearchInput
 import com.akmere.travelling_app.presentation.model.Suggestion
+import com.akmere.travelling_app.presentation.state.UiState
 import com.akmere.travelling_app.presentation.viewmodel.SearchViewModel
 import com.akmere.travelling_app.presentation.viewmodel.factory.SearchViewModelFactory
 
@@ -86,11 +83,12 @@ fun SearchScreen(navHostController: NavHostController) {
                     if (input.value.length >= minLengthSearchInput)
                         viewModel.loadSuggestions(input.value)
                 }, onSearch = {
-                    sendSearchResult(navHostController, it)
-                }, onClearInput = {
-                    input.value = ""
-                    viewModel.loadSuggestions("")
-                })
+                sendSearchResult(navHostController, it)
+            }, onClearInput = {
+                input.value = ""
+                viewModel.loadSuggestions("")
+            }
+            )
 
             Divider(
                 color = Color.LightGray,
@@ -101,10 +99,10 @@ fun SearchScreen(navHostController: NavHostController) {
             )
             when (uiState) {
                 is UiState.Error -> {
-                    //TODO()
+                    // TODO()
                 }
                 UiState.Loading -> {
-                    //TODO()
+                    // TODO()
                 }
                 is UiState.Success -> SuggestionList(uiState.data.suggestions) {
                     sendSearchResult(navHostController, it.label, it.filter)
@@ -152,7 +150,8 @@ private fun SuggestionList(
                         .fillMaxWidth()
                         .clickable {
                             onSuggestionSelected(suggestion)
-                        }) {
+                        }
+                ) {
                     Text(
                         text = suggestion.label, color = MaterialTheme.colors.secondary,
                         modifier = Modifier.padding(vertical = 12.dp)
@@ -211,7 +210,8 @@ private fun SearchInputRow(
         )
 
         IconButton(
-            onClick = { onClearInput() }, modifier = Modifier
+            onClick = { onClearInput() },
+            modifier = Modifier
                 .height(20.dp)
                 .width(20.dp)
                 .padding(4.dp)

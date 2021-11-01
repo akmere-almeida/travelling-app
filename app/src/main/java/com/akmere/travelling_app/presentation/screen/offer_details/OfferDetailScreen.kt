@@ -59,7 +59,7 @@ fun OfferDetailScreen(navController: NavHostController, offerId: String) {
     offerDetailViewModel.uiState.observeAsState(initial = UiState.Loading).value.let { uiState ->
         when (uiState) {
             is UiState.Error -> {
-                //TODO()
+                // TODO()
             }
             UiState.Loading -> {
                 LoadingContent()
@@ -95,13 +95,13 @@ private fun SuccessContent(
 
         OfferDetailsImageBox(
             offerDetails.mainImage, onImageSelected = {
-                //TODO
+                // TODO
             }, onBackPressed = {
-                navController.navigateToHome()
-            }, onShareClicked = {
-                val shareIntent = createShareIntent(offerDetails)
-                context.startActivity(shareIntent)
-            }
+            navController.navigateToHome()
+        }, onShareClicked = {
+            val shareIntent = createShareIntent(offerDetails)
+            context.startActivity(shareIntent)
+        }
         )
         Column(
             Modifier
@@ -120,7 +120,7 @@ private fun SuccessContent(
             }
             Spacer(modifier = Modifier.height(16.dp))
             ImageGalleryListing(offerDetails.gallery.images, Modifier.weight(1f)) {
-                //TODO
+                // TODO
             }
             Spacer(modifier = Modifier.height(16.dp))
             ActionButtons(Modifier.weight(1f), isFavorite.value) {
@@ -142,11 +142,11 @@ private fun createShareIntent(offerDetails: OfferDetails): Intent? {
         action = Intent.ACTION_SEND
         putExtra(
             Intent.EXTRA_TEXT,
-            "${offerDetails.title}\nem ${offerDetails.location}\nhttps://example.com/${offerDetails.id}"
+            "${offerDetails.title}\nem " +
+                "${offerDetails.location}\nhttps://example.com/${offerDetails.id}"
         )
     }
 
     sendIntent.type = "text/plain"
     return Intent.createChooser(sendIntent, "https://example.com/${offerDetails.id}")
 }
-

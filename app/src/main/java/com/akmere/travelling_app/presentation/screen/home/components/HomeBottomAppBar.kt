@@ -12,7 +12,6 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun HomeBottomAppBar(onFavoriteSelected: () -> Unit) {

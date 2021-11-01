@@ -11,10 +11,10 @@ import com.akmere.travelling_app.common.model.OfferType
 import com.akmere.travelling_app.data.model.OfferData
 import com.akmere.travelling_app.data.model.OfferDetailsData
 import com.akmere.travelling_app.data.model.ProductType
-import com.akmere.travelling_app.data.service.exceptions.OfferParseException
-import com.akmere.travelling_app.data.service.exceptions.UnexpectedLoadException
 import com.akmere.travelling_app.data.service.OfferService
 import com.akmere.travelling_app.data.service.exceptions.OfferDetailsNotFoundException
+import com.akmere.travelling_app.data.service.exceptions.OfferParseException
+import com.akmere.travelling_app.data.service.exceptions.UnexpectedLoadException
 import com.akmere.travelling_app.data.toOfferData
 import com.akmere.travelling_app.data.toOfferDetailsData
 import com.apollographql.apollo.ApolloClient
@@ -72,7 +72,9 @@ class OfferRepository(
         }
     }
 
-    private suspend fun searchOffersBySuggestion(query: SearchOfferBySuggestionQuery): List<OfferData> {
+    private suspend fun searchOffersBySuggestion(
+        query: SearchOfferBySuggestionQuery
+    ): List<OfferData> {
         return kotlin.runCatching {
             val queryResult =
                 datasource.query(
@@ -120,7 +122,6 @@ class OfferRepository(
         }.getOrThrow()
     }
 
-
     override suspend fun getOfferDetailsData(
         id: String,
         offerType: OfferType
@@ -143,7 +144,6 @@ class OfferRepository(
         }.onFailure { handleFailure(it) }.getOrThrow()
     }
 
-
     private suspend fun getPackageOfferDetails(id: String): OfferDetailsData {
 
         return kotlin.runCatching {
@@ -164,8 +164,6 @@ class OfferRepository(
             else -> throw UnexpectedLoadException()
         }
     }
-
-
 
     private fun OfferType.toProductType(): ProductType {
         return when (this) {

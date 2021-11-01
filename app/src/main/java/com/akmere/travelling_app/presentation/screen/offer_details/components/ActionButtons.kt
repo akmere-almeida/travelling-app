@@ -35,11 +35,11 @@ fun ActionButtons(modifier: Modifier, isFavorite: Boolean, onFavorite: () -> Uni
 }
 
 @Composable
-private fun OrderOfferButton(modifier: Modifier){
+private fun OrderOfferButton(modifier: Modifier) {
     OutlinedButton(
         modifier = modifier,
         onClick = {
-            //TODO()
+            // TODO()
         },
         shape = AppShapes.large,
         colors = buttonColors(

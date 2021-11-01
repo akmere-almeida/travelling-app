@@ -55,11 +55,9 @@ class HomeViewModel(
                 }
             }.onSuccess {
                 _viewedOffersUiState.value = UiState.Success(ViewedOfferListingState(it))
-
             }.onFailure {
                 _viewedOffersUiState.value = UiState.Error(Exception(it.cause?.message))
             }
-
         }
     }
 

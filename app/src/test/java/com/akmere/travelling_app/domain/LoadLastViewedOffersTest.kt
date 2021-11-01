@@ -1,7 +1,6 @@
 package com.akmere.travelling_app.domain
 
 import com.akmere.travelling_app.data.DataFixtures
-import com.akmere.travelling_app.data.model.OfferData
 import com.akmere.travelling_app.data.repository.FavoriteRepository
 import com.akmere.travelling_app.data.repository.ViewedOfferRepository
 import com.akmere.travelling_app.data.service.OfferService

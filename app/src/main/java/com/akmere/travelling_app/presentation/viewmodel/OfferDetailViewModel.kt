@@ -7,16 +7,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.akmere.travelling_app.domain.AddViewedOffer
 import com.akmere.travelling_app.domain.IsOfferFavorite
 import com.akmere.travelling_app.domain.LoadOfferDetails
 import com.akmere.travelling_app.domain.SaveFavoriteOffer
 import com.akmere.travelling_app.domain.TravellingAppImageLoader
-import com.akmere.travelling_app.domain.AddViewedOffer
-import com.akmere.travelling_app.presentation.state.UiState
 import com.akmere.travelling_app.presentation.screen.offer_details.model.OfferDetails
 import com.akmere.travelling_app.presentation.screen.offer_details.model.OfferGallery
 import com.akmere.travelling_app.presentation.screen.offer_details.model.OfferImage
 import com.akmere.travelling_app.presentation.state.OfferDetailsState
+import com.akmere.travelling_app.presentation.state.UiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -45,10 +45,12 @@ class OfferDetailViewModel(
             }
 
             val gallery = withContext(Dispatchers.Default) {
-                OfferGallery(offerDetailsResult.gallery.map {
-                    val image = loadImageResourceAsBitmap(it.url)
-                    OfferImage(it.url, image, it.description)
-                })
+                OfferGallery(
+                    offerDetailsResult.gallery.map {
+                        val image = loadImageResourceAsBitmap(it.url)
+                        OfferImage(it.url, image, it.description)
+                    }
+                )
             }
 
             val isFavorite = isOfferFavorite.execute(offerDetailsResult.id)

@@ -29,4 +29,3 @@ class OfferDetailViewModelFactory(
         throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
-

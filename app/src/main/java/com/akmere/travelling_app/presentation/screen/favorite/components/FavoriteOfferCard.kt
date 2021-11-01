@@ -19,7 +19,6 @@ import androidx.compose.ui.unit.dp
 import com.akmere.travelling_app.presentation.common.AppShapes
 import com.akmere.travelling_app.presentation.screen.favorite.model.FavoriteOffer
 
-
 @Composable
 fun FavoriteOfferCard(
     favoriteOffer: FavoriteOffer,

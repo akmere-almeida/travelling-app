@@ -3,7 +3,6 @@ package com.akmere.travelling_app.data.repository
 import kotlin.random.Random
 import kotlin.random.nextInt
 
-
 class FavoriteRepository {
     private val favoriteOffersDatasource = mutableMapOf<String, Boolean>()
     private val offerFavoriteCountDatasource = mutableMapOf<String, Int>()

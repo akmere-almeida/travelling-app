@@ -35,7 +35,7 @@ class OfferRepositoryTest {
     }
 
     @Test(expected = OfferParseException::class)
-    fun `should throw OfferParseException when failed to retrieve offer data due to parsing errors`(): Unit =
+    fun `should throw error when failed to retrieve offer data due to parsing errors`(): Unit =
         runBlocking {
             val ids = listOf("offer1", "offer2")
             val response = JsonReader.readFile("broken_search_response.json")
@@ -100,7 +100,6 @@ class OfferRepositoryTest {
 
         val result = offerService.getOfferDetailsData("offerId", OfferType.PACKAGE)
         assertEquals(expectedOfferDetails, result)
-
     }
 
     @Test
@@ -112,6 +111,5 @@ class OfferRepositoryTest {
 
         val result = offerService.getOfferDetailsData("offerId", OfferType.HOTEL)
         assertEquals(expectedOfferDetails, result)
-
     }
 }

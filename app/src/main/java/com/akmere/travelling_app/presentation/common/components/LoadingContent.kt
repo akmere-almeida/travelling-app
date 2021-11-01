@@ -35,9 +35,8 @@ fun LoadingContent() {
             )
         )
         CircularProgressIndicator(
-            modifier= Modifier.padding(top = 8.dp),
+            modifier = Modifier.padding(top = 8.dp),
             color = MaterialTheme.colors.secondaryVariant,
         )
     }
-
 }

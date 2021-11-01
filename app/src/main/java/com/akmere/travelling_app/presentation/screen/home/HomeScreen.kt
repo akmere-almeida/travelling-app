@@ -1,22 +1,22 @@
 package com.akmere.travelling_app.presentation.screen.home
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -29,7 +29,6 @@ import com.akmere.travelling_app.presentation.common.Constants.Navigation.DESTIN
 import com.akmere.travelling_app.presentation.common.Constants.Navigation.DESTINATION_SEARCH_SCREEN
 import com.akmere.travelling_app.presentation.common.Constants.Navigation.SEARCH_SUGGESTION_FILTER_KEY
 import com.akmere.travelling_app.presentation.common.Constants.Navigation.SEARCH_TERM_KEY
-import com.akmere.travelling_app.presentation.screen.home.listing.OfferCategories.categories
 import com.akmere.travelling_app.presentation.common.components.LoadingContent
 import com.akmere.travelling_app.presentation.model.FilterOptions
 import com.akmere.travelling_app.presentation.model.OfferCategory
@@ -37,6 +36,7 @@ import com.akmere.travelling_app.presentation.screen.home.components.HomeBottomA
 import com.akmere.travelling_app.presentation.screen.home.components.HomeTopAppBar
 import com.akmere.travelling_app.presentation.screen.home.components.SearchBar
 import com.akmere.travelling_app.presentation.screen.home.components.navigateToOfferDetails
+import com.akmere.travelling_app.presentation.screen.home.listing.OfferCategories.categories
 import com.akmere.travelling_app.presentation.screen.home.listing.OfferCategoryListing
 import com.akmere.travelling_app.presentation.screen.home.listing.PopularOfferListing
 import com.akmere.travelling_app.presentation.screen.home.listing.ViewedOfferListing
@@ -147,11 +147,12 @@ private fun HomeMainContent(
             onTextClicked = {
                 navHostController.navigate(DESTINATION_SEARCH_SCREEN)
             }, onSearchClicked = {
-                if (searchText.value != "" && searchText.value != "Vai pra onde?")
-                    homeViewModel.loadPopularOffersData(
-                        filterOptions
-                    )
-            })
+            if (searchText.value != "" && searchText.value != "Vai pra onde?")
+                homeViewModel.loadPopularOffersData(
+                    filterOptions
+                )
+        }
+        )
         Spacer(modifier = Modifier.height(8.dp))
         PopularOfferContent(homeViewModel, navHostController)
         Spacer(modifier = Modifier.height(8.dp))
@@ -170,18 +171,19 @@ private fun ViewedOfferContent(
             style = MaterialTheme.typography.h6,
             color = MaterialTheme.colors.secondary
         )
-        homeViewModel.viewedOffersUiState.observeAsState(initial = UiState.Loading).value.let { uiState ->
-            when (uiState) {
-                is UiState.Error -> {
-                    //TODO()
-                }
-                UiState.Loading -> LoadingContent()
-                is UiState.Success ->
-                    ViewedOfferListing(uiState.data.lastViewedOffers) {
-                        navHostController.navigateToOfferDetails(it.id)
+        homeViewModel.viewedOffersUiState
+            .observeAsState(initial = UiState.Loading).value.let { uiState ->
+                when (uiState) {
+                    is UiState.Error -> {
+                        // TODO()
                     }
+                    UiState.Loading -> LoadingContent()
+                    is UiState.Success ->
+                        ViewedOfferListing(uiState.data.lastViewedOffers) {
+                            navHostController.navigateToOfferDetails(it.id)
+                        }
+                }
             }
-        }
     }
 }
 
@@ -196,18 +198,19 @@ private fun PopularOfferContent(
             style = MaterialTheme.typography.h6,
             color = MaterialTheme.colors.secondary
         )
-        homeViewModel.popularOffersUiState.observeAsState(initial = UiState.Loading).value.let { uiState ->
+        homeViewModel.popularOffersUiState
+            .observeAsState(initial = UiState.Loading).value.let { uiState ->
 
-            when (uiState) {
-                is UiState.Error -> {
-                    //TODO()
-                }
-                UiState.Loading -> LoadingContent()
-                is UiState.Success -> PopularOfferListing(uiState.data.popularOffers) {
-                    navHostController.navigateToOfferDetails(it.id)
+                when (uiState) {
+                    is UiState.Error -> {
+                        // TODO()
+                    }
+                    UiState.Loading -> LoadingContent()
+                    is UiState.Success -> PopularOfferListing(uiState.data.popularOffers) {
+                        navHostController.navigateToOfferDetails(it.id)
+                    }
                 }
             }
-        }
     }
 }
 

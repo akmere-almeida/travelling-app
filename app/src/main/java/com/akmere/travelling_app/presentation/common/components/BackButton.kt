@@ -7,9 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
-import com.akmere.travelling_app.presentation.common.AppShapes
 
 @Composable
 fun BackButton(modifier: Modifier, onBackButtonPressed: () -> Unit) {

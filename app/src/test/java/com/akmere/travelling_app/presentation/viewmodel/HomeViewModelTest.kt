@@ -16,7 +16,6 @@ import com.akmere.travelling_app.presentation.model.OfferCategory
 import com.akmere.travelling_app.presentation.model.PopularOffer
 import com.akmere.travelling_app.presentation.state.PopularOfferListingState
 import com.akmere.travelling_app.presentation.state.UiState
-import io.mockk.*
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
 import kotlinx.coroutines.runBlocking

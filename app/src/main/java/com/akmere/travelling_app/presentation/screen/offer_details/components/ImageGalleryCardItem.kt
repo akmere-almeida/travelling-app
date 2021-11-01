@@ -27,7 +27,7 @@ fun ImageGalleryCardItem(offerImage: OfferImage, onImageSelected: () -> Unit) {
                 onImageSelected()
             },
         shape = AppShapes.large
-        ) {
+    ) {
         Image(
             bitmap = offerImage.bitmap.asImageBitmap(),
             contentDescription = offerImage.contentDescription,

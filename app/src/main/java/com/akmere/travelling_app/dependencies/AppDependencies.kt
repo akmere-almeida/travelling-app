@@ -5,22 +5,22 @@ import coil.ImageLoader
 import com.akmere.travelling_app.BuildConfig
 import com.akmere.travelling_app.common.DebugLogger
 import com.akmere.travelling_app.common.Logger
-import com.akmere.travelling_app.data.repository.FavoriteRepository
-import com.akmere.travelling_app.data.repository.ViewedOfferRepository
 import com.akmere.travelling_app.data.networking.NetworkClientProvider
+import com.akmere.travelling_app.data.repository.FavoriteRepository
 import com.akmere.travelling_app.data.repository.OfferRepository
 import com.akmere.travelling_app.data.repository.SuggestionsRepository
+import com.akmere.travelling_app.data.repository.ViewedOfferRepository
 import com.akmere.travelling_app.data.service.OfferService
 import com.akmere.travelling_app.data.service.SuggestionService
 import com.akmere.travelling_app.domain.AddViewedOffer
 import com.akmere.travelling_app.domain.IsOfferFavorite
 import com.akmere.travelling_app.domain.LoadFavoriteOffers
+import com.akmere.travelling_app.domain.LoadFilterSuggestions
 import com.akmere.travelling_app.domain.LoadLastViewedOffers
 import com.akmere.travelling_app.domain.LoadOfferDetails
-import com.akmere.travelling_app.domain.LoadFilterSuggestions
-import com.akmere.travelling_app.domain.TravellingAppImageLoader
 import com.akmere.travelling_app.domain.SaveFavoriteOffer
 import com.akmere.travelling_app.domain.SearchOffers
+import com.akmere.travelling_app.domain.TravellingAppImageLoader
 import com.apollographql.apollo.ApolloClient
 import okhttp3.OkHttpClient
 

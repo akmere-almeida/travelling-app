@@ -5,7 +5,6 @@ import com.akmere.travelling_app.data.repository.FavoriteRepository
 import com.akmere.travelling_app.data.repository.ViewedOfferRepository
 import com.akmere.travelling_app.data.service.OfferService
 import com.akmere.travelling_app.domain.errors.SuggestionFiltersNotFoundError
-import com.akmere.travelling_app.domain.model.ImageItem
 import com.akmere.travelling_app.domain.model.TravelOffer
 
 class LoadLastViewedOffers(

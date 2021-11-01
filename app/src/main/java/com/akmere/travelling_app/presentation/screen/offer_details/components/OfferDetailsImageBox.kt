@@ -56,7 +56,8 @@ fun OfferDetailsImageBox(
                 .align(Alignment.TopStart)
                 .padding(start = 16.dp, top = 24.dp)
                 .alpha(offerDetailsBackButtonAlpha)
-                .background(MaterialTheme.colors.primary, AppShapes.medium), onBackPressed
+                .background(MaterialTheme.colors.primary, AppShapes.medium),
+            onBackPressed
         )
 
         ShareButton(
@@ -64,7 +65,8 @@ fun OfferDetailsImageBox(
                 .align(Alignment.TopEnd)
                 .padding(end = 16.dp, top = 24.dp)
                 .alpha(offerDetailsShareButtonAlpha)
-                .background(MaterialTheme.colors.primary, AppShapes.medium), onShareClicked
+                .background(MaterialTheme.colors.primary, AppShapes.medium),
+            onShareClicked
         )
     }
 }

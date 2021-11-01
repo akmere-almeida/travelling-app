@@ -30,7 +30,7 @@ fun ImageGalleryListing(
 
         if (gallery.isEmpty())
             Text(
-                modifier= Modifier.align(Alignment.CenterHorizontally),
+                modifier = Modifier.align(Alignment.CenterHorizontally),
                 text = "Não há fotos disponíveis.",
                 style = MaterialTheme.typography.subtitle2,
                 color = MaterialTheme.colors.secondaryVariant,

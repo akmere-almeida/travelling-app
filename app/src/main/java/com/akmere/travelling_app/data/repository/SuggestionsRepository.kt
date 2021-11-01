@@ -5,9 +5,9 @@ import com.akmere.travelling_app.GetSuggestionsQuery
 import com.akmere.travelling_app.common.Logger
 import com.akmere.travelling_app.data.model.SuggestionDataItem
 import com.akmere.travelling_app.data.model.SuggestionType
+import com.akmere.travelling_app.data.service.SuggestionService
 import com.akmere.travelling_app.data.service.exceptions.SuggestionParseException
 import com.akmere.travelling_app.data.service.exceptions.UnexpectedLoadException
-import com.akmere.travelling_app.data.service.SuggestionService
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.coroutines.await
 import com.apollographql.apollo.exception.ApolloParseException

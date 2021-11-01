@@ -5,7 +5,6 @@ import com.akmere.travelling_app.data.service.SuggestionService
 import com.akmere.travelling_app.domain.errors.SearchOffersNotFoundError
 import com.akmere.travelling_app.domain.errors.SuggestionFiltersNotFoundError
 import com.akmere.travelling_app.domain.model.FilterSuggestion
-import com.akmere.travelling_app.domain.model.TravelOffer
 
 /**
  * Caso de uso para buscar por sugestões de filtros

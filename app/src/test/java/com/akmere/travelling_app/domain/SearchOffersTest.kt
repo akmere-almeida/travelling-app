@@ -26,12 +26,14 @@ class SearchOffersTest {
 
     @Test
     fun `offers should be sorted by descending favorite count`() = runBlocking {
-        coEvery { offerService.getOffers(any(), any(), any(), any()) } returns DataFixtures.offersData
+        coEvery {
+            offerService.getOffers(any(), any(), any(), any())
+        } returns DataFixtures.offersData
 
         every { favoriteRepository.getOfferFavoriteCount(any()) } returns 100 andThen
-                200 andThen
-                150 andThen
-                149
+            200 andThen
+            150 andThen
+            149
 
         val expectedOffers = offersOrderedDescendingByFavoriteCount
         val resultOffers = searchOffers.execute(FilterOptions.empty)

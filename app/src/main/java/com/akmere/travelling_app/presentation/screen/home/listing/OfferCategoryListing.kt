@@ -11,8 +11,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.akmere.travelling_app.presentation.screen.home.cards.OfferCategoryButton
 import com.akmere.travelling_app.presentation.model.OfferCategory
+import com.akmere.travelling_app.presentation.screen.home.cards.OfferCategoryButton
 
 @Composable
 fun OfferCategoryListing(

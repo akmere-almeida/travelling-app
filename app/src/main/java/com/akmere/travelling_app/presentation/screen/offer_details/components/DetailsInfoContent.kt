@@ -32,7 +32,6 @@ import com.akmere.travelling_app.presentation.common.AppShapes
 import com.akmere.travelling_app.presentation.screen.offer_details.animation.FavoriteCount
 import com.akmere.travelling_app.presentation.screen.offer_details.model.OfferDetails
 
-
 @ExperimentalAnimationApi
 @Composable
 fun DetailsInfoContent(

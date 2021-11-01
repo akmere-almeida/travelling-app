@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.akmere.travelling_app.domain.LoadFilterSuggestions
 import com.akmere.travelling_app.domain.model.FilterSuggestion
-import com.akmere.travelling_app.presentation.state.UiState
 import com.akmere.travelling_app.presentation.model.Suggestion
 import com.akmere.travelling_app.presentation.state.SearchState
+import com.akmere.travelling_app.presentation.state.UiState
 import kotlinx.coroutines.launch
 
 class SearchViewModel(private val loadFilterSuggestions: LoadFilterSuggestions) : ViewModel() {
