@@ -25,9 +25,9 @@ object DataFixtures {
             images = listOf(
                 ImageData(
                     url = "https://thumbcdn-z.hotelurbano.net/gkkweJJ_9JccaeWKEN-2M0i7cmo=/or" +
-                            "igxorig/center/middle/filters:quality(70)/https://s3.amazonaws." +
-                            "com/legado-prod/prod/ofertas/imagens/2021/10/29/12/33/shutterstock" +
-                            "_481240843.jpg",
+                        "igxorig/center/middle/filters:quality(70)/https://s3.amazonaws." +
+                        "com/legado-prod/prod/ofertas/imagens/2021/10/29/12/33/shutterstock" +
+                        "_481240843.jpg",
                     description = "Pacote de Viagem - Rio de Janeiro - Carnaval 2022"
                 )
             )
@@ -50,9 +50,9 @@ object DataFixtures {
             images = listOf(
                 ImageData(
                     url = "https://thumbcdn-z.hotelurbano.net/aTml11sBrmGR5tqDa6G-jFoemP4=/" +
-                            "origxorig/center/middle/filters:quality(70)/https://s3." +
-                            "amazonaws.com/legado-prod/prod/ofertas/imagens/2021/07" +
-                            "/22/16/26/paraty1.jpg",
+                        "origxorig/center/middle/filters:quality(70)/https://s3." +
+                        "amazonaws.com/legado-prod/prod/ofertas/imagens/2021/07" +
+                        "/22/16/26/paraty1.jpg",
                     description = "Pacote Paraty"
                 )
             )
@@ -74,9 +74,9 @@ object DataFixtures {
             images = listOf(
                 ImageData(
                     url = "https://thumbcdn-z.hotelurbano.net/KXMpFDkJNZvI_oqdiAiv-D3HWWs=" +
-                            "/origxorig/center/middle/filters:quality(70)/https://novo-hu" +
-                            ".s3.amazonaws.com/reservas/ota/prod/hotel/3187/sheraton-rio" +
-                            "-grand-hotel-e-resort-062_20200207102618.jpg",
+                        "/origxorig/center/middle/filters:quality(70)/https://novo-hu" +
+                        ".s3.amazonaws.com/reservas/ota/prod/hotel/3187/sheraton-rio" +
+                        "-grand-hotel-e-resort-062_20200207102618.jpg",
                     description = ""
                 )
             )
@@ -98,9 +98,9 @@ object DataFixtures {
             images = listOf(
                 ImageData(
                     url = "https://thumbcdn-z.hotelurbano.net/gkkweJJ_9JccaeWKEN-2M0" +
-                            "i7cmo=/origxorig/center/middle/filters:quality(70)/htt" +
-                            "ps://s3.amazonaws.com/legado-prod/prod/ofertas/imagens/20" +
-                            "21/10/29/12/33/shutterstock_481240843.jpg",
+                        "i7cmo=/origxorig/center/middle/filters:quality(70)/htt" +
+                        "ps://s3.amazonaws.com/legado-prod/prod/ofertas/imagens/20" +
+                        "21/10/29/12/33/shutterstock_481240843.jpg",
                     description = "Pacote de Viagem - Rio de Janeiro - Carnaval 2022"
                 )
             )
@@ -110,7 +110,6 @@ object DataFixtures {
     val rioPackageOfferCopy = rioPackageOffer.copy(id = "LGPKG-1139339-3")
 
     val paratyPackageOfferCopy = paratyPackageOffer.copy(id = "LGPKG-1139339-2")
-
 
     val offersData = listOf(
         paratyPackageOffer,
