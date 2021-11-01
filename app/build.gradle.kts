@@ -8,6 +8,12 @@ plugins {
     id("com.apollographql.apollo").version(Versions.apolloClient)
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(11))
+    }
+}
+
 android {
     compileSdk = Config.compileSdkVersion
     buildToolsVersion = Config.buildToolsVersion
