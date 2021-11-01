@@ -22,8 +22,8 @@ import com.akmere.travelling_app.presentation.common.components.BackButton
 import com.akmere.travelling_app.presentation.common.components.LoadingContent
 import com.akmere.travelling_app.presentation.screen.favorite.components.FavoriteTopBarTitle
 import com.akmere.travelling_app.presentation.screen.favorite.listing.FavoriteOfferListing
-import com.akmere.travelling_app.presentation.screen.home.components.navigateToHome
-import com.akmere.travelling_app.presentation.screen.home.components.navigateToOfferDetails
+import com.akmere.travelling_app.presentation.common.components.navigateToHome
+import com.akmere.travelling_app.presentation.common.components.navigateToOfferDetails
 import com.akmere.travelling_app.presentation.state.UiState
 import com.akmere.travelling_app.presentation.viewmodel.FavoriteViewModel
 import com.akmere.travelling_app.presentation.viewmodel.factory.FavoriteViewModelFactory

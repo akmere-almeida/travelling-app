@@ -1,4 +1,4 @@
-package com.akmere.travelling_app.presentation.screen.home.components
+package com.akmere.travelling_app.presentation.common.components
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable

@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.navigation.compose.rememberNavController
 import com.akmere.travelling_app.presentation.common.AppTheme
-import com.akmere.travelling_app.presentation.screen.home.components.ScreenNavigator
+import com.akmere.travelling_app.presentation.common.components.ScreenNavigator
 
 @ExperimentalAnimationApi
 class MainActivity : AppCompatActivity() {

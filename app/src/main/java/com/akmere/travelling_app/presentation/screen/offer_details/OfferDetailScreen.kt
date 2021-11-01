@@ -25,7 +25,7 @@ import com.akmere.travelling_app.dependencies.AppDependencies
 import com.akmere.travelling_app.presentation.common.AppDimensions.searchScreenContentColumnWeight
 import com.akmere.travelling_app.presentation.common.AppDimensions.searchScreenDetailsInfoContentWeight
 import com.akmere.travelling_app.presentation.common.components.LoadingContent
-import com.akmere.travelling_app.presentation.screen.home.components.navigateToHome
+import com.akmere.travelling_app.presentation.common.components.navigateToHome
 import com.akmere.travelling_app.presentation.screen.offer_details.components.ActionButtons
 import com.akmere.travelling_app.presentation.screen.offer_details.components.DetailsInfoContent
 import com.akmere.travelling_app.presentation.screen.offer_details.components.OfferDetailsImageBox

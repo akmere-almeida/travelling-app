@@ -35,7 +35,7 @@ import com.akmere.travelling_app.presentation.model.OfferCategory
 import com.akmere.travelling_app.presentation.screen.home.components.HomeBottomAppBar
 import com.akmere.travelling_app.presentation.screen.home.components.HomeTopAppBar
 import com.akmere.travelling_app.presentation.screen.home.components.SearchBar
-import com.akmere.travelling_app.presentation.screen.home.components.navigateToOfferDetails
+import com.akmere.travelling_app.presentation.common.components.navigateToOfferDetails
 import com.akmere.travelling_app.presentation.screen.home.listing.OfferCategories.categories
 import com.akmere.travelling_app.presentation.screen.home.listing.OfferCategoryListing
 import com.akmere.travelling_app.presentation.screen.home.listing.PopularOfferListing
