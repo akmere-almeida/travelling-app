@@ -167,7 +167,7 @@ private fun ViewedOfferContent(
 ) {
     Column(verticalArrangement = Arrangement.SpaceBetween) {
         Text(
-            text = "Vizualizadas",
+            text = "Visualizadas",
             style = MaterialTheme.typography.h6,
             color = MaterialTheme.colors.secondary
         )
