@@ -43,6 +43,7 @@ jobs:
       - name: Generate Jacoco test reports with Android Emulator Runner
         uses: reactivecircus/android-emulator-runner@v2.20.0
         with:
+          java-version: '11'
           api-level: 29
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
