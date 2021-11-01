@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -21,7 +22,6 @@ import com.akmere.travelling_app.presentation.screen.favorite.model.FavoriteOffe
 fun FavoriteOfferCard(
     favoriteOffer: FavoriteOffer,
     modifier: Modifier,
-    imageBitmap: ImageBitmap,
     onFavoriteOfferSelected: (FavoriteOffer) -> Unit
 ) {
     Card(
@@ -29,20 +29,19 @@ fun FavoriteOfferCard(
         modifier = modifier
             .clickable(onClick = { onFavoriteOfferSelected(favoriteOffer) })
     ) {
-        Box {
+        Box(Modifier.fillMaxSize()) {
             Image(
-                bitmap = imageBitmap,
+                bitmap = favoriteOffer.imageResource.asImageBitmap(),
                 contentDescription = favoriteOffer.title,
+                alpha = 0.8f,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .fillMaxHeight()
-                    .align(Alignment.Center),
-                alpha = 0.8f
+                    .fillMaxWidth()
             )
 
             Text(
                 text = favoriteOffer.title,
-                style = MaterialTheme.typography.subtitle1.copy(fontWeight = FontWeight.Bold),
+                style = MaterialTheme.typography.h5.copy(fontWeight = FontWeight.Bold),
                 color = MaterialTheme.colors.primary,
                 modifier = Modifier
                     .align(Alignment.BottomStart)
