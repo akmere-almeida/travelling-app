@@ -30,12 +30,12 @@ import com.akmere.travelling_app.presentation.common.Constants.Navigation.DESTIN
 import com.akmere.travelling_app.presentation.common.Constants.Navigation.SEARCH_SUGGESTION_FILTER_KEY
 import com.akmere.travelling_app.presentation.common.Constants.Navigation.SEARCH_TERM_KEY
 import com.akmere.travelling_app.presentation.common.components.LoadingContent
+import com.akmere.travelling_app.presentation.common.components.navigateToOfferDetails
 import com.akmere.travelling_app.presentation.model.FilterOptions
 import com.akmere.travelling_app.presentation.model.OfferCategory
 import com.akmere.travelling_app.presentation.screen.home.components.HomeBottomAppBar
 import com.akmere.travelling_app.presentation.screen.home.components.HomeTopAppBar
 import com.akmere.travelling_app.presentation.screen.home.components.SearchBar
-import com.akmere.travelling_app.presentation.common.components.navigateToOfferDetails
 import com.akmere.travelling_app.presentation.screen.home.listing.OfferCategories.categories
 import com.akmere.travelling_app.presentation.screen.home.listing.OfferCategoryListing
 import com.akmere.travelling_app.presentation.screen.home.listing.PopularOfferListing
