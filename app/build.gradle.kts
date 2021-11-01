@@ -90,8 +90,6 @@ dependencies {
     implementation(Dependencies.Networking.okHttpClient)
     implementation(Dependencies.Networking.okHttpLogging)
     implementation(Dependencies.Networking.coil)
-    implementation(Dependencies.Android.easyPermissions)
-    implementation(Dependencies.Android.servicesLocation)
     implementation(Dependencies.Android.composeNavigation)
 
     testImplementation(Dependencies.Test.archCore)

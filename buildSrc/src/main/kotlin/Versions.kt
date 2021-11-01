@@ -14,7 +14,5 @@ object Versions {
     const val mockk = "1.12.0"
     const val coil = "1.3.1"
     const val archTesting = "2.1.0"
-    const val easyPermissions = "1.0.0"
-    const val servicesLocation = "18.0.0"
     const val composeNavigation = "2.4.0-alpha10"
 }

@@ -1,10 +1,8 @@
 package com.akmere.travelling_app.dependencies
 
 import android.content.Context
-import android.location.Geocoder
 import coil.ImageLoader
 import com.akmere.travelling_app.BuildConfig
-import com.akmere.travelling_app.common.provider.AddressProvider
 import com.akmere.travelling_app.common.DebugLogger
 import com.akmere.travelling_app.common.Logger
 import com.akmere.travelling_app.data.repository.FavoriteRepository
@@ -56,10 +54,6 @@ object AppDependencies {
     fun providesAppImageLoader(context: Context): TravellingAppImageLoader =
         TravellingAppImageLoader(providesCoilImageLoader(context), context, logger)
 
-    fun providesAddressProvider(context: Context): AddressProvider {
-        return AddressProvider(providesGeocoder(context), logger)
-    }
-
     fun providesLoadFilterSuggestions(): LoadFilterSuggestions {
         return LoadFilterSuggestions(suggestionService)
     }
@@ -98,9 +92,5 @@ object AppDependencies {
 
     private fun providesCoilImageLoader(context: Context): ImageLoader {
         return ImageLoader.Builder(context).build()
-    }
-
-    private fun providesGeocoder(context: Context): Geocoder {
-        return Geocoder(context)
     }
 }
