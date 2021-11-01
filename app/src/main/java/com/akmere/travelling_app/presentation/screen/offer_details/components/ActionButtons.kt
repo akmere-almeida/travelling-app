@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.akmere.travelling_app.presentation.common.AppColorCodes
 import com.akmere.travelling_app.presentation.common.AppColorCodes.Red
 import com.akmere.travelling_app.presentation.common.AppShapes
 
@@ -60,7 +59,6 @@ private fun OrderOfferButton(modifier: Modifier){
 
 @Composable
 private fun FavoriteButton(modifier: Modifier, isFavorite: Boolean, onFavorite: () -> Unit) {
-
     var favoriteIconColor = Color.LightGray
     var favoriteIcon = Icons.Outlined.FavoriteBorder
 

@@ -1,6 +1,7 @@
 package com.akmere.travelling_app.presentation.screen.offer_details.components
 
 import android.net.Uri
+import androidx.compose.animation.*
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -11,19 +12,22 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.LocationOn
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.akmere.travelling_app.presentation.common.AppColorCodes
 import com.akmere.travelling_app.presentation.common.AppShapes
+import com.akmere.travelling_app.presentation.screen.offer_details.animation.FavoriteCount
 import com.akmere.travelling_app.presentation.screen.offer_details.model.OfferDetails
 
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun DetailsInfoContent(
     offerDetails: OfferDetails,
@@ -39,7 +43,9 @@ fun DetailsInfoContent(
         ) {
             Text(
                 text = offerDetails.title,
-                modifier = Modifier.weight(3f).align(Alignment.CenterVertically),
+                modifier = Modifier
+                    .weight(3f)
+                    .align(Alignment.CenterVertically),
                 style = MaterialTheme.typography.h6.copy(fontWeight = FontWeight.Bold),
                 color = MaterialTheme.colors.secondary,
             )
@@ -54,11 +60,9 @@ fun DetailsInfoContent(
                     contentDescription = "Favoritos",
                     tint = Color(AppColorCodes.Red)
                 )
-                Text(
-                    text = offerDetails.favoriteCount,
-                    modifier = Modifier.align(Alignment.CenterVertically),
-                    style = MaterialTheme.typography.body2.copy(fontWeight = FontWeight.Bold),
-                    color = MaterialTheme.colors.secondary,
+                FavoriteCount(
+                    favoriteCount = offerDetails.favoriteCount,
+                    modifier = Modifier.align(Alignment.CenterVertically)
                 )
             }
         }
@@ -87,7 +91,9 @@ fun DetailsInfoContent(
         }
 
         Column(
-            modifier = Modifier.padding(top = 16.dp).clip(AppShapes.small),
+            modifier = Modifier
+                .padding(top = 16.dp)
+                .clip(AppShapes.small),
         ) {
             Text(
                 text = "Sobre",

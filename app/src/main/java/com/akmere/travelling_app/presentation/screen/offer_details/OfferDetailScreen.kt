@@ -13,13 +13,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import com.akmere.travelling_app.dependencies.AppDependencies
-import com.akmere.travelling_app.presentation.state.UiState
-import com.akmere.travelling_app.presentation.common.Constants.Navigation.DESTINATION_HOME_SCREEN
 import com.akmere.travelling_app.presentation.common.components.LoadingContent
 import com.akmere.travelling_app.presentation.screen.home.components.navigateToHome
 import com.akmere.travelling_app.presentation.screen.offer_details.components.ActionButtons
@@ -27,6 +23,7 @@ import com.akmere.travelling_app.presentation.screen.offer_details.components.De
 import com.akmere.travelling_app.presentation.screen.offer_details.components.OfferDetailsImageBox
 import com.akmere.travelling_app.presentation.screen.offer_details.listing.ImageGalleryListing
 import com.akmere.travelling_app.presentation.screen.offer_details.model.OfferDetails
+import com.akmere.travelling_app.presentation.state.UiState
 import com.akmere.travelling_app.presentation.viewmodel.OfferDetailViewModel
 import com.akmere.travelling_app.presentation.viewmodel.factory.OfferDetailViewModelFactory
 
@@ -83,13 +80,16 @@ fun OfferDetailScreen(navController: NavHostController, offerId: String) {
                         .padding(top = 16.dp, start = 16.dp, end = 16.dp)
                         .weight(3f)
                 ) {
-                    DetailsInfoContent(offerDetails, Modifier.weight(3f), onLocationClicked = {
+                    DetailsInfoContent(
+                        offerDetails,
+                        Modifier.weight(3f)
+                    ) {
                         val mapIntent = createMapIntent(it)
 
                         mapIntent.resolveActivity(context.packageManager)?.let {
                             context.startActivity(mapIntent)
                         }
-                    })
+                    }
                     Spacer(modifier = Modifier.height(16.dp))
                     ImageGalleryListing(offerDetails.gallery.images, Modifier.weight(1f)) {
                         //TODO
@@ -97,6 +97,7 @@ fun OfferDetailScreen(navController: NavHostController, offerId: String) {
                     Spacer(modifier = Modifier.height(16.dp))
                     ActionButtons(Modifier.weight(1f), isFavorite.value) {
                         offerDetailViewModel.updateFavoriteOffer(offerDetails)
+                        offerDetailViewModel.loadOfferDetails(offerDetails.id)
                         isFavorite.value = !isFavorite.value
                     }
                 }
