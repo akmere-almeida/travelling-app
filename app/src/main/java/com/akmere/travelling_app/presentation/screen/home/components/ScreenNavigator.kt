@@ -1,5 +1,6 @@
 package com.akmere.travelling_app.presentation.screen.home.components
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -16,8 +17,9 @@ import com.akmere.travelling_app.presentation.screen.offer_details.OfferDetailSc
 import com.akmere.travelling_app.presentation.screen.search.SearchScreen
 import com.akmere.travelling_app.presentation.viewmodel.HomeViewModel
 
+@ExperimentalAnimationApi
 @Composable
-fun ScreenNavigator(navController: NavHostController, onHomeStarted: (HomeViewModel) -> Unit) {
+fun ScreenNavigator(navController: NavHostController) {
     val uri = "https://example.com"
 
     NavHost(
@@ -27,7 +29,7 @@ fun ScreenNavigator(navController: NavHostController, onHomeStarted: (HomeViewMo
         composable(
             DESTINATION_HOME_SCREEN
         ) {
-            HomeScreen(navController, onHomeStarted)
+            HomeScreen(navController)
         }
         composable(
             "$DESTINATION_OFFER_DETAILS_SCREEN{id}",

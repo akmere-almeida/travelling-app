@@ -2,7 +2,9 @@ package com.akmere.travelling_app.presentation.viewmodel.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.akmere.travelling_app.domain.*
+import com.akmere.travelling_app.domain.LoadLastViewedOffers
+import com.akmere.travelling_app.domain.SearchOffers
+import com.akmere.travelling_app.domain.TravellingAppImageLoader
 import com.akmere.travelling_app.presentation.viewmodel.HomeViewModel
 
 class HomeViewModelFactory(

@@ -57,7 +57,7 @@ class HomeViewModel(
                 _viewedOffersUiState.value = UiState.Success(ViewedOfferListingState(it))
 
             }.onFailure {
-                _viewedOffersUiState.value = UiState.Error(Exception())
+                _viewedOffersUiState.value = UiState.Error(Exception(it.cause?.message))
             }
 
         }
@@ -92,15 +92,10 @@ class HomeViewModel(
         }
     }
 
-//    fun setUserAddress(userAddress: UserAddress) {
-//        this.userAddress = formatUserAddress(userAddress.city, userAddress.state)
-//    }
-
     private suspend fun loadImageResourceAsBitmap(imageUrl: String): Bitmap {
         return travelAppImageLoader.loadFromNetwork(imageUrl).toBitmap()
     }
 
-    private fun formatUserAddress(city: String, state: String): String = "$city, $state"
     fun setOfferCategory(offerCategory: OfferCategory) {
         _selectedCategory.value = offerCategory
     }

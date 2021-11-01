@@ -14,7 +14,15 @@ import com.akmere.travelling_app.data.repository.OfferRepository
 import com.akmere.travelling_app.data.repository.SuggestionsRepository
 import com.akmere.travelling_app.data.service.OfferService
 import com.akmere.travelling_app.data.service.SuggestionService
-import com.akmere.travelling_app.domain.*
+import com.akmere.travelling_app.domain.AddViewedOffer
+import com.akmere.travelling_app.domain.IsOfferFavorite
+import com.akmere.travelling_app.domain.LoadFavoriteOffers
+import com.akmere.travelling_app.domain.LoadLastViewedOffers
+import com.akmere.travelling_app.domain.LoadOfferDetails
+import com.akmere.travelling_app.domain.LoadFilterSuggestions
+import com.akmere.travelling_app.domain.TravellingAppImageLoader
+import com.akmere.travelling_app.domain.SaveFavoriteOffer
+import com.akmere.travelling_app.domain.SearchOffers
 import com.apollographql.apollo.ApolloClient
 import okhttp3.OkHttpClient
 

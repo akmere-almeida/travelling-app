@@ -31,7 +31,11 @@ class FavoriteRepository {
 
     fun getOfferFavoriteCount(id: String): Int {
         return offerFavoriteCountDatasource.getOrPut(id) {
-            Random.nextInt(10..3000)
+            Random.nextInt(FAVORITE_COUNT_FIXED_RANGE)
         }
+    }
+
+    companion object {
+        private val FAVORITE_COUNT_FIXED_RANGE = 10..3000
     }
 }

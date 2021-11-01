@@ -14,6 +14,7 @@ import com.akmere.travelling_app.domain.model.ImageItem
 import com.akmere.travelling_app.domain.model.TravelOffer
 import com.akmere.travelling_app.presentation.model.FilterOptions
 import com.akmere.travelling_app.presentation.model.OfferCategory
+import kotlin.jvm.Throws
 
 /**
  * Caso de uso para buscar por ofertas

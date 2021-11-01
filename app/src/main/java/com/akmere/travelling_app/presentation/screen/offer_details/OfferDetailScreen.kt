@@ -1,7 +1,9 @@
 package com.akmere.travelling_app.presentation.screen.offer_details
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
@@ -23,10 +25,12 @@ import com.akmere.travelling_app.presentation.screen.offer_details.components.De
 import com.akmere.travelling_app.presentation.screen.offer_details.components.OfferDetailsImageBox
 import com.akmere.travelling_app.presentation.screen.offer_details.listing.ImageGalleryListing
 import com.akmere.travelling_app.presentation.screen.offer_details.model.OfferDetails
+import com.akmere.travelling_app.presentation.state.OfferDetailsState
 import com.akmere.travelling_app.presentation.state.UiState
 import com.akmere.travelling_app.presentation.viewmodel.OfferDetailViewModel
 import com.akmere.travelling_app.presentation.viewmodel.factory.OfferDetailViewModelFactory
 
+@ExperimentalAnimationApi
 @Composable
 fun OfferDetailScreen(navController: NavHostController, offerId: String) {
     val offerDetailViewModel: OfferDetailViewModel = viewModel(
@@ -54,53 +58,69 @@ fun OfferDetailScreen(navController: NavHostController, offerId: String) {
             UiState.Loading -> {
                 LoadingContent()
             }
-            is UiState.Success -> Column(
-                Modifier
-                    .fillMaxSize()
-                    .background(MaterialTheme.colors.primary)
+            is UiState.Success -> SuccessContent(
+                uiState,
+                navController,
+                context,
+                offerDetailViewModel
+            )
+        }
+    }
+}
+
+@ExperimentalAnimationApi
+@Composable
+private fun SuccessContent(
+    uiState: UiState.Success<OfferDetailsState>,
+    navController: NavHostController,
+    context: Context,
+    offerDetailViewModel: OfferDetailViewModel
+) {
+    Column(
+        Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colors.primary)
+    ) {
+        val offerDetails = uiState.data.offerDetails
+
+        val isFavorite = remember {
+            mutableStateOf(offerDetails.isFavorite)
+        }
+
+        OfferDetailsImageBox(
+            offerDetails.mainImage, onImageSelected = {
+                //TODO
+            }, onBackPressed = {
+                navController.navigateToHome()
+            }, onShareClicked = {
+                val shareIntent = createShareIntent(offerDetails)
+                context.startActivity(shareIntent)
+            }
+        )
+        Column(
+            Modifier
+                .padding(top = 16.dp, start = 16.dp, end = 16.dp)
+                .weight(3f)
+        ) {
+            DetailsInfoContent(
+                offerDetails,
+                Modifier.weight(3f)
             ) {
-                val offerDetails = uiState.data.offerDetails
+                val mapIntent = createMapIntent(it)
 
-                val isFavorite = remember {
-                    mutableStateOf(offerDetails.isFavorite)
+                mapIntent.resolveActivity(context.packageManager)?.let {
+                    context.startActivity(mapIntent)
                 }
-
-                OfferDetailsImageBox(
-                    offerDetails.mainImage, onImageSelected = {
-                        //TODO
-                    }, onBackPressed = {
-                        navController.navigateToHome()
-                    }, onShareClicked = {
-                        val shareIntent = createShareIntent(offerDetails)
-                        context.startActivity(shareIntent)
-                    }
-                )
-                Column(
-                    Modifier
-                        .padding(top = 16.dp, start = 16.dp, end = 16.dp)
-                        .weight(3f)
-                ) {
-                    DetailsInfoContent(
-                        offerDetails,
-                        Modifier.weight(3f)
-                    ) {
-                        val mapIntent = createMapIntent(it)
-
-                        mapIntent.resolveActivity(context.packageManager)?.let {
-                            context.startActivity(mapIntent)
-                        }
-                    }
-                    Spacer(modifier = Modifier.height(16.dp))
-                    ImageGalleryListing(offerDetails.gallery.images, Modifier.weight(1f)) {
-                        //TODO
-                    }
-                    Spacer(modifier = Modifier.height(16.dp))
-                    ActionButtons(Modifier.weight(1f), isFavorite.value) {
-                        offerDetailViewModel.updateFavoriteOffer(offerDetails)
-                        offerDetailViewModel.loadOfferDetails(offerDetails.id)
-                        isFavorite.value = !isFavorite.value
-                    }
-                }
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            ImageGalleryListing(offerDetails.gallery.images, Modifier.weight(1f)) {
+                //TODO
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            ActionButtons(Modifier.weight(1f), isFavorite.value) {
+                offerDetailViewModel.updateFavoriteOffer(offerDetails)
+                offerDetailViewModel.loadOfferDetails(offerDetails.id)
+                isFavorite.value = !isFavorite.value
             }
         }
     }

@@ -2,7 +2,11 @@ package com.akmere.travelling_app.presentation.viewmodel.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.akmere.travelling_app.domain.*
+import com.akmere.travelling_app.domain.AddViewedOffer
+import com.akmere.travelling_app.domain.IsOfferFavorite
+import com.akmere.travelling_app.domain.LoadOfferDetails
+import com.akmere.travelling_app.domain.SaveFavoriteOffer
+import com.akmere.travelling_app.domain.TravellingAppImageLoader
 import com.akmere.travelling_app.presentation.viewmodel.OfferDetailViewModel
 
 class OfferDetailViewModelFactory(

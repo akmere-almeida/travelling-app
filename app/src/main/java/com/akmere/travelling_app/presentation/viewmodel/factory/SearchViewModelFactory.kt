@@ -2,7 +2,7 @@ package com.akmere.travelling_app.presentation.viewmodel.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.akmere.travelling_app.domain.*
+import com.akmere.travelling_app.domain.LoadFilterSuggestions
 import com.akmere.travelling_app.presentation.viewmodel.SearchViewModel
 
 

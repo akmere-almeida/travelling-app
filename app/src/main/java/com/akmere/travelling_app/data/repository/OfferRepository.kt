@@ -1,14 +1,22 @@
 package com.akmere.travelling_app.data.repository
 
 import android.util.Log
-import com.akmere.travelling_app.*
+import com.akmere.travelling_app.GetHotelOfferQuery
+import com.akmere.travelling_app.GetPackagerOfferQuery
+import com.akmere.travelling_app.SearchOfferByIdsQuery
+import com.akmere.travelling_app.SearchOfferBySuggestionQuery
+import com.akmere.travelling_app.SearchOfferByTermQuery
 import com.akmere.travelling_app.common.Logger
 import com.akmere.travelling_app.common.model.OfferType
-import com.akmere.travelling_app.data.model.*
+import com.akmere.travelling_app.data.model.OfferData
+import com.akmere.travelling_app.data.model.OfferDetailsData
+import com.akmere.travelling_app.data.model.ProductType
 import com.akmere.travelling_app.data.service.exceptions.OfferParseException
 import com.akmere.travelling_app.data.service.exceptions.UnexpectedLoadException
 import com.akmere.travelling_app.data.service.OfferService
 import com.akmere.travelling_app.data.service.exceptions.OfferDetailsNotFoundException
+import com.akmere.travelling_app.data.toOfferData
+import com.akmere.travelling_app.data.toOfferDetailsData
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Input
 import com.apollographql.apollo.coroutines.await
@@ -127,7 +135,7 @@ class OfferRepository(
     private suspend fun getHotelOfferDetails(id: String): OfferDetailsData {
         return kotlin.runCatching {
             val results =
-                datasource.query(GetHotelOfferQuery(id, 10))
+                datasource.query(GetHotelOfferQuery(id, IMAGES_PER_OFFER_DETAILS))
                     .await().data?.searchHotel?.results
             results?.firstOrNull()?.toOfferDetailsData() ?: throw OfferDetailsNotFoundException()
         }.onSuccess {
@@ -140,7 +148,7 @@ class OfferRepository(
 
         return kotlin.runCatching {
             val results =
-                datasource.query(GetPackagerOfferQuery(id, 10))
+                datasource.query(GetPackagerOfferQuery(id, IMAGES_PER_OFFER_DETAILS))
                     .await().data?.searchPackage?.results
             results?.firstOrNull()?.toOfferDetailsData() ?: throw OfferDetailsNotFoundException()
         }.onSuccess {
@@ -157,110 +165,7 @@ class OfferRepository(
         }
     }
 
-    private fun SearchOfferBySuggestionQuery.Result.toOfferData(): OfferData {
-        return OfferData(
-            id = sku,
-            name = name,
-            description = description,
-            isAvailable = isAvailable,
-            addressData = AddressData(address?.city, null, address?.country, null, null),
-            galleryData = gallery.map { image ->
-                image.toImageData(name)
-            }.run {
-                GalleryData(this)
-            }
-        )
-    }
 
-    private fun SearchOfferByTermQuery.Result.toOfferData(): OfferData {
-        return OfferData(
-            id = sku,
-            name = name,
-            description = description,
-            isAvailable = isAvailable,
-            addressData = AddressData(address?.city, null, address?.country, null, null),
-            galleryData = gallery.map { image ->
-                image.toImageData(name)
-            }.run {
-                GalleryData(this)
-            }
-        )
-    }
-
-    private fun SearchOfferByIdsQuery.Result.toOfferData(): OfferData {
-        return OfferData(
-            id = sku,
-            name = name,
-            description = description,
-            isAvailable = isAvailable,
-            addressData = AddressData(address?.city, null, address?.country, null, null),
-            galleryData = gallery.map { image ->
-                image.toImageData(name)
-            }.run {
-                GalleryData(this)
-            }
-        )
-    }
-
-    private fun SearchOfferByTermQuery.Gallery.toImageData(defaultDescription: String): ImageData {
-        return ImageData(url ?: DEFAULT_IMAGE_URL, description = description ?: defaultDescription)
-    }
-
-    private fun SearchOfferBySuggestionQuery.Gallery.toImageData(defaultDescription: String): ImageData {
-        return ImageData(url ?: DEFAULT_IMAGE_URL, description = description ?: defaultDescription)
-    }
-
-    private fun GetHotelOfferQuery.Gallery.toImageData(defaultDescription: String): ImageData {
-        return ImageData(url ?: DEFAULT_IMAGE_URL, description = description ?: defaultDescription)
-    }
-
-    private fun GetPackagerOfferQuery.Gallery.toImageData(defaultDescription: String): ImageData {
-        return ImageData(url ?: DEFAULT_IMAGE_URL, description = description ?: defaultDescription)
-    }
-
-    private fun SearchOfferByIdsQuery.Gallery.toImageData(defaultDescription: String): ImageData {
-        return ImageData(url ?: DEFAULT_IMAGE_URL, description = description ?: defaultDescription)
-    }
-
-    private fun GetHotelOfferQuery.Result.toOfferDetailsData(): OfferDetailsData {
-        val addressData = AddressData(
-            address.city,
-            address.state,
-            address.country,
-            address.geoLocation?.lat,
-            address.geoLocation?.lon
-        )
-
-        val galleryData = GalleryData(gallery.map { it.toImageData(name) })
-
-        return OfferDetailsData(
-            id = sku,
-            name = name,
-            description = description,
-            address = addressData,
-            galleryData = galleryData
-        )
-    }
-
-    private fun GetPackagerOfferQuery.Result.toOfferDetailsData(): OfferDetailsData {
-        val addressData = AddressData(
-            address.city,
-            address.state,
-            address.country,
-            address.geoLocation?.lat,
-            address.geoLocation?.lon
-        )
-
-        val galleryData = GalleryData(gallery.map { it.toImageData(name) })
-
-        return OfferDetailsData(
-            id = sku,
-            name = name,
-            description = description,
-            address = addressData,
-            galleryData = galleryData
-        )
-    }
 
     private fun OfferType.toProductType(): ProductType {
         return when (this) {
@@ -271,6 +176,7 @@ class OfferRepository(
 
     companion object {
         private const val TAG = "PackageOfferRepository"
+        private const val IMAGES_PER_OFFER_DETAILS = 10
         const val DEFAULT_IMAGE_URL =
             "https://belem.com.br/images/noticias/2958/17122020112152_Foto-Arqui.jpg"
     }

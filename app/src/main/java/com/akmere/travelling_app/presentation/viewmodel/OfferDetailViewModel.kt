@@ -7,7 +7,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.akmere.travelling_app.domain.*
+import com.akmere.travelling_app.domain.IsOfferFavorite
+import com.akmere.travelling_app.domain.LoadOfferDetails
+import com.akmere.travelling_app.domain.SaveFavoriteOffer
+import com.akmere.travelling_app.domain.TravellingAppImageLoader
+import com.akmere.travelling_app.domain.AddViewedOffer
 import com.akmere.travelling_app.presentation.state.UiState
 import com.akmere.travelling_app.presentation.screen.offer_details.model.OfferDetails
 import com.akmere.travelling_app.presentation.screen.offer_details.model.OfferGallery
