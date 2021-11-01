@@ -20,7 +20,7 @@ class TravellingAppImageLoader(
         val request = requestFromImageUrl(imageUrl)
         return try {
             imageLoader.execute(request).drawable
-                ?: ContextCompat.getDrawable(context, R.drawable.phuket_hotel)
+                ?: ContextCompat.getDrawable(context, R.drawable.travelling_app_logo)
                 ?: throw ImageNotFoundError("Falha ao recuperar a imagem")
         } catch (e: Exception) {
             logger?.log(TAG, Log.INFO, message = e.message, throwable = e)
