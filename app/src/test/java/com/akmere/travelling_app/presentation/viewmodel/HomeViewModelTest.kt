@@ -97,8 +97,8 @@ class HomeViewModelTest {
     fun `should successfully load popular offers when search for offers`() {
         val image: ImageItem = mockk(relaxed = true)
         val travelOffers: List<TravelOffer> = listOf(
-            TravelOffer("test", "", "", image, 20),
-            TravelOffer("test2", "", "", image, 25),
+            TravelOffer("offer1", "test", "", image, 20),
+            TravelOffer("offer2", "test", "", image, 25),
         )
 
         val expectedState = PopularOfferListingState(
@@ -108,7 +108,7 @@ class HomeViewModelTest {
             )
         )
 
-        coEvery { searchOffers.execute(filterOptions) } returns travelOffers
+        coEvery { searchOffers.execute(any()) } returns travelOffers
 
         homeViewModel.loadPopularOffersData(filterOptions)
 
@@ -119,7 +119,7 @@ class HomeViewModelTest {
     fun `should update ui state with error when failed to search for offers`() {
         val error = SearchOffersNotFoundError()
 
-        coEvery { searchOffers.execute(filterOptions) } throws error
+        coEvery { searchOffers.execute(any()) } throws error
 
         homeViewModel.loadPopularOffersData(filterOptions)
 
@@ -132,21 +132,21 @@ class HomeViewModelTest {
 
         val imageItem = mockk<ImageItem>(relaxed = true)
         val travelOffers: List<TravelOffer> = listOf(
-            TravelOffer("test", "", "", imageItem, 20),
-            TravelOffer("test2", "", "", imageItem, 25),
+            TravelOffer("offer1", "test", "", imageItem, 20),
+            TravelOffer("offer2", "test2", "", imageItem, 25),
         )
 
         val expectedState = PopularOfferListingState(
             listOf(
                 PopularOffer("offer1", "test", "20", bitmap),
-                PopularOffer("offer2", "test", "25", bitmap),
+                PopularOffer("offer2", "test2", "25", bitmap),
             )
         )
 
         val imageUrls = travelOffers.map { it.image.url }
 
         coEvery { travellingAppImageLoader.loadFromNetwork(imageUrls) } returns loadedImages
-        coEvery { searchOffers.execute(filterOptions) } returns travelOffers
+        coEvery { searchOffers.execute(any()) } returns travelOffers
 
         homeViewModel.loadPopularOffersData(filterOptions)
 
